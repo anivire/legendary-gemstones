@@ -149,7 +149,8 @@
   "tooltip.gemstones.unit.max_health": " макс. здоровья",
   "tooltip.gemstones.attribute_name.player_scale": "Размер модели игрока",
   "tooltip.gemstones.unit.seconds_amount": "%s секунд",
-  "tooltip.gemstones.polishing.progress": "Полировка: %s / %s (%s%%)",
+  "tooltip.gemstones.polishing.progress": "Прогресс полировки: %s (%s%%)",
+  "tooltip.gemstones.polishing.dust_left": "До завершения требуется %2$s: %1$s.",
 
   "item.gemstones.expansion_crystal": "Кристал расширения",
   "item.gemstones.gemstone_dust": "Самоцветная пыль",

@@ -198,6 +198,15 @@
       ]
     },
     {
+      "type": "bitmap",
+      "file": "gemstones:gui/icons/polishing_icon.png",
+      "height": 9,
+      "ascent": 7,
+      "chars": [
+        "\uE916"
+      ]
+    },
+    {
       "type": "reference",
       "id": "minecraft:default"
     }

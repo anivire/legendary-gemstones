@@ -149,7 +149,8 @@
   "tooltip.gemstones.unit.max_health": " max. Lebenspunkte",
   "tooltip.gemstones.attribute_name.player_scale": "Spielermodellgröße",
   "tooltip.gemstones.unit.seconds_amount": "%s Sekunden",
-  "tooltip.gemstones.polishing.progress": "Facettieren: %s / %s (%s%%)",
+  "tooltip.gemstones.polishing.progress": "Facettierfortschritt: %s (%s%%)",
+  "tooltip.gemstones.polishing.dust_left": "Benötigt %s %s bis zum Abschluss.",
 
   "item.gemstones.expansion_crystal": "Erweiterungskristall",
   "item.gemstones.gemstone_dust": "Edelsteinstaub",
