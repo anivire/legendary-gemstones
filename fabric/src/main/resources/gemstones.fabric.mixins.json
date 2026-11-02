@@ -25,6 +25,8 @@
     "modifiers.OnFishing",
     "modifiers.OnHitProjectile",
     "modifiers.OnHitMelee",
+    "modifiers.EnderJudgementExecute",
+    "modifiers.EnderJudgementExecutePlayer",
     "attributes.ArmorPierceAttribute",
     "modifiers.BrewCustomDurationPotions",
     "other.MarkHomingArrowBow",

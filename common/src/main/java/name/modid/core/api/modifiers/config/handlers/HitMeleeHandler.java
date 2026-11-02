@@ -14,6 +14,7 @@ import name.modid.core.api.modifiers.config.utils.ModifierUtils;
 import name.modid.core.api.modifiers.types.ModifierItemCategory;
 import name.modid.core.utils.GetRandomBuff;
 import name.modid.core.utils.damage.DamageSourceHelper;
+import name.modid.core.utils.damage.EnderJudgementHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -97,7 +98,9 @@ public class HitMeleeHandler
             0.6, 1.0, 0.6, 0.05);
       }
 
-      ctx.setDamageResult(Float.MAX_VALUE);
+      // Float.MAX_VALUE overflowed into NaN health, so the exact lethal damage is set once reductions are known
+      ctx.setDamageResult(Math.max(ctx.getDamageResult(), EnderJudgementHelper.getLethalDamage(target)));
+      EnderJudgementHelper.arm(target);
     }
   }
 

@@ -11,6 +11,7 @@ import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 
 import name.modid.core.content.events.CustomEvents;
 import name.modid.core.content.events.handlers.EventMeleeEffect;
+import name.modid.core.utils.damage.EnderJudgementHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
@@ -45,7 +46,14 @@ public abstract class OnHitMelee {
     float attackStrength = this.gemstones$attackStrength;
     float modifiedDamage = CustomEvents.ON_HIT_MELEE.invoker().onHitMelee(serverPlayer, livingTarget, damage,
         attackStrength);
-    boolean damaged = original.call(target, source, modifiedDamage);
+    boolean damaged;
+
+    try {
+      damaged = original.call(target, source, modifiedDamage);
+    } finally {
+      // Ender Judgement is armed only for this hit, even if it never reached the damage application
+      EnderJudgementHelper.disarm();
+    }
 
     if (damaged) {
       EventMeleeEffect.apply(serverPlayer, serverWorld, livingTarget, modifiedDamage, attackStrength);

@@ -23,6 +23,7 @@ import name.modid.core.content.registries.ParticlesRegistry;
 import name.modid.core.content.screen.JewelryTableScreenHandler;
 import name.modid.core.content.screen.ScreenRegistry;
 import name.modid.core.network.NetworkHandler;
+import name.modid.core.utils.damage.EnderJudgementHelper;
 import name.modid.neoforge.client.GemstonesNeoForgeClientEvents;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.ProjectileEntityRenderer;
@@ -32,6 +33,7 @@ import net.minecraft.particle.ParticleType;
 import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -45,6 +47,7 @@ import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.extensions.IItemStackExtension;
 import net.neoforged.neoforge.event.GrindstoneEvent;
 import net.neoforged.neoforge.event.OnDatapackSyncEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 
 @Mod(Gemstones.MOD_ID)
 public class GemstonesNeoForge {
@@ -57,6 +60,8 @@ public class GemstonesNeoForge {
     // Fired for every player after /reload (and on join, which is already handled by PLAYER_JOIN)
     NeoForge.EVENT_BUS.addListener(this::onDatapackSync);
     NeoForge.EVENT_BUS.addListener(this::onGrindstoneTake);
+    // Lowest priority so the execute sees the damage after every other mod has changed it
+    NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, this::onLivingDamagePre);
 
     if (FMLEnvironment.dist.isClient()) {
       eventBus.addListener(this::registerParticleProviders);
@@ -79,6 +84,10 @@ public class GemstonesNeoForge {
     if (event.getPlayer() == null) {
       NetworkHandler.resyncAll(event.getPlayerList().getServer());
     }
+  }
+
+  private void onLivingDamagePre(LivingDamageEvent.Pre event) {
+    event.setNewDamage(EnderJudgementHelper.applyExecute(event.getEntity(), event.getNewDamage()));
   }
 
   private void onGrindstoneTake(GrindstoneEvent.OnTakeItem event) {
