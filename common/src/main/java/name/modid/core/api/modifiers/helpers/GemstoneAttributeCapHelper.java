@@ -29,7 +29,8 @@ public final class GemstoneAttributeCapHelper {
         && cfg.operation() == EntityAttributeModifier.Operation.ADD_VALUE;
   }
 
-  // Armor pieces add their modifiers separately, so the cap is a negative modifier on the player
+  // Armor pieces add their modifiers separately, so the cap is a negative
+  // modifier on the player
   public static void updateMaxHealthCap(PlayerEntity player) {
     EntityAttributeInstance maxHealth = player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
     if (maxHealth == null) {

@@ -18,13 +18,15 @@ public final class DamageSourceHelper {
   private DamageSourceHelper() {
   }
 
-  // Damage credited to the attacker without a source position, so knockback behaves like the unattributed source
+  // Damage credited to the attacker without a source position, so knockback
+  // behaves like the unattributed source
   public static DamageSource attributed(World world, RegistryKey<DamageType> type, @Nullable Entity attacker) {
     RegistryEntry<DamageType> entry = world.getRegistryManager().get(RegistryKeys.DAMAGE_TYPE).entryOf(type);
     return attacker == null ? new DamageSource(entry) : new DamageSource(entry, (Entity) null, attacker);
   }
 
-  // Player who recently damaged the entity, used to credit damage over time and kills
+  // Player who recently damaged the entity, used to credit damage over time and
+  // kills
   @Nullable
   public static PlayerEntity getRecentPlayerAttacker(LivingEntity victim) {
     LivingEntity adversary = victim.getPrimeAdversary();
@@ -37,7 +39,8 @@ public final class DamageSourceHelper {
     return attacker != null ? attacker : getRecentPlayerAttacker(victim);
   }
 
-  // Direct player hits only: melee attacks and arrows, but not bonus damage, damage over time or sparks
+  // Direct player hits only: melee attacks and arrows, but not bonus damage,
+  // damage over time or sparks
   public static boolean isDirectPlayerHit(DamageSource source) {
     if (!(source.getAttacker() instanceof PlayerEntity)) {
       return false;

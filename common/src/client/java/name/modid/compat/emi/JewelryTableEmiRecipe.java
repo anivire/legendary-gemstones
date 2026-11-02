@@ -14,66 +14,66 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 public class JewelryTableEmiRecipe implements EmiRecipe {
-    private final Identifier id;
-    private final EmiRecipeCategory category;
-    private final List<EmiIngredient> inputs;
-    private final List<EmiStack> outputs;
-    private final boolean costsLevels;
+  private final Identifier id;
+  private final EmiRecipeCategory category;
+  private final List<EmiIngredient> inputs;
+  private final List<EmiStack> outputs;
+  private final boolean costsLevels;
 
-    public JewelryTableEmiRecipe(Identifier id, EmiRecipeCategory category,
-            List<EmiIngredient> inputs, List<EmiStack> outputs, boolean costsLevels) {
-        this.id = id;
-        this.category = category;
-        this.inputs = inputs;
-        this.outputs = outputs;
-        this.costsLevels = costsLevels;
+  public JewelryTableEmiRecipe(Identifier id, EmiRecipeCategory category,
+      List<EmiIngredient> inputs, List<EmiStack> outputs, boolean costsLevels) {
+    this.id = id;
+    this.category = category;
+    this.inputs = inputs;
+    this.outputs = outputs;
+    this.costsLevels = costsLevels;
+  }
+
+  @Override
+  public EmiRecipeCategory getCategory() {
+    return category;
+  }
+
+  @Override
+  public Identifier getId() {
+    return id;
+  }
+
+  @Override
+  public List<EmiIngredient> getInputs() {
+    return inputs;
+  }
+
+  @Override
+  public List<EmiStack> getOutputs() {
+    return outputs;
+  }
+
+  @Override
+  public int getDisplayWidth() {
+    return 120;
+  }
+
+  @Override
+  public int getDisplayHeight() {
+    return costsLevels ? 52 : 36;
+  }
+
+  @Override
+  public void addWidgets(WidgetHolder widgets) {
+    for (int i = 0; i < inputs.size(); i++) {
+      widgets.add(new SlotWidget(inputs.get(i), i * 18, 9));
     }
+    int arrowX = inputs.size() * 18 + 4;
+    widgets.add(new FillingArrowWidget(arrowX, 10, 5000));
+    int outputX = arrowX + 28;
+    widgets.add(new SlotWidget(outputs.get(0), outputX, 5).large(true).recipeContext(this));
 
-    @Override
-    public EmiRecipeCategory getCategory() {
-        return category;
+    if (costsLevels) {
+      widgets.addText(
+          Text.translatable("emi.gemstones.jewelry_table.remove.short_warning"),
+          getDisplayWidth() / 2, 38, 0x404040, false)
+          .horizontalAlign(TextWidget.Alignment.CENTER);
     }
-
-    @Override
-    public Identifier getId() {
-        return id;
-    }
-
-    @Override
-    public List<EmiIngredient> getInputs() {
-        return inputs;
-    }
-
-    @Override
-    public List<EmiStack> getOutputs() {
-        return outputs;
-    }
-
-    @Override
-    public int getDisplayWidth() {
-        return 120;
-    }
-
-    @Override
-    public int getDisplayHeight() {
-        return costsLevels ? 52 : 36;
-    }
-
-    @Override
-    public void addWidgets(WidgetHolder widgets) {
-        for (int i = 0; i < inputs.size(); i++) {
-            widgets.add(new SlotWidget(inputs.get(i), i * 18, 9));
-        }
-        int arrowX = inputs.size() * 18 + 4;
-        widgets.add(new FillingArrowWidget(arrowX, 10, 5000));
-        int outputX = arrowX + 28;
-        widgets.add(new SlotWidget(outputs.get(0), outputX, 5).large(true).recipeContext(this));
-
-        if (costsLevels) {
-            widgets.addText(
-                    Text.translatable("emi.gemstones.jewelry_table.remove.short_warning"),
-                    getDisplayWidth() / 2, 38, 0x404040, false)
-                    .horizontalAlign(TextWidget.Alignment.CENTER);
-        }
-    }
+  }
 }

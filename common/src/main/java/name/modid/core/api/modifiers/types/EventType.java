@@ -4,18 +4,20 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
+import com.mojang.serialization.Lifecycle;
+
 import name.modid.Gemstones;
 import net.minecraft.registry.Registry;
 import net.minecraft.registry.RegistryKey;
 import net.minecraft.registry.SimpleRegistry;
 import net.minecraft.util.Identifier;
-import com.mojang.serialization.Lifecycle;
 
 public final class EventType {
   private final Identifier id;
   private final String name;
   private final String translationKey;
-  // Chances combined as 1 - (1 - p1)(1 - p2)..., every next gemstone adds less than the previous one
+  // Chances combined as 1 - (1 - p1)(1 - p2)..., every next gemstone adds less
+  // than the previous one
   private final boolean diminishingStack;
 
   public static final RegistryKey<Registry<EventType>> REGISTRY_KEY = RegistryKey
@@ -50,7 +52,8 @@ public final class EventType {
   public static final EventType ON_FIRST_HIT_ADDITIONAL_DAMAGE = register("ON_FIRST_HIT_ADDITIONAL_DAMAGE",
       "tooltip.gemstones.event_name.additional_damage");
 
-  public static final EventType ON_BLOCK_BREAK_ADDITIONAL_GOLD_DROP = registerDiminishing("ON_BLOCK_BREAK_ADDITIONAL_GOLD_DROP",
+  public static final EventType ON_BLOCK_BREAK_ADDITIONAL_GOLD_DROP = registerDiminishing(
+      "ON_BLOCK_BREAK_ADDITIONAL_GOLD_DROP",
       "tooltip.gemstones.event_name.additional_gold_drop");
   public static final EventType ON_BLOCK_BREAK_REGENERATE_BLOCK = registerDiminishing("ON_BLOCK_BREAK_REGENERATE_BLOCK",
       "tooltip.gemstones.event_name.regenerate_block");
@@ -77,7 +80,8 @@ public final class EventType {
 
   public static final EventType ON_POTION_BREW_INCREASE_DURATION = register("ON_POTION_BREW_INCREASE_DURATION",
       "tooltip.gemstones.event_name.potion_duration");
-  public static final EventType ON_FISHING_INCREASE_MOSSY_BOX_DROP = registerDiminishing("ON_FISHING_INCREASE_MOSSY_BOX_DROP",
+  public static final EventType ON_FISHING_INCREASE_MOSSY_BOX_DROP = registerDiminishing(
+      "ON_FISHING_INCREASE_MOSSY_BOX_DROP",
       "tooltip.gemstones.event_name.increase_mossy_box_drop");
 
   public static final EventType PLAYER_WITHER_GUARD = register("PLAYER_WITHER_GUARD",

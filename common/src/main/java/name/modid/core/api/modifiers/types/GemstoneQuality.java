@@ -5,7 +5,7 @@ import com.mojang.serialization.Codec;
 import net.minecraft.util.Formatting;
 
 public enum GemstoneQuality {
-  NONE(-1, "","item.gemstones.quality.none", Formatting.WHITE, 0xFFFFFF),
+  NONE(-1, "", "item.gemstones.quality.none", Formatting.WHITE, 0xFFFFFF),
   CRUDE(0, "\uE984", "item.gemstones.quality.crude", Formatting.GRAY, 0x4d4d4d),
   REFINED(1, "\uE984", "item.gemstones.quality.refined", Formatting.BLUE, 0x5454fc),
   FLAWLESS(2, "\uE984", "item.gemstones.quality.flawless", Formatting.LIGHT_PURPLE, 0xfc4dff),

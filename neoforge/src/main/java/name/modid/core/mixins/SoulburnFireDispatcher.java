@@ -25,7 +25,8 @@ public abstract class SoulburnFireDispatcher {
   @Shadow
   public abstract <T extends Entity> EntityRenderer<? super T> getRenderer(T entity);
 
-  // Drawn at the end of render with the same offset vanilla uses for fire, so no injection point
+  // Drawn at the end of render with the same offset vanilla uses for fire, so no
+  // injection point
   // inside the method is needed
   @Inject(method = "render", at = @At("TAIL"))
   private <E extends Entity> void renderSoulburnFire(E entity,

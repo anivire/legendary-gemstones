@@ -12,7 +12,8 @@ import net.minecraft.entity.damage.DamageSource;
 
 @Mixin(LivingEntity.class)
 public class GuardianSmiteEffect {
-  // Guardian Smite adds its bonus to the next direct player hits instead of a separate magic hit,
+  // Guardian Smite adds its bonus to the next direct player hits instead of a
+  // separate magic hit,
   // so it does not reset i-frames and damage over time does not trigger it
   @ModifyVariable(method = "damage", at = @At("HEAD"), argsOnly = true, ordinal = 0)
   private float addSmiteBonus(float amount, DamageSource source) {

@@ -2,9 +2,9 @@ package name.modid.core.api.components;
 
 import com.mojang.serialization.Codec;
 
-import name.modid.Gemstones;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
+import name.modid.Gemstones;
 import net.minecraft.component.ComponentType;
 import net.minecraft.network.RegistryByteBuf;
 import net.minecraft.network.codec.PacketCodec;

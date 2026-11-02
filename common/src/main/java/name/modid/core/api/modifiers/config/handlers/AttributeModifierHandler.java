@@ -18,8 +18,8 @@ import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.entity.attribute.EntityAttributeModifier;
-import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.entity.attribute.EntityAttributeModifier.Operation;
+import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.registry.entry.RegistryEntry;
@@ -42,7 +42,8 @@ public class AttributeModifierHandler {
     itemStack.set(DataComponentTypes.ATTRIBUTE_MODIFIERS, expected);
   }
 
-  // True when the baked attribute modifiers of the stack differ from the current gemstone configs
+  // True when the baked attribute modifiers of the stack differ from the current
+  // gemstone configs
   public static boolean isStale(ArrayList<GemstoneModifier> gemstoneModifiers, ItemStack itemStack) {
     AttributeModifiersComponent expected = buildComponent(gemstoneModifiers, itemStack);
     if (expected == null) {
@@ -65,7 +66,8 @@ public class AttributeModifierHandler {
     // If there are no gemstone attribute modifiers to apply, we must not write the
     // ATTRIBUTE_MODIFIERS component onto the stack: doing so would shadow
     // stack-aware dynamic attribute modifiers computed by other mods, even when no
-    // gemstones are present. Only clean up gemstone modifiers this mod previously wrote.
+    // gemstones are present. Only clean up gemstone modifiers this mod previously
+    // wrote.
     if (gemstoneEntries.isEmpty() && !hasGemstoneAttributeModifiers(itemStack)) {
       return null;
     }
@@ -85,8 +87,10 @@ public class AttributeModifierHandler {
     return new AttributeModifiersComponent(new ArrayList<>(combinedModifiersMap.values()), true);
   }
 
-  // Base stats always come from the item itself, so an upgraded item (diamond -> netherite)
-  // does not keep the copied stats of the previous item. Dynamic modifiers of other mods
+  // Base stats always come from the item itself, so an upgraded item (diamond ->
+  // netherite)
+  // does not keep the copied stats of the previous item. Dynamic modifiers of
+  // other mods
   // (non-vanilla namespaces) are preserved.
   private static List<AttributeModifiersComponent.Entry> getBaseEntries(ItemStack itemStack) {
     AttributeModifiersComponent prototype = itemStack.getItem().getComponents()
@@ -111,7 +115,8 @@ public class AttributeModifierHandler {
   private static List<AttributeModifiersComponent.Entry> buildGemstoneEntries(
       ArrayList<GemstoneModifier> gemstoneModifiers,
       Item item) {
-    // Values are summed only within the same attribute and operation, otherwise a TOTAL penalty
+    // Values are summed only within the same attribute and operation, otherwise a
+    // TOTAL penalty
     // could be merged into a BASE bonus (and vice versa)
     Map<AttributeGroupKey, List<GemstoneModifier>> groupedModifiers = new LinkedHashMap<>();
     Map<RegistryEntry<EntityAttribute>, Integer> operationsPerAttribute = new LinkedHashMap<>();
@@ -148,7 +153,8 @@ public class AttributeModifierHandler {
         continue;
       }
 
-      // Jade: the player can shrink to half a block (still able to walk through 1 block high gaps), not further
+      // Jade: the player can shrink to half a block (still able to walk through 1
+      // block high gaps), not further
       if (key.attribute().equals(EntityAttributes.GENERIC_SCALE) && key.operation() == Operation.ADD_MULTIPLIED_TOTAL) {
         totalValue = Math.max(totalValue, MIN_SCALE_TOTAL);
       }
@@ -159,7 +165,8 @@ public class AttributeModifierHandler {
           firstModifier.getItemCategory().toString().toLowerCase(),
           slot.name().toLowerCase());
 
-      // Keep the old id when the attribute has a single operation, so existing items stay stable
+      // Keep the old id when the attribute has a single operation, so existing items
+      // stay stable
       if (operationsPerAttribute.getOrDefault(key.attribute(), 1) > 1) {
         path = path + "." + key.operation().asString();
       }

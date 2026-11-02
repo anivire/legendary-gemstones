@@ -1,8 +1,8 @@
 package name.modid.core.content.blocks;
 
-import name.modid.Gemstones;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
+import name.modid.Gemstones;
 import net.minecraft.block.AbstractBlock;
 import net.minecraft.block.Block;
 import net.minecraft.item.BlockItem;
@@ -21,7 +21,8 @@ public class BlocksRegistry {
           .sounds(BlockSoundGroup.WOOD)
           .burnable()));
 
-  private static <T extends Block> RegistrySupplier<T> registerBlock(String name, java.util.function.Supplier<T> block) {
+  private static <T extends Block> RegistrySupplier<T> registerBlock(String name,
+      java.util.function.Supplier<T> block) {
     RegistrySupplier<T> registeredBlock = BLOCKS.register(name, block);
     ITEMS.register(name, () -> new BlockItem(registeredBlock.get(), new Item.Settings()));
     return registeredBlock;

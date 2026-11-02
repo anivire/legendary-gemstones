@@ -223,7 +223,8 @@ public class JewelryTableScreenHandler extends ScreenHandler implements Inventor
     GemstoneType gemType = gemItem.getType();
     GemstoneQuality gemQuality = gemItem.getRarityType();
 
-    // A gemstone without an effect for this item category would sit in the socket doing nothing
+    // A gemstone without an effect for this item category would sit in the socket
+    // doing nothing
     if (ModifierHelper.getGemstoneModifierForItem(gemType, gemQuality, base.getItem()) == null) {
       setResult(ItemStack.EMPTY);
       return;

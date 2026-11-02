@@ -12,7 +12,8 @@ import net.minecraft.text.Text;
 import net.minecraft.util.Identifier;
 
 /**
- * Decides how an attribute modifier is shown: its name, and its value as a plain
+ * Decides how an attribute modifier is shown: its name, and its value as a
+ * plain
  * number or as a percent
  */
 public final class AttributeValueFormat {
@@ -23,7 +24,8 @@ public final class AttributeValueFormat {
   private AttributeValueFormat() {
   }
 
-  // Evasion rolls per gemstone (cappedProcChance), max health from armor is capped
+  // Evasion rolls per gemstone (cappedProcChance), max health from armor is
+  // capped
   public static boolean hasDiminishingStack(ModifierConfig.AttributeConfig cfg, ModifierItemCategory category) {
     return cfg.attribute().value() == AttributesRegistry.EVASION
         || GemstoneAttributeCapHelper.isCapped(cfg, category);

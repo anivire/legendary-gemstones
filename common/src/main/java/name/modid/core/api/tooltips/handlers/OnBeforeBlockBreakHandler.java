@@ -24,8 +24,8 @@ public class OnBeforeBlockBreakHandler extends DefaultPercentHandler<ModifierCon
     }
 
     // The loss chance follows the shown win chance, unboosted like the value itself
-    ModifierConfig.BeforeBlockBreakConfig shown = builder.getBaseConfig() instanceof
-        ModifierConfig.BeforeBlockBreakConfig base ? base : cfg;
+    ModifierConfig.BeforeBlockBreakConfig shown = builder
+        .getBaseConfig() instanceof ModifierConfig.BeforeBlockBreakConfig base ? base : cfg;
     double lossChance = shown.values().get(rarityType) * BeforeBlockBreakHandler.GAMBLE_LOSS_RATIO;
 
     MutableText lossText = Text.empty()

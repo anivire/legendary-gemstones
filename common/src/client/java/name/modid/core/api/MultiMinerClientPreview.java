@@ -6,8 +6,8 @@ import java.util.List;
 import java.util.Map;
 
 import name.modid.core.api.ColoredBlockHighlighter.HighlightedBlock;
-import name.modid.core.api.modifiers.config.ModifierConfig.BlockBreakConfig;
 import name.modid.core.api.modifiers.config.GemstoneModifier;
+import name.modid.core.api.modifiers.config.ModifierConfig.BlockBreakConfig;
 import name.modid.core.api.modifiers.config.handlers.BlockBreakHandler;
 import name.modid.core.api.modifiers.helpers.ModifierGatheringHelper;
 import name.modid.core.api.modifiers.types.EventType;
@@ -223,7 +223,8 @@ public final class MultiMinerClientPreview {
     return hardness > 0.0F || centerHardness <= 0.0F;
   }
 
-  private static void spawnMiningParticle(ClientWorld world, BlockPos pos, BlockState state, Direction face, int index) {
+  private static void spawnMiningParticle(ClientWorld world, BlockPos pos, BlockState state, Direction face,
+      int index) {
     double seed = world.getTime() + index * 13.0D;
     double x = pos.getX() + 0.5D + Math.sin(seed * 0.71D) * 0.32D;
     double y = pos.getY() + 0.5D + Math.cos(seed * 0.53D) * 0.32D;

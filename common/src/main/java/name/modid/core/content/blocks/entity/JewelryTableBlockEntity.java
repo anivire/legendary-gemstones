@@ -40,7 +40,8 @@ public class JewelryTableBlockEntity extends BlockEntity
       JewelryTableScreenHandler.SLOT_GEM
   };
 
-  // Only the input slots are stored here, the result preview lives in the screen handler,
+  // Only the input slots are stored here, the result preview lives in the screen
+  // handler,
   // otherwise it is dropped together with the inputs when the table is broken
   private final DefaultedList<ItemStack> inventory = DefaultedList.ofSize(3, ItemStack.EMPTY);
 

@@ -5,6 +5,7 @@ import java.math.RoundingMode;
 import java.util.List;
 import java.util.Random;
 
+import dev.architectury.platform.Platform;
 import name.modid.core.api.modifiers.types.GemstoneQuality;
 import name.modid.core.api.modifiers.types.GemstoneType;
 import name.modid.core.api.tooltips.TooltipHelper.InlineIcons;
@@ -13,7 +14,6 @@ import name.modid.core.content.items.registries.GemstonesRegistry;
 import name.modid.core.utils.geode.GeodeQualitySelector;
 import name.modid.datapack.geodes.GeodesConfig;
 import name.modid.datapack.geodes.GeodesRegistry;
-import dev.architectury.platform.Platform;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

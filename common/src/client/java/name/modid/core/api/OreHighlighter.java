@@ -3,9 +3,9 @@ package name.modid.core.api;
 import java.util.ArrayList;
 import java.util.List;
 
+import dev.architectury.networking.NetworkManager;
 import name.modid.core.api.ColoredBlockHighlighter.HighlightedBlock;
 import name.modid.core.network.OreVisionPayload;
-import dev.architectury.networking.NetworkManager;
 import net.minecraft.client.render.Camera;
 import net.minecraft.client.render.OutlineVertexConsumerProvider;
 import net.minecraft.client.util.math.MatrixStack;
@@ -19,10 +19,10 @@ public class OreHighlighter {
   public static void registerNetworking() {
     NetworkManager.registerReceiver(NetworkManager.s2c(), OreVisionPayload.ID, OreVisionPayload.CODEC,
         (payload, context) -> context.queue(() -> {
-        highlighted.clear();
-        highlighted.addAll(payload.ores());
-        lastUpdate = System.currentTimeMillis();
-    }));
+          highlighted.clear();
+          highlighted.addAll(payload.ores());
+          lastUpdate = System.currentTimeMillis();
+        }));
   }
 
   public static boolean hasActiveHighlights() {

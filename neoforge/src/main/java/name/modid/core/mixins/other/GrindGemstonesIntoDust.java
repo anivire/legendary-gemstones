@@ -3,12 +3,12 @@ package name.modid.core.mixins.other;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
+
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
 
 import name.modid.core.content.items.GemstoneDustItem;
 import name.modid.core.content.items.registries.ItemsRegistry;

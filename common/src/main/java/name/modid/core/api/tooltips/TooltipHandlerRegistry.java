@@ -6,6 +6,7 @@ import java.util.Map;
 import name.modid.core.api.modifiers.config.ModifierCategoryType;
 import name.modid.core.api.modifiers.config.ModifierConfig;
 import name.modid.core.api.modifiers.types.GemstoneQuality;
+import name.modid.core.api.tooltips.handlers.AmplifierHandler;
 import name.modid.core.api.tooltips.handlers.AreaEffectHandler;
 import name.modid.core.api.tooltips.handlers.AttributeHandler;
 import name.modid.core.api.tooltips.handlers.DefaultPercentHandler;
@@ -17,7 +18,6 @@ import name.modid.core.api.tooltips.handlers.OnHitHandler;
 import name.modid.core.api.tooltips.handlers.OnPlayerDamageHandler;
 import name.modid.core.api.tooltips.handlers.OnPotionBrewHandler;
 import name.modid.core.api.tooltips.handlers.PlayerHandler;
-import name.modid.core.api.tooltips.handlers.AmplifierHandler;
 import name.modid.core.api.tooltips.handlers.TooltipHandler;
 import name.modid.core.api.tooltips.handlers.UndefinedHandler;
 

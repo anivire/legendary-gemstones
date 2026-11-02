@@ -19,7 +19,8 @@ public final class GemstoneLootHelper {
 
   public static LootPool.Builder createPool(GemstoneType type, float chance) {
     List<Item> gemstones = GemstonesRegistry.getGemstonesByType(type);
-    if (gemstones.isEmpty()) return null;
+    if (gemstones.isEmpty())
+      return null;
 
     LootPool.Builder pool = LootPool.builder()
         .rolls(ConstantLootNumberProvider.create(1))

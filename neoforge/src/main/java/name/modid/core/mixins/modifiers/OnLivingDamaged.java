@@ -26,7 +26,8 @@ public abstract class OnLivingDamaged implements DamageCooldownAccessor {
     this.lastDamageTaken = value;
   }
 
-  // Architectury LIVING_HURT fires before i-frames and shields are checked, this one only after real damage
+  // Architectury LIVING_HURT fires before i-frames and shields are checked, this
+  // one only after real damage
   @Inject(method = "damage", at = @At("RETURN"))
   private void onDamaged(DamageSource source, float amount, CallbackInfoReturnable<Boolean> cir) {
     LivingEntity self = (LivingEntity) (Object) this;

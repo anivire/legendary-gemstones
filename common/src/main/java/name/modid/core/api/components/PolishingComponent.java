@@ -16,13 +16,12 @@ public record PolishingComponent(int completedStages, int ticksInStage, int stag
           Codec.BOOL.optionalFieldOf("stage_paid", false).forGetter(PolishingComponent::stagePaid))
       .apply(instance, PolishingComponent::new));
 
-  public static final PacketCodec<RegistryByteBuf, PolishingComponent> PACKET_CODEC =
-      PacketCodec.tuple(
-          PacketCodecs.INTEGER, PolishingComponent::completedStages,
-          PacketCodecs.INTEGER, PolishingComponent::ticksInStage,
-          PacketCodecs.INTEGER, PolishingComponent::stageDuration,
-          PacketCodecs.BOOL, PolishingComponent::stagePaid,
-          PolishingComponent::new);
+  public static final PacketCodec<RegistryByteBuf, PolishingComponent> PACKET_CODEC = PacketCodec.tuple(
+      PacketCodecs.INTEGER, PolishingComponent::completedStages,
+      PacketCodecs.INTEGER, PolishingComponent::ticksInStage,
+      PacketCodecs.INTEGER, PolishingComponent::stageDuration,
+      PacketCodecs.BOOL, PolishingComponent::stagePaid,
+      PolishingComponent::new);
 
   public static PolishingComponent start(int stageDuration) {
     return new PolishingComponent(0, 0, stageDuration, false);

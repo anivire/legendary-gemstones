@@ -19,7 +19,8 @@ import net.minecraft.util.Formatting;
 
 public class TooltipBuilder {
   public static final Formatting DEFAULT_TEXT_COLOR = Formatting.GOLD;
-  // Positive values that stack with diminishing returns, plain additive ones stay green
+  // Positive values that stack with diminishing returns, plain additive ones stay
+  // green
   public static final Formatting DIMINISHING_VALUE_COLOR = Formatting.AQUA;
 
   private final GemstoneType gemstoneType;
@@ -122,7 +123,8 @@ public class TooltipBuilder {
     return diminishing ? DIMINISHING_VALUE_COLOR : Formatting.GREEN;
   }
 
-  // Diminishing bonuses get an arrow with a bar on top: the value grows towards a limit
+  // Diminishing bonuses get an arrow with a bar on top: the value grows towards a
+  // limit
   public MutableText getValuePrefix(boolean isPositive, boolean diminishing) {
     Formatting color = getValueColor(isPositive, diminishing);
     if (isPositive && diminishing) {

@@ -1,12 +1,12 @@
 package name.modid.core.network;
 
-import name.modid.core.api.modifiers.helpers.GemstoneAttributeRefreshHelper;
-import name.modid.core.api.components.ComponentsRegistry;
-import name.modid.core.content.items.tools.JewelryFileItem;
-import name.modid.core.utils.airJump.AirJumpLogic;
 import dev.architectury.networking.NetworkManager;
 import dev.architectury.platform.Platform;
 import dev.architectury.utils.Env;
+import name.modid.core.api.components.ComponentsRegistry;
+import name.modid.core.api.modifiers.helpers.GemstoneAttributeRefreshHelper;
+import name.modid.core.content.items.tools.JewelryFileItem;
+import name.modid.core.utils.airJump.AirJumpLogic;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Hand;
@@ -41,7 +41,8 @@ public final class NetworkHandler {
     }
   }
 
-  // Called by the platform modules after /reload: configs and baked item attributes must follow the new datapacks
+  // Called by the platform modules after /reload: configs and baked item
+  // attributes must follow the new datapacks
   public static void resyncAll(MinecraftServer server) {
     for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
       sendDatapackSync(player);

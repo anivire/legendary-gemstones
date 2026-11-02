@@ -1,8 +1,5 @@
 package name.modid.core.mixins;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-import com.llamalad7.mixinextras.sugar.Local;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
@@ -10,6 +7,10 @@ import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
+import com.llamalad7.mixinextras.sugar.Local;
 
 import name.modid.core.api.OreHighlighter;
 import net.minecraft.client.MinecraftClient;
@@ -42,7 +43,8 @@ public abstract class WorldRendererMixin {
     gemstones$outlinesProcessed = false;
   }
 
-  // Vanilla runs the outline pass only when a glowing entity is on screen, so with ore highlights
+  // Vanilla runs the outline pass only when a glowing entity is on screen, so
+  // with ore highlights
   // it is run here, without touching the vanilla locals
   @WrapOperation(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/render/OutlineVertexConsumerProvider;draw()V"))
   private void gemstones$renderOreVisionHighlights(OutlineVertexConsumerProvider outlines,
@@ -64,7 +66,8 @@ public abstract class WorldRendererMixin {
     }
   }
 
-  // Glowing entities share the same pass, a second run would draw every outline twice
+  // Glowing entities share the same pass, a second run would draw every outline
+  // twice
   @WrapOperation(method = "render", at = @At(value = "INVOKE", target = "Lnet/minecraft/client/gl/PostEffectProcessor;render(F)V"))
   private void gemstones$skipRepeatedOutlinePass(PostEffectProcessor processor, float tickDelta,
       Operation<Void> original) {

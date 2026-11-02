@@ -46,7 +46,8 @@ public final class AmberMagnetHelper {
     return player != null && player.isAlive() && player.getWorld() == world ? player : null;
   }
 
-  // Returns true when the stack was given to the player and must not be dropped in the world
+  // Returns true when the stack was given to the player and must not be dropped
+  // in the world
   public static boolean tryCollect(World world, ItemStack stack) {
     PlayerEntity player = getActivePlayer(world);
     if (player == null || stack.isEmpty()) {

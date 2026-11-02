@@ -1,8 +1,8 @@
 package name.modid.core.content.loot;
 
-import name.modid.Gemstones;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
+import name.modid.Gemstones;
 import net.minecraft.loot.condition.LootConditionType;
 import net.minecraft.registry.RegistryKeys;
 

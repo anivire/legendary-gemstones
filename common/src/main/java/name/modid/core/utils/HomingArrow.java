@@ -19,8 +19,8 @@ import net.minecraft.particle.DustParticleEffect;
 import net.minecraft.particle.ParticleEffect;
 import net.minecraft.particle.ParticleTypes;
 import net.minecraft.server.world.ServerWorld;
-import net.minecraft.util.math.Box;
 import net.minecraft.util.hit.HitResult;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.RaycastContext;
@@ -221,7 +221,8 @@ public class HomingArrow {
         0.01);
   }
 
-  // Without an aimed target the arrow picks only hostile mobs, never pets, villagers or players
+  // Without an aimed target the arrow picks only hostile mobs, never pets,
+  // villagers or players
   private static LivingEntity findNearestTarget(ServerWorld world, PersistentProjectileEntity arrow, double radius) {
     Box searchBox = new Box(arrow.getBlockPos()).expand(radius);
     List<LivingEntity> potentialTargets = world.getEntitiesByClass(

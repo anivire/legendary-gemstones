@@ -28,7 +28,8 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.ActionResult;
 
 public class EffectHandler {
-  // Loot Touch (Restless Flame): no bosses and at most once per 30 seconds for each player,
+  // Loot Touch (Restless Flame): no bosses and at most once per 30 seconds for
+  // each player,
   // otherwise a mob farm turns into an endless dungeon loot source
   private static final long LOOT_TOUCH_COOLDOWN_TICKS = 30 * 20;
   private static final Map<UUID, Long> LOOT_TOUCH_COOLDOWNS = new HashMap<>();

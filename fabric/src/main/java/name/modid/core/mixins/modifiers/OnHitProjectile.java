@@ -15,7 +15,8 @@ import net.minecraft.util.hit.EntityHitResult;
 
 @Mixin(PersistentProjectileEntity.class)
 public class OnHitProjectile {
-  // Before the damage is calculated: only damage modifiers (Crystallized Experience)
+  // Before the damage is calculated: only damage modifiers (Crystallized
+  // Experience)
   @Inject(method = "onEntityHit", at = @At("HEAD"))
   protected void onEntityHit(EntityHitResult entityHitResult, CallbackInfo ci) {
     PersistentProjectileEntity projectile = (PersistentProjectileEntity) (Object) this;
@@ -28,7 +29,8 @@ public class OnHitProjectile {
     CustomEvents.ON_PROJECTILE_DAMAGE.invoker().onProjectileDamage(projectile, player, entityHitResult);
   }
 
-  // onHit is called only after the projectile has actually damaged a living target, so shields,
+  // onHit is called only after the projectile has actually damaged a living
+  // target, so shields,
   // i-frames and dodging endermen no longer trigger on-hit effects
   @Inject(method = "onHit", at = @At("HEAD"))
   protected void onLivingHit(LivingEntity target, CallbackInfo ci) {
@@ -42,8 +44,10 @@ public class OnHitProjectile {
     CustomEvents.ON_HIT_PROJECTILE.invoker().onHitProjectile(projectile, player, new EntityHitResult(target));
   }
 
-  // Intended: block hits still trigger on-hit modifiers without a target, this is how the Sapphire
-  // lightning procs when the arrow lands on a block. Effects that need a target skip these hits.
+  // Intended: block hits still trigger on-hit modifiers without a target, this is
+  // how the Sapphire
+  // lightning procs when the arrow lands on a block. Effects that need a target
+  // skip these hits.
   @Inject(method = "onBlockHit", at = @At("HEAD"))
   protected void onBlockHit(BlockHitResult blockHitResult, CallbackInfo ci) {
     PersistentProjectileEntity projectile = (PersistentProjectileEntity) (Object) this;

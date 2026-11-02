@@ -1,8 +1,8 @@
 package name.modid.core.content.registries;
 
-import name.modid.Gemstones;
 import dev.architectury.registry.registries.DeferredRegister;
 import dev.architectury.registry.registries.RegistrySupplier;
+import name.modid.Gemstones;
 import net.minecraft.entity.attribute.ClampedEntityAttribute;
 import net.minecraft.entity.attribute.EntityAttribute;
 import net.minecraft.registry.RegistryKeys;

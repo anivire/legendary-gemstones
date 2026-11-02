@@ -44,7 +44,8 @@ public final class AmberShellHelper {
 
     if (shell <= 0.0) {
       if (current != null) {
-        // Taking the armor off counts as a hit, otherwise swapping it would heal for free
+        // Taking the armor off counts as a hit, otherwise swapping it would heal for
+        // free
         LAST_HURT_TIMES.put(player.getUuid(), player.getWorld().getTime());
         breakShell(player);
       }

@@ -1,14 +1,15 @@
 package name.modid.neoforge.client;
 
-import com.mojang.datafixers.util.Either;
 import java.util.List;
+
+import com.mojang.datafixers.util.Either;
 
 import name.modid.Gemstones;
 import name.modid.core.api.tooltips.QualityTooltipData;
+import net.minecraft.item.tooltip.TooltipData;
 import net.minecraft.registry.Registries;
 import net.minecraft.text.StringVisitable;
 import net.minecraft.text.Text;
-import net.minecraft.item.tooltip.TooltipData;
 import net.neoforged.neoforge.client.event.RenderTooltipEvent;
 import net.neoforged.neoforge.event.entity.player.ItemTooltipEvent;
 

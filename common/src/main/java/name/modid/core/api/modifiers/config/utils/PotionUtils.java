@@ -53,7 +53,8 @@ public class PotionUtils {
   }
 
   public static Optional<RegistryEntry<Potion>> getBrewablePotion(ItemStack stack) {
-    PotionContentsComponent contents = stack.getOrDefault(DataComponentTypes.POTION_CONTENTS, PotionContentsComponent.DEFAULT);
+    PotionContentsComponent contents = stack.getOrDefault(DataComponentTypes.POTION_CONTENTS,
+        PotionContentsComponent.DEFAULT);
     if (contents.potion().isPresent()) {
       return contents.potion();
     }

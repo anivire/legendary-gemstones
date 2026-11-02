@@ -72,8 +72,9 @@ public class OnBlockBreakHandler extends BaseTooltipHandler<ModifierConfig.Block
 
     if (cfg.eventType() == EventType.ON_BLOCK_BREAK_CHAIN_LIGHTNING) {
       // Whole blocks only, truncated the same way the mechanic reads the value
-      ModifierConfig.BlockBreakConfig base = builder.getBaseConfig() instanceof
-          ModifierConfig.BlockBreakConfig baseCfg ? baseCfg : cfg;
+      ModifierConfig.BlockBreakConfig base = builder.getBaseConfig() instanceof ModifierConfig.BlockBreakConfig baseCfg
+          ? baseCfg
+          : cfg;
       int baseBlocks = base.additionalValues().get(rarityType).intValue();
       int blocks = cfg.additionalValues().get(rarityType).intValue();
 

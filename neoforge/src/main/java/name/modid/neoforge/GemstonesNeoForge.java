@@ -15,8 +15,8 @@ import name.modid.core.api.particles.StunnedParticleFactory;
 import name.modid.core.api.projectiles.spark.SparkProjectileModel;
 import name.modid.core.api.projectiles.spark.SparkProjectileRenderer;
 import name.modid.core.content.entities.RainArrowEntity;
-import name.modid.core.content.items.GemstoneDustItem;
 import name.modid.core.content.entities.SparkProjectileEntity;
+import name.modid.core.content.items.GemstoneDustItem;
 import name.modid.core.content.particles.ScarabParticleInstance;
 import name.modid.core.content.registries.EntitiesRegistry;
 import name.modid.core.content.registries.ParticlesRegistry;
@@ -57,10 +57,12 @@ public class GemstonesNeoForge {
     GemstoneAttributeModifiersHelper.setEffectiveProvider(
         stack -> ((IItemStackExtension) stack).getAttributeModifiers());
 
-    // Fired for every player after /reload (and on join, which is already handled by PLAYER_JOIN)
+    // Fired for every player after /reload (and on join, which is already handled
+    // by PLAYER_JOIN)
     NeoForge.EVENT_BUS.addListener(this::onDatapackSync);
     NeoForge.EVENT_BUS.addListener(this::onGrindstoneTake);
-    // Lowest priority so the execute sees the damage after every other mod has changed it
+    // Lowest priority so the execute sees the damage after every other mod has
+    // changed it
     NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, this::onLivingDamagePre);
 
     if (FMLEnvironment.dist.isClient()) {

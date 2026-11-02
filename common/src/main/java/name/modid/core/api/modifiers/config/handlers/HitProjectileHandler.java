@@ -85,7 +85,8 @@ public class HitProjectileHandler implements ModifierHandler<ModifierConfig.HitP
 
   private void handleLifesteal(List<GemstoneModifier> modifiers,
       ModifierContext ctx) {
-    // Block hits also reach this handler (for the lightning), life steal needs a living target
+    // Block hits also reach this handler (for the lightning), life steal needs a
+    // living target
     if (!(ctx.getOwner() instanceof LivingEntity owner)
         || !(ctx.getTarget() instanceof LivingEntity)) {
       return;
@@ -116,8 +117,10 @@ public class HitProjectileHandler implements ModifierHandler<ModifierConfig.HitP
 
   private void handleLightingBolt(List<GemstoneModifier> modifiers,
       ModifierContext ctx) {
-    // Intended: the lightning procs both on entity hits and on block hits (the arrow calls the storm
-    // wherever it lands). It only works where it actually rains under the open sky, like Channeling
+    // Intended: the lightning procs both on entity hits and on block hits (the
+    // arrow calls the storm
+    // wherever it lands). It only works where it actually rains under the open sky,
+    // like Channeling
     BlockPos pos = ctx.getTarget() != null ? ctx.getTarget().getBlockPos() : ctx.getBlockPos();
     if (pos == null || !ctx.getWorld().hasRain(pos.up())) {
       return;
@@ -296,7 +299,8 @@ public class HitProjectileHandler implements ModifierHandler<ModifierConfig.HitP
   private void handleAdditionalDamage(
       List<GemstoneModifier> modifiers,
       ModifierContext ctx) {
-    // Piercing arrows hit several targets, the bonus must be applied only once per arrow
+    // Piercing arrows hit several targets, the bonus must be applied only once per
+    // arrow
     if (!(ctx.getOwner() instanceof PlayerEntity player)
         || !(ctx.getProjectile() instanceof PersistentProjectileEntity projectile)
         || player.experienceLevel == 0
@@ -325,7 +329,8 @@ public class HitProjectileHandler implements ModifierHandler<ModifierConfig.HitP
 
     float extraDamageMultiplier = 1.0f + steps * bonusDamagePercent;
 
-    // applyDamageModifier is the skeleton damage setter (value * 2 + random), so set the damage directly
+    // applyDamageModifier is the skeleton damage setter (value * 2 + random), so
+    // set the damage directly
     projectile.setDamage(projectile.getDamage() * extraDamageMultiplier);
     projectile.addCommandTag(EXP_BONUS_APPLIED_TAG);
 

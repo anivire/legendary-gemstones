@@ -98,7 +98,8 @@ public class HitMeleeHandler
             0.6, 1.0, 0.6, 0.05);
       }
 
-      // Float.MAX_VALUE overflowed into NaN health, so the exact lethal damage is set once reductions are known
+      // Float.MAX_VALUE overflowed into NaN health, so the exact lethal damage is set
+      // once reductions are known
       ctx.setDamageResult(Math.max(ctx.getDamageResult(), EnderJudgementHelper.getLethalDamage(target)));
       EnderJudgementHelper.arm(target);
     }

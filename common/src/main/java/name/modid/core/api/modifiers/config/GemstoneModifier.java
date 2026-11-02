@@ -1,11 +1,12 @@
 package name.modid.core.api.modifiers.config;
 
+import org.jetbrains.annotations.Nullable;
+
 import name.modid.core.api.modifiers.types.GemstoneQuality;
 import name.modid.core.api.modifiers.types.GemstoneType;
 import name.modid.core.api.modifiers.types.ModifierItemCategory;
 import name.modid.core.api.tooltips.TooltipBuilder;
 import net.minecraft.text.MutableText;
-import org.jetbrains.annotations.Nullable;
 
 public class GemstoneModifier {
   private final GemstoneType gemstoneType;

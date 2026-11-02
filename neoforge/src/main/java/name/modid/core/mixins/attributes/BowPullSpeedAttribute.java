@@ -12,8 +12,10 @@ import net.minecraft.world.World;
 
 @Mixin(BowItem.class)
 public class BowPullSpeedAttribute {
-  // The pull progress is computed from the bow that is actually released. A shared static
-  // multiplier leaked the pull speed of one player to every other bow user on the server.
+  // The pull progress is computed from the bow that is actually released. A
+  // shared static
+  // multiplier leaked the pull speed of one player to every other bow user on the
+  // server.
   @ModifyVariable(method = "onStoppedUsing", at = @At("STORE"), ordinal = 0)
   private float gemstones$applyPullSpeed(
       float pullProgress,

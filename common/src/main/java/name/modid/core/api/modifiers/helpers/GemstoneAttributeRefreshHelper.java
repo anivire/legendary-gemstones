@@ -21,7 +21,8 @@ public final class GemstoneAttributeRefreshHelper {
     refreshInventory(player.getEnderChestInventory());
   }
 
-  // Cheap periodic check: only items whose baked modifiers differ from the loaded configs are rewritten
+  // Cheap periodic check: only items whose baked modifiers differ from the loaded
+  // configs are rewritten
   public static void refreshStaleItems(PlayerEntity player) {
     Inventory inventory = player.getInventory();
     for (int i = 0; i < inventory.size(); i++) {

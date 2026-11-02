@@ -13,8 +13,8 @@ import name.modid.core.api.modifiers.config.GemstoneModifier;
 import name.modid.core.api.modifiers.config.ModifierConfig;
 import name.modid.core.api.modifiers.config.ModifierConfig.AttributeConfig;
 import name.modid.core.api.modifiers.config.handlers.AttributeModifierHandler;
-import name.modid.core.api.modifiers.helpers.ModifierHelper;
 import name.modid.core.api.modifiers.helpers.ModifierGatheringHelper;
+import name.modid.core.api.modifiers.helpers.ModifierHelper;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.component.type.AttributeModifiersComponent.Entry;
@@ -54,7 +54,8 @@ public class ModifierUtils {
         itemStack -> ModifierGatheringHelper.getModifiers(itemStack, configClass));
   }
 
-  // One value per socketed gemstone (armor and main hand), so each gem can roll its own chance
+  // One value per socketed gemstone (armor and main hand), so each gem can roll
+  // its own chance
   public static List<Double> collectGemstoneAttributeValues(
       LivingEntity entity,
       RegistryEntry<EntityAttribute> attribute) {
@@ -71,7 +72,8 @@ public class ModifierUtils {
       for (GemstoneModifier modifier : ModifierGatheringHelper.getAttributeModifiers(stack)) {
         double value = 0.0;
         for (AttributeConfig config : AttributeModifierHandler.getAttributeConfigs(modifier)) {
-          // Config entries are vanilla references, the mod ones are Architectury suppliers
+          // Config entries are vanilla references, the mod ones are Architectury
+          // suppliers
           if (config.attribute().value() == attribute.value()) {
             value += config.values().get(modifier.getRarityType());
           }

@@ -3,13 +3,13 @@ package name.modid.core.mixins.attributes;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
-import com.llamalad7.mixinextras.injector.ModifyReturnValue;
-import com.llamalad7.mixinextras.sugar.Local;
-
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Unique;
 import org.spongepowered.asm.mixin.injection.At;
+
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.ModifyReturnValue;
+import com.llamalad7.mixinextras.sugar.Local;
 
 import name.modid.core.api.modifiers.config.utils.ModifierUtils;
 import name.modid.core.content.registries.AttributesRegistry;
@@ -32,7 +32,8 @@ public abstract class ProjectileCountAttribute {
   @Unique
   private static final float CROSSBOW_SPREAD = 7.0F;
 
-  // Extra arrows are copies that cannot be picked up, like the vanilla multishot arrows
+  // Extra arrows are copies that cannot be picked up, like the vanilla multishot
+  // arrows
   @ModifyReturnValue(method = "load", at = @At("RETURN"))
   private static List<ItemStack> gemstones$addExtraProjectiles(List<ItemStack> projectiles,
       @Local(argsOnly = true, ordinal = 0) ItemStack weaponStack,
@@ -52,7 +53,8 @@ public abstract class ProjectileCountAttribute {
     return result;
   }
 
-  // Without Multishot vanilla has no spread, so the extra projectiles would fly as one
+  // Without Multishot vanilla has no spread, so the extra projectiles would fly
+  // as one
   @ModifyExpressionValue(method = "shootAll", at = @At(value = "INVOKE", target = "Lnet/minecraft/enchantment/EnchantmentHelper;getProjectileSpread(Lnet/minecraft/server/world/ServerWorld;Lnet/minecraft/item/ItemStack;Lnet/minecraft/entity/Entity;F)F"))
   private float gemstones$applyExtraProjectileSpread(float spread,
       @Local(argsOnly = true) ItemStack weaponStack,

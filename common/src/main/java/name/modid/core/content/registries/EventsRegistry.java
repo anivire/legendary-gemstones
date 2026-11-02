@@ -60,7 +60,8 @@ public class EventsRegistry {
       BlockBreakHandler.tickPendingRegenerations();
       BlockBreakHandler.tickChainLightnings();
       for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
-        // Area effects last several seconds, there is no need to search for entities every tick
+        // Area effects last several seconds, there is no need to search for entities
+        // every tick
         if (player.age % 20 == 0) {
           EventAreaEffect.setupEvent(player);
         }
@@ -90,7 +91,8 @@ public class EventsRegistry {
     BlockEvent.BREAK.register((world, pos, state, player, xp) -> {
       boolean canBreak = EventOnBeforeBlockBreak.setupEvent(world, player, pos, state, world.getBlockEntity(pos));
 
-      // Smelter and Enchanter break the block on their own, other tool gems still react to the break
+      // Smelter and Enchanter break the block on their own, other tool gems still
+      // react to the break
       EventOnBlockBreak.setupEvent(world, player, pos, state, world.getBlockEntity(pos));
       return canBreak ? EventResult.pass() : EventResult.interruptFalse();
     });
@@ -102,7 +104,8 @@ public class EventsRegistry {
         GemstoneAttributeCapHelper.updateMaxHealthCap(serverPlayer);
         DepthPressureHelper.tick(serverPlayer);
 
-        // Items keep baked attribute values, refresh the ones that changed after a datapack reload
+        // Items keep baked attribute values, refresh the ones that changed after a
+        // datapack reload
         if (serverPlayer.age % 20 == 0) {
           GemstoneAttributeRefreshHelper.refreshStaleItems(serverPlayer);
           AmberShellHelper.tick(serverPlayer);

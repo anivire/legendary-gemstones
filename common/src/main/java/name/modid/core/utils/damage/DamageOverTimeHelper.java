@@ -10,7 +10,8 @@ public final class DamageOverTimeHelper {
   private DamageOverTimeHelper() {
   }
 
-  // Damage over time is credited to the player who applied it and does not consume
+  // Damage over time is credited to the player who applied it and does not
+  // consume
   // the target i-frames, so it does not weaken the next hit of the player
   public static void applyTick(LivingEntity entity, RegistryKey<DamageType> type, float amount) {
     if (entity.getWorld().isClient()) {

@@ -574,7 +574,8 @@ public class BlockBreakHandler implements ModifierHandler<ModifierConfig.BlockBr
     return hardness > 0.0F || centerHardness <= 0.0F;
   }
 
-  // A pickaxe must not dig out the dirt or wood around the stone, and a block the tool
+  // A pickaxe must not dig out the dirt or wood around the stone, and a block the
+  // tool
   // is too weak for (obsidian with an iron pickaxe) would break without a drop
   private static boolean isRightTool(ServerPlayerEntity player, ItemStack tool, BlockState state) {
     return tool.getMiningSpeedMultiplier(state) > 1.0F && player.canHarvest(state);

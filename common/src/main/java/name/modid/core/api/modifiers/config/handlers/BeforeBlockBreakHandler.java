@@ -75,7 +75,8 @@ public class BeforeBlockBreakHandler implements ModifierHandler<ModifierConfig.B
     BlockState state = ctx.getBlockState();
     ItemStack tool = player.getMainHandStack();
 
-    // Without the right tool vanilla drops nothing, the smelter must not bypass that
+    // Without the right tool vanilla drops nothing, the smelter must not bypass
+    // that
     if (tool.isEmpty() || hasEnchantment(world, tool, Enchantments.SILK_TOUCH) || !player.canHarvest(state)) {
       return;
     }
@@ -94,7 +95,8 @@ public class BeforeBlockBreakHandler implements ModifierHandler<ModifierConfig.B
 
     List<ItemStack> drops = Block.getDroppedStacks(state, world, pos, world.getBlockEntity(pos), player, tool);
 
-    // Drops that cannot be smelted (geodes, gemstones from loot tables) are kept as they are
+    // Drops that cannot be smelted (geodes, gemstones from loot tables) are kept as
+    // they are
     List<ItemStack> finalDrops = new ArrayList<>();
     boolean smeltedAny = false;
     for (ItemStack drop : drops) {
@@ -161,8 +163,10 @@ public class BeforeBlockBreakHandler implements ModifierHandler<ModifierConfig.B
       return;
     }
 
-    // Drops are taken from the loot table with a silk touch copy of the tool: shulker contents,
-    // banner patterns, bees and pot sherds are kept, unobtainable blocks (budding amethyst, spawners)
+    // Drops are taken from the loot table with a silk touch copy of the tool:
+    // shulker contents,
+    // banner patterns, bees and pot sherds are kept, unobtainable blocks (budding
+    // amethyst, spawners)
     // still drop nothing
     ItemStack silkTouchTool = tool.copy();
     EnchantmentHelper.apply(silkTouchTool, builder -> builder.add(silkTouchEntry, 1));

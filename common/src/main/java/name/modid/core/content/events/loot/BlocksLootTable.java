@@ -40,10 +40,12 @@ public class BlocksLootTable {
 
     Map<String, DropsConfig.BlockDropEntry> entryMap = DropsRegistry.getBlockDrops();
     DropsConfig.BlockDropEntry entry = entryMap.get(fullPath);
-    if (entry == null) return;
+    if (entry == null)
+      return;
 
     for (DropsConfig.DropEntry drop : entry.getEntries()) {
-      if (drop.getChance() <= 0) continue;
+      if (drop.getChance() <= 0)
+        continue;
 
       if (drop.getGemstoneType() != null) {
         addGemstoneDrop(context, drop.getGemstoneType(), drop.getChance());
@@ -63,7 +65,8 @@ public class BlocksLootTable {
   private static void addGemstoneDrop(LootEvent.LootTableModificationContext context,
       name.modid.core.api.modifiers.types.GemstoneType type, float chance) {
     LootPool.Builder pool = GemstoneLootHelper.createPool(type, chance);
-    if (pool == null) return;
+    if (pool == null)
+      return;
     pool.conditionally(SurvivesExplosionLootCondition.builder());
     context.addPool(pool);
   }

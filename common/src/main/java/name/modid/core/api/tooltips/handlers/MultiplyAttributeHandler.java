@@ -55,7 +55,8 @@ public class MultiplyAttributeHandler extends BaseTooltipHandler<ModifierConfig.
       if (BoostedValueFormatter.isBoosted(Math.abs(displayAdjusted), Math.abs(boostedAdjusted))) {
         part.append(Text.literal(" (").formatted(Formatting.DARK_GRAY))
             .append(builder.getArrowPrefix(value > 0, Formatting.LIGHT_PURPLE))
-            .append(Text.literal(builder.formatValue(Math.abs(boostedAdjusted), postfix)).formatted(Formatting.LIGHT_PURPLE))
+            .append(Text.literal(builder.formatValue(Math.abs(boostedAdjusted), postfix))
+                .formatted(Formatting.LIGHT_PURPLE))
             .append(Text.literal(")").formatted(Formatting.DARK_GRAY));
       }
 

@@ -45,8 +45,8 @@ public class AmplifierHandler implements TooltipHandler {
     }
 
     return TooltipHelper.safeTranslatable(
-            "tooltip.gemstones.amplifier",
-            valueText)
+        "tooltip.gemstones.amplifier",
+        valueText)
         .formatted(TooltipBuilder.DEFAULT_TEXT_COLOR);
   }
 }

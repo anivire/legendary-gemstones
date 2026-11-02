@@ -23,10 +23,13 @@ public abstract class PreserveGemstonesOnCrafting {
       net.minecraft.recipe.RecipeEntry<net.minecraft.recipe.CraftingRecipe> recipe,
       CallbackInfo ci) {
     ItemStack result = resultInventory.getStack(0);
-    if (result.isEmpty()) return;
-    if (!GemstoneSlotHelper.isItemValid(result.getItem())) return;
+    if (result.isEmpty())
+      return;
+    if (!GemstoneSlotHelper.isItemValid(result.getItem()))
+      return;
 
-    // Sockets of only one item can be kept, so combining two items with gemstones would destroy gems
+    // Sockets of only one item can be kept, so combining two items with gemstones
+    // would destroy gems
     int itemsWithGemstones = 0;
     for (int i = 0; i < craftingInventory.size(); i++) {
       if (GemstoneSlotHelper.hasInsertedGemstones(craftingInventory.getStack(i))) {

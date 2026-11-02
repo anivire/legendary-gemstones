@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import dev.architectury.networking.NetworkManager;
 import name.modid.core.api.modifiers.config.GemstoneModifier;
 import name.modid.core.api.modifiers.config.ModifierConfig;
 import name.modid.core.api.modifiers.config.ModifierConfig.PlayerConfig;
@@ -16,7 +17,6 @@ import name.modid.core.content.registries.TagsRegistry;
 import name.modid.core.network.OreVisionPayload;
 import name.modid.core.utils.GetRandomBuff;
 import name.modid.core.utils.oreVision.OreVisionRadius;
-import dev.architectury.networking.NetworkManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
@@ -244,7 +244,8 @@ public class PlayerHandler implements ModifierHandler<ModifierConfig.PlayerConfi
             case GROUND -> isValidGroundSpawn(world, pos);
           };
 
-          // Vanilla spawn rules of the mob, including the light level: no monsters in a lit base
+          // Vanilla spawn rules of the mob, including the light level: no monsters in a
+          // lit base
           if (!valid || !SpawnRestriction.canSpawn(entry.type, world, SpawnReason.NATURAL, pos, random)) {
             continue;
           }

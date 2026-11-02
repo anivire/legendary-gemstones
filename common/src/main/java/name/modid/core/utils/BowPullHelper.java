@@ -12,7 +12,8 @@ public final class BowPullHelper {
   private BowPullHelper() {
   }
 
-  // Same curve as BowItem.getPullProgress, but with the pull speed of this exact bow
+  // Same curve as BowItem.getPullProgress, but with the pull speed of this exact
+  // bow
   public static float getPullProgress(ItemStack bowStack, int useTicks) {
     AttributeModifiersComponent component = bowStack.getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS,
         AttributeModifiersComponent.DEFAULT);

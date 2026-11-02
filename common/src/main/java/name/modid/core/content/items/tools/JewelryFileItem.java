@@ -9,8 +9,8 @@ import name.modid.core.api.tooltips.TooltipHelper.InlineIcons;
 import name.modid.core.api.tooltips.TooltipText;
 import name.modid.core.content.items.GemstoneDustItem;
 import name.modid.core.content.items.GemstoneItem;
-import name.modid.core.content.items.registries.ItemsRegistry;
 import name.modid.core.content.items.registries.GemstonesRegistry;
+import name.modid.core.content.items.registries.ItemsRegistry;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
@@ -210,7 +210,8 @@ public class JewelryFileItem extends Item implements ConsumableTool {
       player.stopUsingItem();
   }
 
-  // Dust is paid when a stage starts, an unpaid stage waits until the player has enough dust
+  // Dust is paid when a stage starts, an unpaid stage waits until the player has
+  // enough dust
   private static PolishingComponent payStage(PlayerEntity player, ItemStack gemStack, PolishingComponent progress) {
     if (progress.stagePaid())
       return progress;

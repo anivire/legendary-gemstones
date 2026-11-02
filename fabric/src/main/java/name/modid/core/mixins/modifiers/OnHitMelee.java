@@ -51,7 +51,8 @@ public abstract class OnHitMelee {
     try {
       damaged = original.call(target, source, modifiedDamage);
     } finally {
-      // Ender Judgement is armed only for this hit, even if it never reached the damage application
+      // Ender Judgement is armed only for this hit, even if it never reached the
+      // damage application
       EnderJudgementHelper.disarm();
     }
 

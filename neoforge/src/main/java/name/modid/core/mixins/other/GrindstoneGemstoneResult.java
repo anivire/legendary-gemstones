@@ -2,13 +2,13 @@ package name.modid.core.mixins.other;
 
 import java.util.List;
 
-import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
-import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
-
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
+
+import com.llamalad7.mixinextras.injector.wrapoperation.Operation;
+import com.llamalad7.mixinextras.injector.wrapoperation.WrapOperation;
 
 import name.modid.core.api.modifiers.types.GemstoneQuality;
 import name.modid.core.content.items.GemstoneDustItem;
@@ -53,7 +53,8 @@ public abstract class GrindstoneGemstoneResult {
     }
   }
 
-  // Vanilla clears both input slots, a gemstone stack loses only the ground gemstone
+  // Vanilla clears both input slots, a gemstone stack loses only the ground
+  // gemstone
   @WrapOperation(method = "onTakeItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/inventory/Inventory;setStack(ILnet/minecraft/item/ItemStack;)V"))
   private void gemstones$takeSingleGemstone(Inventory input, int slot, ItemStack stack,
       Operation<Void> original) {

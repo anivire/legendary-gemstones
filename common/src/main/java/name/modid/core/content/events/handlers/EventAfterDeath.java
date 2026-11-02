@@ -30,7 +30,8 @@ public class EventAfterDeath {
   private static final int MIN_HARVEST_MARK_XP = 3;
   private static final int MAX_HARVEST_MARK_XP = 5;
 
-  // Detonate hurts only mobs: no block damage, no damage to players, pets, villagers or dropped loot
+  // Detonate hurts only mobs: no block damage, no damage to players, pets,
+  // villagers or dropped loot
   private static final ExplosionBehavior DETONATE_BEHAVIOR = new ExplosionBehavior() {
     @Override
     public boolean canDestroyBlock(Explosion explosion, net.minecraft.world.BlockView world,
@@ -54,7 +55,8 @@ public class EventAfterDeath {
       return;
     }
 
-    // Damage over time and bonus damage have no attacker, the kill goes to the player who hit the entity
+    // Damage over time and bonus damage have no attacker, the kill goes to the
+    // player who hit the entity
     Entity killer = DamageSourceHelper.getKiller(entity, damageSource);
 
     detonateIfMarked(serverWorld, entity, killer);
@@ -94,7 +96,8 @@ public class EventAfterDeath {
         entity.getX(),
         entity.getY(),
         entity.getZ(),
-        DETONATE_BASE_POWER + DETONATE_POWER_PER_LEVEL * entity.getStatusEffect(EffectsRegistry.detonateEntry()).getAmplifier(),
+        DETONATE_BASE_POWER
+            + DETONATE_POWER_PER_LEVEL * entity.getStatusEffect(EffectsRegistry.detonateEntry()).getAmplifier(),
         false,
         World.ExplosionSourceType.NONE);
   }

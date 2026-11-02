@@ -20,9 +20,11 @@ public abstract class PreserveGemstonesOnGrindstone {
   private void onUpdateResult(CallbackInfo ci) {
     GrindstoneScreenHandler handler = (GrindstoneScreenHandler) (Object) this;
     ItemStack result = handler.getSlot(2).getStack();
-    if (result.isEmpty()) return;
+    if (result.isEmpty())
+      return;
 
-    // Sockets of only one item can be kept, so combining two items with gemstones would destroy gems
+    // Sockets of only one item can be kept, so combining two items with gemstones
+    // would destroy gems
     if (GemstoneSlotHelper.hasInsertedGemstones(input.getStack(0))
         && GemstoneSlotHelper.hasInsertedGemstones(input.getStack(1))) {
       handler.getSlot(2).setStack(ItemStack.EMPTY);

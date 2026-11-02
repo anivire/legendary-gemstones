@@ -77,7 +77,8 @@ public abstract class PlayerWitherGuardEntity implements WitherSkullOrbitFlag {
     }
   }
 
-  // Only Wither Guard skulls skip the vanilla hit, skulls of the Wither boss must still hurt players
+  // Only Wither Guard skulls skip the vanilla hit, skulls of the Wither boss must
+  // still hurt players
   @Inject(method = "onEntityHit", at = @At("HEAD"), cancellable = true)
   private void ignoreGuardSkullHit(EntityHitResult hit, CallbackInfo ci) {
     if (this.isOrbiting || this.isWitherGuardSkull) {
@@ -100,7 +101,8 @@ public abstract class PlayerWitherGuardEntity implements WitherSkullOrbitFlag {
         : skull.getDamageSources().magic();
 
     Box damageBox = new Box(impactPos, impactPos).expand(GUARD_SKULL_RADIUS);
-    for (LivingEntity target : world.getEntitiesByClass(LivingEntity.class, damageBox, this::canDamageWitherGuardTarget)) {
+    for (LivingEntity target : world.getEntitiesByClass(LivingEntity.class, damageBox,
+        this::canDamageWitherGuardTarget)) {
       if (target == owner) {
         continue;
       }

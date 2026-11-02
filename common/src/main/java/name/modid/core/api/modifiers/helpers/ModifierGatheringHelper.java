@@ -15,7 +15,8 @@ import name.modid.core.api.modifiers.types.GemstoneType;
 import net.minecraft.item.ItemStack;
 
 public class ModifierGatheringHelper {
-  // Gathering runs on every event and periodic refresh, a missing config is reported only once
+  // Gathering runs on every event and periodic refresh, a missing config is
+  // reported only once
   private static final Set<String> REPORTED_MISSING_MODIFIERS = ConcurrentHashMap.newKeySet();
 
   private static void logMissingModifier(GemstoneComponent gem, ItemStack itemStack) {
