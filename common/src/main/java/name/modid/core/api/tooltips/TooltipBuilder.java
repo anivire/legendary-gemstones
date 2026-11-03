@@ -19,9 +19,7 @@ import net.minecraft.util.Formatting;
 
 public class TooltipBuilder {
   public static final Formatting DEFAULT_TEXT_COLOR = Formatting.GOLD;
-  // Positive values that stack with diminishing returns, plain additive ones stay
-  // green
-  public static final Formatting DIMINISHING_VALUE_COLOR = Formatting.AQUA;
+  public static final Formatting DIMINISHING_VALUE_COLOR = Formatting.GREEN;
 
   private final GemstoneType gemstoneType;
   private final ModifierItemCategory itemCategory;

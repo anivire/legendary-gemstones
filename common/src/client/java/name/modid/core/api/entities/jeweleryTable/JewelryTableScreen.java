@@ -17,10 +17,12 @@ public class JewelryTableScreen extends HandledScreen<JewelryTableScreenHandler>
       "textures/gui/jewelry_table/gui.png");
   private static final Identifier CONTAINER_BACKGROUND_TEXTURE = Identifier.of("minecraft",
       "textures/gui/container/crafting_table.png");
-  private static final int PLATE_COLOR = 0x4F000000;
   private static final Identifier ERROR_TEXTURE = Identifier.ofVanilla("container/anvil/error");
+
   private static final int ERROR_X = 92;
   private static final int ERROR_Y = 32;
+
+  private static final int PLATE_COLOR = 0x4F000000;
   private static final int AFFORDABLE_COLOR = 0x80FF20;
   private static final int TOO_EXPENSIVE_COLOR = 0xFF6060;
 

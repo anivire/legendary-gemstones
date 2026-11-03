@@ -3,7 +3,7 @@
     {
       "type": "space",
       "advances": {
-        "\uE900": 13
+        "\uE900": 14
       }
     },
     {
@@ -172,9 +172,9 @@
     {
       "type": "bitmap",
       "file": "gemstones:gui/icons/info_icon.png",
-      "height": 9,
+      "height": 10,
       "width": 10,
-      "ascent": 7,
+      "ascent": 8,
       "chars": [
         "\uE913"
       ]
@@ -200,8 +200,8 @@
     {
       "type": "bitmap",
       "file": "gemstones:gui/icons/polishing_icon.png",
-      "height": 9,
-      "ascent": 7,
+      "height": 10,
+      "ascent": 8,
       "chars": [
         "\uE916"
       ]
