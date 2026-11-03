@@ -8,7 +8,7 @@
           "condition": "minecraft:survives_explosion"
         },
         {
-          "base_chance": 0.025,
+          "base_chance": 0.03,
           "condition": "gemstones:geode_chance",
           "fallback_ore_tags": [
             "#gemstones:stone_ores"

@@ -125,7 +125,6 @@ public class DropsConfig {
     @SerializedName("gemstone_type")
     public GemstoneType gemstoneType;
     public float chance;
-    public boolean mythic;
 
     public GemstoneType getGemstoneType() {
       return gemstoneType;
@@ -133,10 +132,6 @@ public class DropsConfig {
 
     public float getChance() {
       return chance;
-    }
-
-    public boolean isMythic() {
-      return mythic;
     }
   }
 
@@ -177,7 +172,6 @@ public class DropsConfig {
     public int minCount = 1;
     @SerializedName("max_count")
     public int maxCount = 1;
-    public boolean mythic;
 
     public String getTrigger() {
       return trigger;
@@ -199,12 +193,9 @@ public class DropsConfig {
       return minCount;
     }
 
+    // A range written backwards must not crash the drop roll
     public int getMaxCount() {
-      return maxCount;
-    }
-
-    public boolean isMythic() {
-      return mythic;
+      return Math.max(minCount, maxCount);
     }
   }
 

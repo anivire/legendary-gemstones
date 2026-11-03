@@ -13,14 +13,12 @@ import name.modid.core.api.modifiers.types.GemstoneQuality;
 import name.modid.core.api.modifiers.types.GemstoneType;
 import name.modid.core.content.items.GemstoneItem;
 import name.modid.core.content.items.registries.GemstonesRegistry;
-import name.modid.datapack.sockets.SocketSettingsConfig;
 import name.modid.datapack.sockets.SocketSettingsDataLoader;
 import net.minecraft.component.ComponentType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class GemstoneSlotHelper {
-  public static final int MAX_SLOTS = SocketSettingsConfig.DEFAULT_MAX_SLOTS;
   private static final int INITIAL_OPEN_SLOTS = 1;
 
   public static ArrayList<GemstoneComponent> contains(ItemStack itemStack, GemstoneType gemstoneType) {

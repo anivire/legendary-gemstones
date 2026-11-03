@@ -43,12 +43,6 @@
     },
     "ARMOR": {
       "type": "PLAYER",
-      "chance_levels": [
-        0.0,
-        0.0,
-        0.0,
-        0.0
-      ],
       "value_levels": [
         0.45,
         0.65,

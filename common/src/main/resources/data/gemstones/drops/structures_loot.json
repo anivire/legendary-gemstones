@@ -48,13 +48,11 @@
         },
         {
           "gemstone_type": "ONYX",
-          "chance": 0.25,
-          "mythic": true
+          "chance": 0.25
         },
         {
           "gemstone_type": "ASTRALITE",
-          "chance": 0.25,
-          "mythic": true
+          "chance": 0.25
         }
       ]
     },
@@ -65,8 +63,7 @@
       "pools": [
         {
           "gemstone_type": "CRYSTALLIZED_EXPERIENCE",
-          "chance": 0.05,
-          "mythic": true
+          "chance": 0.05
         }
       ]
     },

@@ -1,5 +1,6 @@
 package name.modid.datapack.geodes;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -29,8 +30,17 @@ public class GeodesConfig {
     if (ores == null) {
       ores = List.of();
     }
-    if (qualityOverrides == null) {
-      qualityOverrides = Map.of();
-    }
+
+    gemstones = withoutInvalidEntries(gemstones);
+    qualities = withoutInvalidEntries(qualities);
+    qualityOverrides = withoutInvalidEntries(qualityOverrides);
+    qualityOverrides.replaceAll((type, overrides) -> withoutInvalidEntries(overrides));
+  }
+
+  // Gson turns an unknown enum name into a null key
+  private static <K, V> Map<K, V> withoutInvalidEntries(Map<K, V> values) {
+    Map<K, V> result = values != null ? new LinkedHashMap<>(values) : new LinkedHashMap<>();
+    result.entrySet().removeIf(entry -> entry.getKey() == null || entry.getValue() == null);
+    return result;
   }
 }
