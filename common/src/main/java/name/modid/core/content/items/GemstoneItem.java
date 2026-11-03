@@ -151,7 +151,8 @@ public class GemstoneItem extends Item {
               totalPercent)
               .formatted(Formatting.GRAY)));
       if (dustLeft > 0) {
-        tooltip.add(TooltipText.indented(
+        tooltip.add(TooltipText.line(
+            TooltipText.icon(InlineIcons.POLISHING_INDENT),
             Text.translatable("tooltip.gemstones.polishing.dust_left",
                 Text.literal(String.valueOf(dustLeft)).formatted(Formatting.GOLD),
                 ItemsRegistry.gemstoneDust().getDefaultStack().toHoverableText())

@@ -166,8 +166,8 @@
   "item.gemstones.jewelry_hammer.info_inserting": "Einfügen",
 
   "item.gemstones.jewelry_pliers": "Schmuckzangen",
-  "item.gemstones.jewelry_pliers.info_1": "Ermöglicht %s Edelsteins aus Ausrüstung, Waffen und Werkzeugen.",
-  "item.gemstones.jewelry_pliers.info_last": "die Entfernung des letzten",
+  "item.gemstones.jewelry_pliers.info_1": "Ermöglicht %s eines Edelsteins aus Ausrüstung, Waffen und Werkzeugen.",
+  "item.gemstones.jewelry_pliers.info_last": "die Entfernung",
   "item.gemstones.jewelry_pliers.info_2": "Entnahme kostet %s je nach Edelsteinqualität.",
   "item.gemstones.jewelry_pliers.info_levels": "Erfahrungslevel",
 
@@ -339,7 +339,21 @@
 
   "block.gemstones.jewelry_table": "Schmucktisch",
   "container.gemstones.jewelry_table": "Jewelry Table",
-  "container.gemstones.jewelry_table.level_cost": "Kosten: %s Lvl",
+  "container.gemstones.jewelry_table.tools": "Schmuckwerkzeuge",
+  "container.gemstones.jewelry_table.chisel": "Meißel",
+  "container.gemstones.jewelry_table.level": "Erfahrungslevel",
+  "container.gemstones.jewelry_table.levels": "Erfahrungslevel",
+  "container.gemstones.jewelry_table.required": "Benötigt:",
+  "container.gemstones.jewelry_table.insert.title": "Edelstein einsetzen",
+  "container.gemstones.jewelry_table.insert.info": "Ziehe den Edelstein %s auf den gewählten Sockel, um ihn zu %s.",
+  "container.gemstones.jewelry_table.insert.action": "einsetzen",
+  "container.gemstones.jewelry_table.insert.unsuitable": "Dieser Edelstein kann nicht in diesen Gegenstand eingesetzt werden.",
+  "container.gemstones.jewelry_table.extract.title": "Edelstein entnehmen",
+  "container.gemstones.jewelry_table.extract.info": "Drücke %1$s, um %3$s zu %2$s.",
+  "container.gemstones.jewelry_table.extract.action": "entnehmen",
+  "container.gemstones.jewelry_table.unlock.title": "Sockel freischalten",
+  "container.gemstones.jewelry_table.unlock.info": "Drücke %s, um diesen Sockel %s.",
+  "container.gemstones.jewelry_table.unlock.action": "freizuschalten",
 
   "rei.gemstones.jewelry_table.insert": "Edelstein Einsetzen",
   "rei.gemstones.jewelry_table.remove": "Edelstein Entnehmen",

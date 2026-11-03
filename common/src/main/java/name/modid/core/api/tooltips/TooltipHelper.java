@@ -56,7 +56,9 @@ public class TooltipHelper {
     INFO("\uE913"),
     EXPERIENCE("\uE914"),
     ARROW_UP_DIMINISHING("\uE915"),
-    POLISHING("\uE916");
+    POLISHING("\uE916"),
+    MOUSE_DRAG("\uE917"),
+    POLISHING_INDENT("\uE918");
 
     private final String symbol;
 

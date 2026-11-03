@@ -7,12 +7,15 @@ import dev.emi.emi.api.EmiPlugin;
 import dev.emi.emi.api.EmiRegistry;
 import dev.emi.emi.api.stack.EmiIngredient;
 import dev.emi.emi.api.stack.EmiStack;
+import dev.emi.emi.api.widget.Bounds;
 import name.modid.compat.JewelryTableRecipeExamples;
+import name.modid.core.api.entities.jeweleryTable.JewelryTableScreen;
 import name.modid.core.api.modifiers.helpers.GemstoneSlotHelper;
 import name.modid.core.content.blocks.BlocksRegistry;
 import name.modid.core.content.items.GemstoneItem;
 import name.modid.core.content.items.registries.GemstonesRegistry;
 import name.modid.core.content.items.registries.ItemsRegistry;
+import net.minecraft.client.gui.ScreenRect;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
@@ -30,6 +33,10 @@ public class GemstonesEmiPlugin implements EmiPlugin {
     registry.addWorkstation(JewelryTableEmiRecipeCategory.INSERT, workstation);
     registry.addWorkstation(JewelryTableEmiRecipeCategory.REMOVE, workstation);
     registry.addWorkstation(JewelryTableEmiRecipeCategory.EXPAND, workstation);
+    registry.addExclusionArea(JewelryTableScreen.class, (screen, consumer) -> {
+      ScreenRect side = screen.getSideBounds();
+      consumer.accept(new Bounds(side.getLeft(), side.getTop(), side.width(), side.height()));
+    });
     GemstonesRegistry.getLegacyGemstones().stream()
         .map(EmiStack::of)
         .forEach(registry::removeEmiStacks);

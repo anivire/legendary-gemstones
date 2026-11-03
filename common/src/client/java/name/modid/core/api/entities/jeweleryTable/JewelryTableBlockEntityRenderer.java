@@ -1,6 +1,7 @@
 package name.modid.core.api.entities.jeweleryTable;
 
 import name.modid.core.content.blocks.entity.JewelryTableBlockEntity;
+import name.modid.core.content.screen.JewelryTableScreenHandler;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.render.LightmapTextureManager;
 import net.minecraft.client.render.OverlayTexture;
@@ -27,8 +28,8 @@ public class JewelryTableBlockEntityRenderer implements BlockEntityRenderer<Jewe
 
     ItemRenderer itemRenderer = MinecraftClient.getInstance().getItemRenderer();
 
-    ItemStack stackLeft = entity.getStack(0);
-    ItemStack stackRight = entity.getStack(1);
+    ItemStack stackLeft = entity.getDisplayedTool();
+    ItemStack stackRight = entity.getStack(JewelryTableScreenHandler.SLOT_BASE);
 
     World world = entity.getWorld();
     BlockPos pos = entity.getPos();

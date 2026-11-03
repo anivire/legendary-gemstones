@@ -167,7 +167,7 @@
 
   "item.gemstones.jewelry_pliers": "Ювелирные щипцы",
   "item.gemstones.jewelry_pliers.info_1": "Позволяет %s самоцвет из брони, оружия и инструментов.",
-  "item.gemstones.jewelry_pliers.info_last": "извлекать последний",
+  "item.gemstones.jewelry_pliers.info_last": "извлекать",
   "item.gemstones.jewelry_pliers.info_2": "Извлечение требует %s в зависимости от качества самоцвета.",
   "item.gemstones.jewelry_pliers.info_levels": "Уровни опыта",
 
@@ -339,7 +339,21 @@
 
   "block.gemstones.jewelry_table": "Стол ювелира",
   "container.gemstones.jewelry_table": "Стол ювелира",
-  "container.gemstones.jewelry_table.level_cost": "Стоимость: %s ур.",
+  "container.gemstones.jewelry_table.tools": "Ювелирные инструменты",
+  "container.gemstones.jewelry_table.chisel": "Долото",
+  "container.gemstones.jewelry_table.level": "ур. опыта",
+  "container.gemstones.jewelry_table.levels": "ур. опыта",
+  "container.gemstones.jewelry_table.required": "Требуется:",
+  "container.gemstones.jewelry_table.insert.title": "Вставить самоцвет",
+  "container.gemstones.jewelry_table.insert.info": "Перетащите самоцвет %s на выбранное гнездо, чтобы %s его.",
+  "container.gemstones.jewelry_table.insert.action": "вставить",
+  "container.gemstones.jewelry_table.insert.unsuitable": "Этот самоцвет нельзя вставить в этот предмет.",
+  "container.gemstones.jewelry_table.extract.title": "Извлечь самоцвет",
+  "container.gemstones.jewelry_table.extract.info": "Нажмите %s, чтобы %s %s.",
+  "container.gemstones.jewelry_table.extract.action": "извлечь",
+  "container.gemstones.jewelry_table.unlock.title": "Открыть гнездо",
+  "container.gemstones.jewelry_table.unlock.info": "Нажмите %s, чтобы %s это гнездо.",
+  "container.gemstones.jewelry_table.unlock.action": "открыть",
 
   "rei.gemstones.jewelry_table.insert": "Добавление самоцветов",
   "rei.gemstones.jewelry_table.remove": "Извлечение самоцветов",
