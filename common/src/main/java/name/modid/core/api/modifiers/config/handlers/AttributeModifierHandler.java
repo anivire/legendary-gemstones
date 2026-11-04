@@ -42,20 +42,6 @@ public class AttributeModifierHandler {
     itemStack.set(DataComponentTypes.ATTRIBUTE_MODIFIERS, expected);
   }
 
-  // True when the baked attribute modifiers of the stack differ from the current
-  // gemstone configs
-  public static boolean isStale(ArrayList<GemstoneModifier> gemstoneModifiers, ItemStack itemStack) {
-    AttributeModifiersComponent expected = buildComponent(gemstoneModifiers, itemStack);
-    if (expected == null) {
-      return false;
-    }
-
-    AttributeModifiersComponent current = itemStack.getOrDefault(
-        DataComponentTypes.ATTRIBUTE_MODIFIERS,
-        AttributeModifiersComponent.DEFAULT);
-    return !expected.equals(current);
-  }
-
   // Returns null when the stack must be left untouched
   private static AttributeModifiersComponent buildComponent(
       ArrayList<GemstoneModifier> gemstoneModifiers,

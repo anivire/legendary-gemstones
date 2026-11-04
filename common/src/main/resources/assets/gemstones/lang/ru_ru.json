@@ -2,8 +2,8 @@
   "item_group.gemstones": "Легендарные самоцветы",
   "config.gemstones.title": "Легендарные самоцветы",
   "config.gemstones.category.tooltips": "Подсказки",
-  "config.gemstones.option.show_empty_sockets": "Показывать пустые слоты",
-  "config.gemstones.option.show_empty_sockets.tooltip": "Показывать раздел со слотами на предметах без вставленных самоцветов",
+  "config.gemstones.option.show_empty_sockets": "Показывать пустые гнёзда",
+  "config.gemstones.option.show_empty_sockets.tooltip": "Показывать раздел с гнёздами на предметах без вставленных самоцветов",
 
   "tooltip.gemstones.category_name": "С самоцветами:",
   "tooltip.gemstones.gemstone_bonus": "Бонусы:",
@@ -206,7 +206,6 @@
   "item.gemstones.quality.none": "Никакое",
   "item.gemstones.quality.crude": "Грубый",
   "item.gemstones.quality.refined": "Очищенный",
-  "item.gemstones.quality.polished": "Очищенный",
   "item.gemstones.quality.flawless": "Безупречный",
   "item.gemstones.quality.radiant": "Сияющий",
   "item.gemstones.quality.mythic": "Мифический",

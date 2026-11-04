@@ -32,17 +32,18 @@ public class JewelryTableScreen extends HandledScreen<JewelryTableScreenHandler>
   private static final int BACKGROUND_HEIGHT = 166;
 
   private static final int SLOT_SIZE = 18;
-  private static final int SLOT_FRAME_V = 166;
+  private static final int SOCKET_SPRITES_V = 208;
   private static final int SLOT_FRAME_U = 0;
   private static final int PLUS_BUTTON_U = 18;
   private static final int LOCK_BUTTON_U = 36;
   private static final int INACTIVE_SOCKET_U = 54;
-  private static final int TOOL_SILHOUETTES_U = 72;
+  private static final int TOOL_SPRITES_V = 226;
+  private static final int TOOL_SILHOUETTES_U = 18;
 
   private static final int TOOL_PANEL_X = -21;
   private static final int TOOL_PANEL_U = 176;
   private static final int TOOL_PANEL_WIDTH = 25;
-  private static final int TOOL_PANEL_HEIGHT = 84;
+  private static final int TOOL_PANEL_HEIGHT = 81;
 
   private static final int TOGGLE_CLOSED_X = -28;
   private static final int TOGGLE_OPEN_X = -49;
@@ -57,7 +58,10 @@ public class JewelryTableScreen extends HandledScreen<JewelryTableScreenHandler>
   private static final int TOGGLE_ITEM_X = 7;
   private static final int TOGGLE_ITEM_Y = 5;
 
-  private static final int SOCKETS_Y = 23;
+  private static final int TITLE_Y = 7;
+  private static final int TITLE_COLOR = 0xF0E0C0;
+
+  private static final int SOCKETS_Y = 26;
   private static final int SOCKETS_PER_ROW = 8;
 
   private static final int AFFORDABLE_COLOR = 0x80FF20;
@@ -92,7 +96,7 @@ public class JewelryTableScreen extends HandledScreen<JewelryTableScreenHandler>
     }
 
     Slot baseSlot = this.handler.getSlot(JewelryTableScreenHandler.SLOT_BASE);
-    drawSlotSprite(context, SLOT_FRAME_U, this.x + baseSlot.x - 1, this.y + baseSlot.y - 1);
+    drawSocketSprite(context, SLOT_FRAME_U, this.x + baseSlot.x - 1, this.y + baseSlot.y - 1);
     drawSockets(context, mouseX, mouseY);
   }
 
@@ -103,7 +107,8 @@ public class JewelryTableScreen extends HandledScreen<JewelryTableScreenHandler>
     for (int i = 0; i < JewelryTableScreenHandler.TOOL_SLOTS.length; i++) {
       Slot slot = this.handler.getSlot(JewelryTableScreenHandler.TOOL_SLOTS[i]);
       int u = slot.hasStack() ? SLOT_FRAME_U : TOOL_SILHOUETTES_U + i * SLOT_SIZE;
-      drawSlotSprite(context, u, this.x + slot.x - 1, this.y + slot.y - 1);
+      context.drawTexture(GUI_TEXTURE, this.x + slot.x - 1, this.y + slot.y - 1, u, TOOL_SPRITES_V, SLOT_SIZE,
+          SLOT_SIZE);
     }
   }
 
@@ -124,13 +129,13 @@ public class JewelryTableScreen extends HandledScreen<JewelryTableScreenHandler>
       int x = getSocketX(i);
       int y = getSocketY(i);
       if (!hasItem) {
-        drawSlotSprite(context, INACTIVE_SOCKET_U, x, y);
+        drawSocketSprite(context, INACTIVE_SOCKET_U, x, y);
         continue;
       }
 
       SocketAction action = this.handler.getSocketAction(i);
 
-      drawSlotSprite(context, switch (action) {
+      drawSocketSprite(context, switch (action) {
         case INSERT -> PLUS_BUTTON_U;
         case UNLOCK -> LOCK_BUTTON_U;
         default -> SLOT_FRAME_U;
@@ -145,8 +150,8 @@ public class JewelryTableScreen extends HandledScreen<JewelryTableScreenHandler>
     }
   }
 
-  private void drawSlotSprite(DrawContext context, int u, int x, int y) {
-    context.drawTexture(GUI_TEXTURE, x, y, u, SLOT_FRAME_V, SLOT_SIZE, SLOT_SIZE);
+  private void drawSocketSprite(DrawContext context, int u, int x, int y) {
+    context.drawTexture(GUI_TEXTURE, x, y, u, SOCKET_SPRITES_V, SLOT_SIZE, SLOT_SIZE);
   }
 
   private int getToggleX() {
@@ -224,6 +229,8 @@ public class JewelryTableScreen extends HandledScreen<JewelryTableScreenHandler>
 
   @Override
   protected void drawForeground(DrawContext context, int mouseX, int mouseY) {
+    int titleX = (BACKGROUND_WIDTH - this.textRenderer.getWidth(this.title)) / 2;
+    context.drawText(this.textRenderer, this.title, titleX, TITLE_Y, TITLE_COLOR, true);
   }
 
   @Override

@@ -33,9 +33,11 @@ public class JewelryTableScreenHandler extends ScreenHandler {
   private static final int TABLE_SLOT_COUNT = 5;
 
   private static final int TOOL_SLOT_X = -14;
-  private static final int TOOL_SLOT_Y = 7;
+  private static final int TOOL_SLOT_Y = 4;
   private static final int BASE_SLOT_X = 80;
-  private static final int BASE_SLOT_Y = 47;
+  private static final int BASE_SLOT_Y = 50;
+  private static final int PLAYER_INVENTORY_Y = 84;
+  private static final int PLAYER_HOTBAR_Y = 142;
 
   private final Inventory inventory;
   private final BlockPos pos;
@@ -285,14 +287,14 @@ public class JewelryTableScreenHandler extends ScreenHandler {
   private void addPlayerInventory(PlayerInventory playerInventory) {
     for (int i = 0; i < 3; ++i) {
       for (int l = 0; l < 9; ++l) {
-        this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, 84 + i * 18));
+        this.addSlot(new Slot(playerInventory, l + i * 9 + 9, 8 + l * 18, PLAYER_INVENTORY_Y + i * 18));
       }
     }
   }
 
   private void addPlayerHotbar(PlayerInventory playerInventory) {
     for (int i = 0; i < 9; ++i) {
-      this.addSlot(new Slot(playerInventory, i, 8 + i * 18, 142));
+      this.addSlot(new Slot(playerInventory, i, 8 + i * 18, PLAYER_HOTBAR_Y));
     }
   }
 

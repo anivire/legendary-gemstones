@@ -193,10 +193,7 @@ public class ModifiersConfigDeserializer implements JsonDeserializer<ModifierCon
   }
 
   private ModifierCategoryType parseModifierType(String name) {
-    return switch (name.toUpperCase()) {
-      case "BOOSTER" -> ModifierCategoryType.AMPLIFIER;
-      default -> ModifierCategoryType.valueOf(name.toUpperCase());
-    };
+    return ModifierCategoryType.valueOf(name.toUpperCase());
   }
 
   private EventType deserializeEvent(JsonObject obj) {

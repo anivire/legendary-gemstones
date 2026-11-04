@@ -91,7 +91,7 @@ public class DropsConfig {
     // Placeholder values
     @SerializedName("CRUDE")
     public float crude = 0.60f;
-    @SerializedName(value = "REFINED", alternate = "POLISHED")
+    @SerializedName("REFINED")
     public float refined = 0.25f;
     @SerializedName("FLAWLESS")
     public float flawless = 0.10f;

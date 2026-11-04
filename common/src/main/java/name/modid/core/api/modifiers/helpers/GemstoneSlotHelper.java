@@ -251,26 +251,6 @@ public class GemstoneSlotHelper {
     clampDamageToMaxDurability(itemStack);
   }
 
-  // Refreshes baked attribute modifiers only when they differ from the current
-  // gemstone configs
-  public static boolean refreshAttributesIfStale(ItemStack itemStack) {
-    if (!shouldRefreshAttributes(itemStack)) {
-      return false;
-    }
-
-    ArrayList<GemstoneModifier> modifiers = isItemValid(itemStack.getItem())
-        ? ModifierGatheringHelper.getAttributeModifiers(itemStack)
-        : new ArrayList<>();
-
-    if (!ModifierManager.isAttributeModifiersStale(modifiers, itemStack)) {
-      return false;
-    }
-
-    ModifierManager.applyAttributeModifiers(modifiers, itemStack);
-    clampDamageToMaxDurability(itemStack);
-    return true;
-  }
-
   // Removing a durability gem must not leave the item with more damage than its
   // new maximum,
   // otherwise it breaks on the next use

@@ -16,10 +16,6 @@ public class ModifierManager {
     AttributeModifierHandler.apply(flattenAttributeModifiers(modifiers), stack);
   }
 
-  public static boolean isAttributeModifiersStale(ArrayList<GemstoneModifier> modifiers, ItemStack stack) {
-    return AttributeModifierHandler.isStale(flattenAttributeModifiers(modifiers), stack);
-  }
-
   private static ArrayList<GemstoneModifier> flattenAttributeModifiers(ArrayList<GemstoneModifier> modifiers) {
     ArrayList<GemstoneModifier> attributeModifiers = new ArrayList<>(modifiers.stream()
         .filter(x -> x.getConfig() instanceof ModifierConfig.AttributeConfig)

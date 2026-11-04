@@ -9,7 +9,6 @@ import dev.architectury.event.events.common.PlayerEvent;
 import dev.architectury.event.events.common.TickEvent;
 import name.modid.core.api.modifiers.config.handlers.BlockBreakHandler;
 import name.modid.core.api.modifiers.helpers.GemstoneAttributeCapHelper;
-import name.modid.core.api.modifiers.helpers.GemstoneAttributeRefreshHelper;
 import name.modid.core.content.events.CustomEvents;
 import name.modid.core.content.events.handlers.EventAfterDeath;
 import name.modid.core.content.events.handlers.EventAreaEffect;
@@ -104,10 +103,7 @@ public class EventsRegistry {
         GemstoneAttributeCapHelper.updateMaxHealthCap(serverPlayer);
         DepthPressureHelper.tick(serverPlayer);
 
-        // Items keep baked attribute values, refresh the ones that changed after a
-        // datapack reload
         if (serverPlayer.age % 20 == 0) {
-          GemstoneAttributeRefreshHelper.refreshStaleItems(serverPlayer);
           AmberShellHelper.tick(serverPlayer);
         }
       }

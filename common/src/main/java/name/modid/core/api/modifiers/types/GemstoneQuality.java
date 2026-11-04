@@ -79,13 +79,12 @@ public enum GemstoneQuality {
     };
   }
 
-  // Mythics and amplifiers cannot be ground, some of them are farmable
   public int getDustYield() {
     return switch (this) {
       case CRUDE -> 1;
       case REFINED -> 2;
-      case FLAWLESS -> 4;
-      case RADIANT -> 8;
+      case FLAWLESS -> 3;
+      case RADIANT -> 5;
       default -> 0;
     };
   }
@@ -124,21 +123,7 @@ public enum GemstoneQuality {
     return (getRemoveLevelCost() + 1) / 2;
   }
 
-  // Legacy support for old qualities, will be removed in next updates
   private static GemstoneQuality fromSerializedName(String name) {
-    if (name == null) {
-      return NONE;
-    }
-
-    return switch (name.toUpperCase()) {
-      case "POLISHED" -> REFINED;
-      case "UNUSUAL" -> MYTHIC;
-      case "BOOSTER" -> AMPLIFIER;
-      default -> fromCurrentSerializedName(name);
-    };
-  }
-
-  private static GemstoneQuality fromCurrentSerializedName(String name) {
     try {
       return GemstoneQuality.valueOf(name.toUpperCase());
     } catch (IllegalArgumentException e) {
