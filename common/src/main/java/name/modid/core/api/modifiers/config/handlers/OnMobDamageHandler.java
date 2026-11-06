@@ -14,7 +14,7 @@ import name.modid.core.api.modifiers.types.ModifierItemCategory;
 import net.minecraft.entity.LivingEntity;
 
 public class OnMobDamageHandler implements ModifierHandler<ModifierConfig.OnMobDamageConfig> {
-  private static final int MISSING_HEALTH_STEPS = 10;
+  private static final float MISSING_HEALTH_STEP = 0.3f;
 
   private final Map<String, java.util.function.BiConsumer<List<GemstoneModifier>, ModifierContext>> handlers = Map.of(
       "PLAYER_BONUS_DAMAGE_MISSING_HEALTH", this::handleBonusDamageMissingHealth);
@@ -47,7 +47,7 @@ public class OnMobDamageHandler implements ModifierHandler<ModifierConfig.OnMobD
     }
   }
 
-  // Garnet armor: +X% damage for every 10% of missing health, summed over all
+  // Garnet armor: +X% damage for every 30% of missing health, summed over all
   // gems without a cap.
   // The bonus is part of the hit itself, so it does not reset i-frames and cannot
   // bypass shields
@@ -64,7 +64,7 @@ public class OnMobDamageHandler implements ModifierHandler<ModifierConfig.OnMobD
     }
 
     float missingFraction = Math.max(0.0f, 1.0f - playerOwner.getHealth() / maxHealth);
-    int missingSteps = (int) Math.floor(missingFraction * MISSING_HEALTH_STEPS + 1.0E-4);
+    int missingSteps = (int) Math.floor(missingFraction / MISSING_HEALTH_STEP + 1.0E-4);
 
     if (missingSteps <= 0) {
       return;

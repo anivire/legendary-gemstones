@@ -95,7 +95,7 @@
   "tooltip.gemstones.event_name.potion_duration": "длительность зелья",
   "tooltip.gemstones.event.on_potion_brew_increase_duration": "На %s увеличивает %s после варки",
 
-  "tooltip.gemstones.event_name.wither_guard": "Стражу Иссушителя",
+  "tooltip.gemstones.event_name.wither_guard": "Стражу визера",
   "tooltip.gemstones.event.player_wither_guard": "Даёт %s пока предмет в руке, до %s черепов",
   "tooltip.gemstones.event_name.projectile_immune": "иммунитет к снарядам",
   "tooltip.gemstones.event.player_projectile_immune": "Пока %s даёт %s",
@@ -103,7 +103,7 @@
   "tooltip.gemstones.event.player_save_lethal": "При достижении %s срабатывает %s",
   "tooltip.gemstones.event_name.player_random_effect": "случайный положительный эффект",
   "tooltip.gemstones.event.player_random_effect": "%s шанс наложить %s после убийства моба",
-  "tooltip.gemstones.event_name.bonus_missing_health": "каждые 10% недостающего здоровья",
+  "tooltip.gemstones.event_name.bonus_missing_health": "каждые 30% недостающего здоровья",
   "tooltip.gemstones.event.player_bonus_damage_missing_health": "Даёт %s бонус к урону за %s",
   "tooltip.gemstones.event_name.item_explosion_immune": "Устойчивость к взрывам предметов",
   "tooltip.gemstones.event.item_explosion_immune": "Даёт %s",
@@ -152,7 +152,7 @@
   "tooltip.gemstones.polishing.progress": "Прогресс полировки: %s (%s%%)",
   "tooltip.gemstones.polishing.dust_left": "До завершения требуется %2$s: %1$s.",
 
-  "item.gemstones.expansion_crystal": "Кристал расширения",
+  "item.gemstones.expansion_crystal": "Кристалл расширения",
   "item.gemstones.gemstone_dust": "Самоцветная пыль",
 
   "item.gemstones.diamond_tipped_chisel": "Долото с алмазным наконечником",
@@ -302,9 +302,9 @@
   "item.gemstones.garnet_gemstone_radiant": "Гранатовый самоцвет",
   "item.gemstones.gemstone_name.garnet": "Гранат",
 
-  "item.gemstones.wither_shell_mythic": "Скорлупа Иссушителя",
-  "item.gemstones.wither_shell_unusual": "Скорлупа Иссушителя",
-  "item.gemstones.gemstone_name.wither_shell": "Скорлупа Иссушителя",
+  "item.gemstones.wither_shell_mythic": "Оболочка визера",
+  "item.gemstones.wither_shell_unusual": "Оболочка визера",
+  "item.gemstones.gemstone_name.wither_shell": "Оболочка визера",
 
   "item.gemstones.onyx_mythic": "Ониксовый самоцвет",
   "item.gemstones.onyx_unusual": "Ониксовый самоцвет",

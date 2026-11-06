@@ -402,6 +402,9 @@ public class BlockBreakHandler implements ModifierHandler<ModifierConfig.BlockBr
         || !(ctx.getOwner() instanceof ServerPlayerEntity player)) {
       return;
     }
+    if (player.isSneaking()) {
+      return;
+    }
 
     BlockState origin = ctx.getBlockState();
     if (player.getMainHandStack().getMiningSpeedMultiplier(origin) <= 1.0F) {

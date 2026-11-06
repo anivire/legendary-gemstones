@@ -103,7 +103,7 @@
   "tooltip.gemstones.event.player_save_lethal": "Unter %s entfache %s",
   "tooltip.gemstones.event_name.player_random_effect": "Zufälliger positiver Effekt",
   "tooltip.gemstones.event.player_random_effect": "%s Chance %s nach Monster Tötung",
-  "tooltip.gemstones.event_name.bonus_missing_health": "10% fehlendes Leben",
+  "tooltip.gemstones.event_name.bonus_missing_health": "30% fehlendes Leben",
   "tooltip.gemstones.event.player_bonus_damage_missing_health": "Bekomme %s bonus Schaden für jede %s",
   "tooltip.gemstones.event_name.item_explosion_immune": "Item Explosion Immunität",
   "tooltip.gemstones.event.item_explosion_immune": "Erhalte %s",

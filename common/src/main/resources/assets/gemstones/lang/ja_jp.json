@@ -94,7 +94,7 @@
   "tooltip.gemstones.event.player_save_lethal": "%s になると %s を発動",
   "tooltip.gemstones.event_name.player_random_effect": "ランダムな正の効果",
   "tooltip.gemstones.event.player_random_effect": "モブ討伐後 %s の確率で %s を付与",
-  "tooltip.gemstones.event_name.bonus_missing_health": "失った体力10%",
+  "tooltip.gemstones.event_name.bonus_missing_health": "失った体力30%",
   "tooltip.gemstones.event.player_bonus_damage_missing_health": "%s ごとに %s の追加ダメージ",
   "tooltip.gemstones.event_name.item_explosion_immune": "アイテム爆発耐性",
   "tooltip.gemstones.event.item_explosion_immune": "%s を付与",
