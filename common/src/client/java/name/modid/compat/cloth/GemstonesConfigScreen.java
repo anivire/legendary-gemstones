@@ -21,8 +21,6 @@ public final class GemstonesConfigScreen {
         .setSavingRunnable(GemstonesClientConfig::save);
     ConfigEntryBuilder entries = builder.entryBuilder();
 
-    // Cloth Config shows category tabs only when there are two or more, so the
-    // only category reuses the screen title
     ConfigCategory tooltips = builder.getOrCreateCategory(Text.translatable("config.gemstones.title"));
     tooltips.addEntry(entries
         .startBooleanToggle(Text.translatable("config.gemstones.option.show_empty_sockets"), values.showEmptySockets)
