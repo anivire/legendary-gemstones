@@ -1,7 +1,6 @@
 {
   "item_group.gemstones": "伝説の宝石",
   "config.gemstones.title": "伝説の宝石",
-  "config.gemstones.category.tooltips": "ツールチップ",
   "config.gemstones.option.show_empty_sockets": "空きソケットを表示",
   "config.gemstones.option.show_empty_sockets.tooltip": "宝石がはめ込まれていないアイテムにもソケット欄を表示",
   "tooltip.gemstones.category_name": "宝石による効果:",

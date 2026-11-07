@@ -1,7 +1,6 @@
 {
   "item_group.gemstones": "Легендарные самоцветы",
   "config.gemstones.title": "Легендарные самоцветы",
-  "config.gemstones.category.tooltips": "Подсказки",
   "config.gemstones.option.show_empty_sockets": "Показывать пустые гнёзда",
   "config.gemstones.option.show_empty_sockets.tooltip": "Показывать раздел с гнёздами на предметах без вставленных самоцветов",
 
@@ -23,7 +22,7 @@
   "tooltip.gemstones.multiply_attribute.split": " и ",
   "tooltip.gemstones.on_hit_effect_melee": "%s шанс наложить %s",
   "tooltip.gemstones.on_hit_effect_projectile": "%s шанс наложить %s",
-  "tooltip.gemstones.on_hurt_effect": "%s шанс наложить %s на атакующего при получении удара",
+  "tooltip.gemstones.on_hurt_effect": "%s шанс наложить %s на атакующего при нанесении удара",
   "tooltip.gemstones.area_effect": "Всегда накладывает %s в радиусе %s",
   "tooltip.gemstones.amplifier": "Усиливает бонусы следующего самоцвета на %s",
 

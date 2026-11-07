@@ -1,7 +1,6 @@
 {
   "item_group.gemstones": "Legendary Gemstones",
   "config.gemstones.title": "Legendary Gemstones",
-  "config.gemstones.category.tooltips": "Tooltips",
   "config.gemstones.option.show_empty_sockets": "Show Empty Sockets",
   "config.gemstones.option.show_empty_sockets.tooltip": "Show the sockets section on items with no gemstones socketed",
   "tooltip.gemstones.category_name": "With Gemstones:",

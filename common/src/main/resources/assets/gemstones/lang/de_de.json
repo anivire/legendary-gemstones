@@ -1,7 +1,6 @@
 {
   "item_group.gemstones": "Legendärer Edelstein",
   "config.gemstones.title": "Legendärer Edelstein",
-  "config.gemstones.category.tooltips": "Tooltips",
   "config.gemstones.option.show_empty_sockets": "Leere Fassungen anzeigen",
   "config.gemstones.option.show_empty_sockets.tooltip": "Zeigt den Fassungsbereich bei Gegenständen ohne eingesetzte Edelsteine",
 
