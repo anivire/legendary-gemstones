@@ -63,8 +63,6 @@ public final class CustomEvents {
         return result;
       });
 
-  // Fired before the projectile damage is calculated, used only for damage
-  // modifiers
   @FunctionalInterface
   public interface OnProjectileDamage {
     void onProjectileDamage(
@@ -80,7 +78,6 @@ public final class CustomEvents {
         }
       });
 
-  // Fired only after the projectile has actually damaged a living target
   @FunctionalInterface
   public interface OnHitProjectile {
     void onHitProjectile(
@@ -96,8 +93,6 @@ public final class CustomEvents {
         }
       });
 
-  // Fired before the damage is applied, used for bonus damage that is added into
-  // the hit itself
   @FunctionalInterface
   public interface OnOutgoingDamage {
     float onOutgoingDamage(
@@ -117,8 +112,6 @@ public final class CustomEvents {
         return result;
       });
 
-  // Fired after a living entity has actually taken damage (not blocked by
-  // i-frames or a shield)
   @FunctionalInterface
   public interface OnLivingDamaged {
     void onLivingDamaged(

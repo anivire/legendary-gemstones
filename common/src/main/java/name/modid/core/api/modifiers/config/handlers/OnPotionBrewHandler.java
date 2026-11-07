@@ -55,7 +55,6 @@ public class OnPotionBrewHandler implements ModifierHandler<ModifierConfig.OnPot
       return;
     }
 
-    // Each gemstone contributes a percentage of the brewed potion's base duration.
     double durationBonus = modifiers.stream()
         .mapToDouble(m -> ((OnPotionBrewConfig) m.getConfig()).values().get(m.getRarityType()))
         .sum();

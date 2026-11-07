@@ -101,8 +101,6 @@ public class JewelryTableBlockEntity extends BlockEntity
     return ItemStack.EMPTY;
   }
 
-  // Tables saved before the tool panel kept any tool in slot 0 and a gemstone or
-  // a crystal in slot 2
   private void moveLegacyStacks() {
     moveLegacyStack(JewelryTableScreenHandler.SLOT_HAMMER);
     moveLegacyStack(JewelryTableScreenHandler.SLOT_CHISEL);

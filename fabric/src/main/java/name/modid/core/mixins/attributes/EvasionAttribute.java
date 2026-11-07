@@ -23,7 +23,6 @@ public class EvasionAttribute {
       CallbackInfoReturnable<Boolean> cir) {
     LivingEntity self = (LivingEntity) (Object) this;
 
-    // Every gemstone rolls its own chance, 100% is never reached
     double evasionChance = ModifierUtils.cappedProcChance(
         ModifierUtils.collectGemstoneAttributeValues(self, AttributesRegistry.EVASION_ATTRIBUTE));
     boolean evaded = self.getRandom().nextDouble() < evasionChance;

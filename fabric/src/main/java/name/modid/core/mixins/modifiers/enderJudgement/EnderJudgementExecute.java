@@ -10,8 +10,6 @@ import net.minecraft.entity.LivingEntity;
 
 @Mixin(LivingEntity.class)
 public abstract class EnderJudgementExecute {
-  // Final damage after armor, enchantments and effects, right before absorption
-  // is subtracted
   @ModifyExpressionValue(method = "applyDamage", at = @At(value = "INVOKE", target = "Lnet/minecraft/entity/LivingEntity;modifyAppliedDamage(Lnet/minecraft/entity/damage/DamageSource;F)F"))
   private float executeEnderJudgement(float damage) {
     return EnderJudgementHelper.applyExecute((LivingEntity) (Object) this, damage);

@@ -9,7 +9,6 @@ import com.llamalad7.mixinextras.sugar.Local;
 import name.modid.core.content.items.GemstoneDustItem;
 import net.minecraft.item.ItemStack;
 
-// Both grindstone input slots are anonymous classes
 @Mixin(targets = {
     "net.minecraft.screen.GrindstoneScreenHandler$2",
     "net.minecraft.screen.GrindstoneScreenHandler$3"

@@ -117,10 +117,6 @@ public class HitProjectileHandler implements ModifierHandler<ModifierConfig.HitP
 
   private void handleLightingBolt(List<GemstoneModifier> modifiers,
       ModifierContext ctx) {
-    // Intended: the lightning procs both on entity hits and on block hits (the
-    // arrow calls the storm
-    // wherever it lands). It only works where it actually rains under the open sky,
-    // like Channeling
     BlockPos pos = ctx.getTarget() != null ? ctx.getTarget().getBlockPos() : ctx.getBlockPos();
     if (pos == null || !ctx.getWorld().hasRain(pos.up())) {
       return;
@@ -141,7 +137,6 @@ public class HitProjectileHandler implements ModifierHandler<ModifierConfig.HitP
 
   private void handleCopyEntityLoot(List<GemstoneModifier> modifiers,
       ModifierContext ctx) {
-    // Copy loot only when the arrow killed the target, bosses are excluded
     if (!(ctx.getTarget() instanceof LivingEntity target)
         || target.isAlive()
         || target instanceof PlayerEntity
@@ -267,10 +262,11 @@ public class HitProjectileHandler implements ModifierHandler<ModifierConfig.HitP
         float velocity = baseVelocity + (rng.nextFloat() - 0.5f) * 0.3f;
 
         arrow.setDamage(sourceArrow.getDamage());
-        // The copied damage already contains the Crystallized Experience bonus
+
         if (sourceArrow.getCommandTags().contains(EXP_BONUS_APPLIED_TAG)) {
           arrow.addCommandTag(EXP_BONUS_APPLIED_TAG);
         }
+
         arrow.setVelocity(dir.x, dir.y, dir.z, velocity, inaccuracy);
         arrow.setCritical(sourceArrow.isCritical());
 
@@ -299,8 +295,7 @@ public class HitProjectileHandler implements ModifierHandler<ModifierConfig.HitP
   private void handleAdditionalDamage(
       List<GemstoneModifier> modifiers,
       ModifierContext ctx) {
-    // Piercing arrows hit several targets, the bonus must be applied only once per
-    // arrow
+
     if (!(ctx.getOwner() instanceof PlayerEntity player)
         || !(ctx.getProjectile() instanceof PersistentProjectileEntity projectile)
         || player.experienceLevel == 0
@@ -308,7 +303,6 @@ public class HitProjectileHandler implements ModifierHandler<ModifierConfig.HitP
       return;
     }
 
-    // Every copy adds its bonus per step, the step is the shortest one among copies
     int levelOffset = Integer.MAX_VALUE;
     float bonusDamagePercent = 0.0f;
 
@@ -334,7 +328,6 @@ public class HitProjectileHandler implements ModifierHandler<ModifierConfig.HitP
     projectile.setDamage(projectile.getDamage() * extraDamageMultiplier);
     projectile.addCommandTag(EXP_BONUS_APPLIED_TAG);
 
-    // Experience works as mana: every boosted arrow costs one experience point
     if (!player.isCreative()) {
       player.addExperience(-EXPERIENCE_COST_PER_HIT);
     }

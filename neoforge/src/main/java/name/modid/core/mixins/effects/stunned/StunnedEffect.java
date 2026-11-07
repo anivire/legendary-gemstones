@@ -13,8 +13,8 @@ import net.minecraft.util.math.Vec3d;
 @Mixin(LivingEntity.class)
 public class StunnedEffect {
   // The movement speed modifier does not stop flying mobs (they use their own
-  // move controls),
-  // so stunned mobs lose their own motion every tick. Ground mobs keep falling.
+  // move controls), so stunned mobs lose their own motion every tick. Ground
+  // mobs keep falling
   @Inject(method = "tick", at = @At("RETURN"))
   private void onTick(CallbackInfo ci) {
     if ((Object) this instanceof MobEntity mob

@@ -19,8 +19,7 @@ public abstract class ItemMaxDurabilityAttribute {
     int baseMax = cir.getReturnValueI();
     AttributeModifiersComponent attr = itemStack
         .getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.DEFAULT);
-    // The item's own durability is the base, so percent bonuses (Obsidian Shard)
-    // scale with the material
+
     double bonusDurability = ModifierUtils.getAttributeDelta(
         attr,
         AttributesRegistry.MAX_DURABILITY_ATTRIBUTE,

@@ -53,7 +53,6 @@ public class OnBlockBreakHandler extends BaseTooltipHandler<ModifierConfig.Block
 
   @Override
   protected MutableText buildText(ModifierConfig.BlockBreakConfig cfg, MutableText valueText, boolean isPositive) {
-    // The magnet always works, a chance value would only be noise
     if (cfg.eventType() == EventType.ON_BLOCK_BREAK_MAGNET) {
       return Text.translatable(
           builder.getTranslationKeyByEvent(cfg.eventType()),
@@ -71,7 +70,6 @@ public class OnBlockBreakHandler extends BaseTooltipHandler<ModifierConfig.Block
     }
 
     if (cfg.eventType() == EventType.ON_BLOCK_BREAK_CHAIN_LIGHTNING) {
-      // Whole blocks only, truncated the same way the mechanic reads the value
       ModifierConfig.BlockBreakConfig base = builder.getBaseConfig() instanceof ModifierConfig.BlockBreakConfig baseCfg
           ? baseCfg
           : cfg;

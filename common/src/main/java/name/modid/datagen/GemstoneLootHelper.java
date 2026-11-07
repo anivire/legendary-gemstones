@@ -19,7 +19,6 @@ public final class GemstoneLootHelper {
   }
 
   public static LootPool.Builder createPool(GemstoneType type, float chance) {
-    // Gson turns an unknown enum name into null
     if (type == null) {
       Gemstones.LOGGER.warn("Skipping a gemstone drop pool with a missing or unknown gemstone_type");
       return null;

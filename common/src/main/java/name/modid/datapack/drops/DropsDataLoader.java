@@ -45,10 +45,6 @@ public class DropsDataLoader implements SynchronousResourceReloader {
     load(manager);
   }
 
-  // Loot tables are built before resource reloaders run, so the drops configs are
-  // loaded
-  // once more right before the loot tables are rebuilt (see the
-  // ReloadableRegistries mixin)
   public static void preload(ResourceManager manager) {
     load(manager);
   }

@@ -23,8 +23,6 @@ public class EventOnPlayerDamage {
       float baseDamageTaken,
       float damageTaken,
       boolean blocked) {
-    // Like the totem of undying, the lethal save does not work against /kill and
-    // the void
     if (!(targetEntity instanceof ServerPlayerEntity serverPlayer)
         || !(targetEntity.getWorld() instanceof ServerWorld serverWorld)
         || source.isIn(DamageTypeTags.BYPASSES_INVULNERABILITY)) {

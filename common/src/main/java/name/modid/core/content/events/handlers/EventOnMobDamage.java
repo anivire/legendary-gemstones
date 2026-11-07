@@ -17,22 +17,17 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 
 public class EventOnMobDamage {
-  // Called before the damage is applied, returns the damage with the bonus added
-  // into the hit
   public static float setup(
       LivingEntity targetEntity,
       DamageSource source,
       float baseDamageTaken) {
 
-    // Проверяем, что атакующий — игрок, и это прямой удар или стрела, а не DoT или
-    // бонусный урон
     if (!(source.getAttacker() instanceof ServerPlayerEntity serverPlayer)
         || !DamageSourceHelper.isDirectPlayerHit(source)
         || !(targetEntity.getWorld() instanceof ServerWorld serverWorld)) {
       return baseDamageTaken;
     }
 
-    // Берем модификаторы с экипировки атакующего игрока
     List<GemstoneModifier> modifiers = ModifierUtils.collectGemstoneModifiersFromAllEquipment(
         serverPlayer, OnMobDamageConfig.class);
 
@@ -40,7 +35,6 @@ public class EventOnMobDamage {
       return baseDamageTaken;
     }
 
-    // Формируем контекст: игрок — владелец эффекта, цель — моб, получающий урон
     ModifierContext.ContextBuilder ctxBuilder = new ContextBuilder(serverWorld)
         .withOwner(serverPlayer)
         .withTarget(targetEntity)

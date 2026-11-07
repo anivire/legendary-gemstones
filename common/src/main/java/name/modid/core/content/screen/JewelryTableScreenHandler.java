@@ -26,7 +26,6 @@ public class JewelryTableScreenHandler extends ScreenHandler {
   public static final int SLOT_HAMMER = 2;
   public static final int SLOT_PLIERS = 3;
   public static final int SLOT_CRYSTAL = 4;
-  // Has no screen slot, keeps a gemstone from a table saved before the tool panel
   public static final int SLOT_LEGACY_GEM = 5;
   public static final int TABLE_INVENTORY_SIZE = 6;
   public static final int[] TOOL_SLOTS = { SLOT_CHISEL, SLOT_HAMMER, SLOT_PLIERS, SLOT_CRYSTAL };
@@ -148,13 +147,10 @@ public class JewelryTableScreenHandler extends ScreenHandler {
     GemstoneType gemType = gemItem.getType();
     GemstoneQuality gemQuality = gemItem.getRarityType();
 
-    // A gemstone without an effect for this item category would sit in the socket
-    // doing nothing
     if (ModifierHelper.getGemstoneModifierForItem(gemType, gemQuality, base.getItem()) == null) {
       return false;
     }
 
-    // Forbid inserting two equal gemstone types with mythic quality
     return gemQuality != GemstoneQuality.MYTHIC
         || GemstoneSlotHelper.contains(base, gemType).stream()
             .noneMatch(socketed -> socketed.gemstoneQualityType() == GemstoneQuality.MYTHIC);

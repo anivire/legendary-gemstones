@@ -121,8 +121,6 @@ public class TooltipBuilder {
     return diminishing ? DIMINISHING_VALUE_COLOR : Formatting.GREEN;
   }
 
-  // Diminishing bonuses get an arrow with a bar on top: the value grows towards a
-  // limit
   public MutableText getValuePrefix(boolean isPositive, boolean diminishing) {
     Formatting color = getValueColor(isPositive, diminishing);
     if (isPositive && diminishing) {
@@ -153,10 +151,6 @@ public class TooltipBuilder {
     return getEventText(eventType, null);
   }
 
-  /**
-   * Event name with its icon, e.g. "❤ Extra Health". A non-null {@code amount}
-   * goes before the icon in the same color: "2 ❤ Extra Health"
-   */
   public MutableText getEventText(EventType eventType, @Nullable String amount) {
     if (eventType == null) {
       return TooltipHelper.safeTranslatable("tooltip.gemstones.event.unknown").formatted(Formatting.RED);

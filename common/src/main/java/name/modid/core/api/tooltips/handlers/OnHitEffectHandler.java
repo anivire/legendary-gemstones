@@ -31,7 +31,6 @@ public class OnHitEffectHandler<T extends ModifierConfig> extends BaseTooltipHan
     }
   }
 
-  // Chances of the same effect are combined with cappedProcChance
   @Override
   protected boolean hasDiminishingStack(T cfg) {
     return true;
@@ -59,7 +58,6 @@ public class OnHitEffectHandler<T extends ModifierConfig> extends BaseTooltipHan
           .formatted(proj.effect().value().isBeneficial() ? Formatting.GREEN : Formatting.RED);
     }
 
-    // In armor the effect is applied to the attacker when the wearer is hit
     String translationKey = !projectile && builder.getItemCategory() == ModifierItemCategory.ARMOR
         ? ON_HURT_EFFECT_KEY
         : builder.getTranslationKeyByModifier(projectile

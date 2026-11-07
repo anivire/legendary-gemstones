@@ -193,7 +193,6 @@ public class DropsConfig {
       return minCount;
     }
 
-    // A range written backwards must not crash the drop roll
     public int getMaxCount() {
       return Math.max(minCount, maxCount);
     }

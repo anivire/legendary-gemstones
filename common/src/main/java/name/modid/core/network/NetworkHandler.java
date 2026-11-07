@@ -41,8 +41,6 @@ public final class NetworkHandler {
     }
   }
 
-  // Called by the platform modules after /reload: configs and baked item
-  // attributes must follow the new datapacks
   public static void resyncAll(MinecraftServer server) {
     for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
       sendDatapackSync(player);

@@ -13,10 +13,7 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
-// Amber tools: everything dropped while the player breaks a block (vanilla drops, gem drops,
-// 3x3 mining) goes straight to the inventory, experience orbs appear at the player
 public final class AmberMagnetHelper {
-  // A stack because 3x3 mining breaks blocks from inside another block break
   private static final ThreadLocal<List<PlayerEntity>> ACTIVE_PLAYERS = ThreadLocal.withInitial(ArrayList::new);
 
   private AmberMagnetHelper() {
@@ -46,8 +43,6 @@ public final class AmberMagnetHelper {
     return player != null && player.isAlive() && player.getWorld() == world ? player : null;
   }
 
-  // Returns true when the stack was given to the player and must not be dropped
-  // in the world
   public static boolean tryCollect(World world, ItemStack stack) {
     PlayerEntity player = getActivePlayer(world);
     if (player == null || stack.isEmpty()) {

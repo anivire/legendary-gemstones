@@ -19,8 +19,6 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 
-// On-hit effects placed in armor are applied to the attacker when it hits the player in melee
-// (Amber armor: "Hardened Resin" sticks Scarab to the attacker)
 public class EventOnPlayerHurt {
   public static void setup(LivingEntity target, DamageSource source, float amount) {
     if (!(target instanceof ServerPlayerEntity player)

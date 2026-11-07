@@ -16,8 +16,6 @@ public final class EventType {
   private final Identifier id;
   private final String name;
   private final String translationKey;
-  // Chances combined as 1 - (1 - p1)(1 - p2)..., every next gemstone adds less
-  // than the previous one
   private final boolean diminishingStack;
 
   public static final RegistryKey<Registry<EventType>> REGISTRY_KEY = RegistryKey

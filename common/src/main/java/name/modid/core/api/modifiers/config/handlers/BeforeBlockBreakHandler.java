@@ -31,7 +31,6 @@ import net.minecraft.sound.SoundEvents;
 import net.minecraft.util.math.BlockPos;
 
 public class BeforeBlockBreakHandler implements ModifierHandler<ModifierConfig.BeforeBlockBreakConfig> {
-  // Opal gamble: losing the drop is half as likely as doubling it
   public static final double GAMBLE_LOSS_RATIO = 0.5;
 
   @Override
@@ -160,11 +159,6 @@ public class BeforeBlockBreakHandler implements ModifierHandler<ModifierConfig.B
       return;
     }
 
-    // Drops are taken from the loot table with a silk touch copy of the tool:
-    // shulker contents,
-    // banner patterns, bees and pot sherds are kept, unobtainable blocks (budding
-    // amethyst, spawners)
-    // still drop nothing
     ItemStack silkTouchTool = tool.copy();
     EnchantmentHelper.apply(silkTouchTool, builder -> builder.add(silkTouchEntry, 1));
 

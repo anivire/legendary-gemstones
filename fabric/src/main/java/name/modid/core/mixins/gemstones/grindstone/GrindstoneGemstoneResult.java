@@ -22,7 +22,6 @@ import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
 
-// The grindstone result slot is an anonymous class
 @Mixin(targets = "net.minecraft.screen.GrindstoneScreenHandler$4")
 public abstract class GrindstoneGemstoneResult {
   @Inject(method = "onTakeItem", at = @At("HEAD"))
@@ -53,8 +52,6 @@ public abstract class GrindstoneGemstoneResult {
     }
   }
 
-  // Vanilla clears both input slots, a gemstone stack loses only the ground
-  // gemstone
   @WrapOperation(method = "onTakeItem", at = @At(value = "INVOKE", target = "Lnet/minecraft/inventory/Inventory;setStack(ILnet/minecraft/item/ItemStack;)V"))
   private void gemstones$takeSingleGemstone(Inventory input, int slot, ItemStack stack,
       Operation<Void> original) {

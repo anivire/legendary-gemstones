@@ -20,7 +20,6 @@ import net.minecraft.util.hit.HitResult;
 import net.minecraft.util.math.BlockPos;
 
 public class EventOnHitProjectile {
-  // Before the hit: only modifiers that change the projectile damage
   public static void setupDamageEvent(
       PersistentProjectileEntity projectile,
       ServerPlayerEntity serverPlayer,
@@ -41,7 +40,6 @@ public class EventOnHitProjectile {
         hitResult));
   }
 
-  // After the projectile actually damaged a living target
   public static void setupEvent(
       PersistentProjectileEntity projectile,
       ServerPlayerEntity serverPlayer,

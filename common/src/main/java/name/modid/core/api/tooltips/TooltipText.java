@@ -44,7 +44,6 @@ public final class TooltipText {
     return icon(type.getGemstoneLiteral(), Icons.INLINE_GEMSTONE, Formatting.WHITE);
   }
 
-  /** Gemstone sprite, or a marker for empty, locked and unknown sockets */
   public static MutableText socketIcon(GemstoneType type) {
     return switch (type) {
       case EMPTY -> icon(InlineIcons.EMPTY, Formatting.DARK_GRAY);
@@ -54,7 +53,6 @@ public final class TooltipText {
     };
   }
 
-  /** A line of independent parts: none of them inherits the style of another */
   public static MutableText line(Text... parts) {
     MutableText line = Text.empty().setStyle(DEFAULT_FONT);
     for (Text part : parts) {
@@ -63,17 +61,14 @@ public final class TooltipText {
     return line;
   }
 
-  /** {@code icon > content} row used by socket and modifier listing */
   public static MutableText row(Text icon, Text content) {
     return line(icon, Text.literal(" > ").formatted(Formatting.DARK_GRAY), content);
   }
 
-  /** Line prefixed with the info icon */
   public static MutableText info(Text content) {
     return line(icon(InlineIcons.INFO), content);
   }
 
-  /** Line aligned with the text of an {@link #info(Text)} line */
   public static MutableText indented(Text content) {
     return line(icon(InlineIcons.INFO_INDENT), content);
   }

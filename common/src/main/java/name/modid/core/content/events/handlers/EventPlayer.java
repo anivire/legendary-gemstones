@@ -62,7 +62,6 @@ public class EventPlayer {
     ModifierManager.applyModifiers(new ArrayList<>(modifiers), ctxBuilder.build());
   }
 
-  // PLAYER_TICK_* modifiers belong to the end of the player tick only
   public static List<GemstoneModifier> withoutTickEvents(List<GemstoneModifier> modifiers) {
     List<GemstoneModifier> result = new ArrayList<>(modifiers);
     result.removeIf(EventPlayer::isTickEvent);

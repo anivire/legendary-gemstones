@@ -93,9 +93,6 @@ public abstract class OnPotionBrew implements BrewingStandBlockEntityAccess {
       return;
     }
 
-    // Only potions that were actually brewed in this step get the bonus, otherwise
-    // finished
-    // potions could be extended endlessly by brewing something else next to them
     DefaultedList<ItemStack> brewedPotions = DefaultedList.ofSize(POTION_SLOTS, ItemStack.EMPTY);
     boolean anyBrewed = false;
     for (int i = 0; i < POTION_SLOTS; i++) {

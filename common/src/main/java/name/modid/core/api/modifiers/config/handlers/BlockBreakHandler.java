@@ -46,19 +46,16 @@ import net.minecraft.world.WorldEvents;
 public class BlockBreakHandler implements ModifierHandler<ModifierConfig.BlockBreakConfig> {
   private static final int UPDATE_FLAGS = Block.NOTIFY_ALL;
   private static final Set<Identifier> BLOCKED_ITEMS = new HashSet<>();
-  // Set while the miner or chain lightning break extra blocks, so those breaks do
-  // not chain further
+  // Save from potentially endless block break chain
   private static final ThreadLocal<Boolean> BREAKING_EXTRA_BLOCKS = ThreadLocal.withInitial(() -> false);
   private static final List<PendingRegeneration> PENDING_REGENERATIONS = new ArrayList<>();
   private static final float MIN_SATURATION_HARDNESS = 1.0F;
-  private static final float MAX_EXTRA_ABSORPTION = 10.0F; // Five hearts
+  private static final float MAX_EXTRA_ABSORPTION = 10.0F;
   private static final int EXTRA_ABSORPTION_DURATION_TICKS = 90 * 20;
 
   private record PendingRegeneration(ServerWorld world, BlockPos pos, BlockState state, int ticksRemaining) {
   }
 
-  // Sapphire chain lightning jumps to the next block of the same type every few
-  // ticks instead of breaking them at once
   private static final int CHAIN_STEP_TICKS = 3;
   private static final List<ChainLightning> ACTIVE_CHAINS = new ArrayList<>();
 
@@ -161,10 +158,9 @@ public class BlockBreakHandler implements ModifierHandler<ModifierConfig.BlockBr
     }
   }
 
-  // Feeds the player while mining without replacing healing in combat. Instantly
-  // broken blocks
-  // (torches, grass) do not count, so the effect cannot be farmed by placing and
-  // breaking them
+  // Feeds the player while mining without replacing healing in combat.
+  // Instantly broken blocks (torches, grass) do not count, so the effect cannot
+  // be farmed by placing and breaking them
   private void handleSaturation(
       List<GemstoneModifier> modifiers,
       ModifierContext ctx) {
@@ -266,7 +262,6 @@ public class BlockBreakHandler implements ModifierHandler<ModifierConfig.BlockBr
   private void handleAdditionalGoldDrop(
       List<GemstoneModifier> modifiers,
       ModifierContext ctx) {
-    // Only blocks in the ore tags can yield gold nuggets.
     if (ctx.getBlockPos() == null || ctx.getBlockState() == null)
       return;
     BlockState state = ctx.getBlockState();
@@ -438,11 +433,9 @@ public class BlockBreakHandler implements ModifierHandler<ModifierConfig.BlockBr
     ACTIVE_CHAINS.removeIf(chain -> !stepChain(chain));
   }
 
-  // Returns false once the chain is over
   private static boolean stepChain(ChainLightning chain) {
     ServerPlayerEntity player = chain.player;
 
-    // Leaving, dying, changing dimension or switching the tool ends the chain
     if (player.isRemoved() || !player.isAlive() || player.getServerWorld() != chain.world
         || player.getMainHandStack() != chain.tool) {
       return false;
@@ -478,7 +471,6 @@ public class BlockBreakHandler implements ModifierHandler<ModifierConfig.BlockBr
     return chain.next < chain.vein.size();
   }
 
-  // Breadth-first walk over the touching blocks of the same type, nearest first
   private static List<BlockPos> findVein(ServerWorld world, BlockPos start, Block block, int limit) {
     List<BlockPos> vein = new ArrayList<>();
     Set<BlockPos> visited = new HashSet<>();
@@ -572,14 +564,9 @@ public class BlockBreakHandler implements ModifierHandler<ModifierConfig.BlockBr
     if (hardness < 0.0F)
       return false;
 
-    // Mining stone must not wipe torches, rails, redstone or crops around the
-    // target
     return hardness > 0.0F || centerHardness <= 0.0F;
   }
 
-  // A pickaxe must not dig out the dirt or wood around the stone, and a block the
-  // tool
-  // is too weak for (obsidian with an iron pickaxe) would break without a drop
   private static boolean isRightTool(ServerPlayerEntity player, ItemStack tool, BlockState state) {
     return tool.getMiningSpeedMultiplier(state) > 1.0F && player.canHarvest(state);
   }
@@ -595,10 +582,6 @@ public class BlockBreakHandler implements ModifierHandler<ModifierConfig.BlockBr
       BREAKING_EXTRA_BLOCKS.set(breakingExtraBlocks);
     }
 
-    // Vanilla sends the break particles to everyone except the breaking player,
-    // whose client
-    // normally spawns them itself. A server-side break never reaches that client,
-    // so send them here
     if (!world.getBlockState(immutablePos).isOf(state.getBlock())) {
       player.networkHandler.send(new WorldEventS2CPacket(
           WorldEvents.BLOCK_BROKEN, immutablePos, Block.getRawIdFromState(state), false), null);

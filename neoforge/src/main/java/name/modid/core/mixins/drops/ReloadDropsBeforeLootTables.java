@@ -16,10 +16,6 @@ import net.minecraft.resource.ResourceManager;
 
 @Mixin(ReloadableRegistries.class)
 public class ReloadDropsBeforeLootTables {
-  // Loot tables (and the gemstone pools injected into them) are built before
-  // resource reloaders run.
-  // Loading the drops configs here makes datapack changes apply on the same
-  // reload.
   @Inject(method = "reload", at = @At("HEAD"))
   private static void preloadDropsConfigs(
       CombinedDynamicRegistries<ServerDynamicRegistryType> dynamicRegistries,

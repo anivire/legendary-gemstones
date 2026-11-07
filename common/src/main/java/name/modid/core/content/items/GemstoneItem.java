@@ -65,7 +65,6 @@ public class GemstoneItem extends Item {
     return ColorHelper.Argb.lerp(getPolishingProgress(stack), POLISHING_BAR_START_COLOR, POLISHING_BAR_END_COLOR);
   }
 
-  // Progress of the whole polishing to the next quality, from 0 to 1
   private float getPolishingProgress(ItemStack stack) {
     PolishingComponent polishing = stack.get(ComponentsRegistry.polishing());
     int totalStages = this.rarityType.getPolishStages();

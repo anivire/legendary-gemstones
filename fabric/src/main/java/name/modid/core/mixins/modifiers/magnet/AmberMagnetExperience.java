@@ -9,7 +9,6 @@ import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.Vec3d;
 
-// Experience from blocks broken with an Amber tool appears right at the player
 @Mixin(ExperienceOrbEntity.class)
 public class AmberMagnetExperience {
   @ModifyVariable(method = "spawn", at = @At("HEAD"), argsOnly = true)

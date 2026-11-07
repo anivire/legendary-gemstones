@@ -17,8 +17,6 @@ import net.minecraft.entity.attribute.EntityAttributes;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Identifier;
 
-// Amber armor: after 25 seconds without taking damage the player gets extra max health,
-// which breaks on the next hit
 public final class AmberShellHelper {
   public static final int RECHARGE_DELAY_SECONDS = 25;
   private static final long RECHARGE_DELAY_TICKS = RECHARGE_DELAY_SECONDS * 20;
@@ -44,8 +42,6 @@ public final class AmberShellHelper {
 
     if (shell <= 0.0) {
       if (current != null) {
-        // Taking the armor off counts as a hit, otherwise swapping it would heal for
-        // free
         LAST_HURT_TIMES.put(player.getUuid(), player.getWorld().getTime());
         breakShell(player);
       }
@@ -60,7 +56,6 @@ public final class AmberShellHelper {
     if (current == null) {
       maxHealth.addTemporaryModifier(new EntityAttributeModifier(
           SHELL_ID, shell, EntityAttributeModifier.Operation.ADD_VALUE));
-      // The new hearts come filled, so the shell works as a buffer right away
       player.heal((float) shell);
     } else if (current.value() != shell) {
       maxHealth.removeModifier(SHELL_ID);

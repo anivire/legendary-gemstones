@@ -56,7 +56,7 @@ public class HitMeleeHandler
       return;
     }
 
-    // Default returned damage value for all further amage manipulations
+    // Default returned damage value for all further damage manipulations
     ctx.setDamageResult(ctx.getBaseDamageTaken());
 
     Map<String, List<GemstoneModifier>> grouped = modifiers.stream()
@@ -167,7 +167,6 @@ public class HitMeleeHandler
     }
   }
 
-  // NOTE: don't capped
   private void multiplyDamageArmorless(List<GemstoneModifier> modifiers, ModifierContext ctx) {
     if (!(ctx.getOwner() instanceof LivingEntity owner)
         || ModifierUtils.isArmorEquiped(owner)) {
@@ -209,7 +208,6 @@ public class HitMeleeHandler
       return;
     }
 
-    // Every copy adds its bonus per step, the step is the shortest one among copies
     int levelOffset = Integer.MAX_VALUE;
     float bonusDamageAmplifierPercent = 0.0f;
 
@@ -233,7 +231,6 @@ public class HitMeleeHandler
 
     ctx.setDamageResult(newDamage);
 
-    // Experience works as mana: every boosted hit costs one experience point
     if (!player.isCreative()) {
       player.addExperience(-EXPERIENCE_COST_PER_HIT);
     }

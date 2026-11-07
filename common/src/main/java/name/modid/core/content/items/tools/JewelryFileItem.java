@@ -210,7 +210,7 @@ public class JewelryFileItem extends Item implements ConsumableTool {
       player.stopUsingItem();
   }
 
-  // Dust is paid when a stage starts, an unpaid stage waits until the player has
+  // Dust is paid when a stage starts, an unpaid stage waits until the player has #
   // enough dust
   private static PolishingComponent payStage(PlayerEntity player, ItemStack gemStack, PolishingComponent progress) {
     if (progress.stagePaid())

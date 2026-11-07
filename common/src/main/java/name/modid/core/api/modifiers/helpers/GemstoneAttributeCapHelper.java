@@ -14,7 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.Identifier;
 
 public final class GemstoneAttributeCapHelper {
-  // Ruby armor: at most +20 HP from gemstones over the whole armor set
   private static final double MAX_GEMSTONE_HEALTH = 20.0;
   private static final Identifier MAX_HEALTH_CAP_ID = Identifier.of(Gemstones.MOD_ID, "max_health_cap");
   private static final EquipmentSlot[] ARMOR_SLOTS = {
@@ -29,8 +28,6 @@ public final class GemstoneAttributeCapHelper {
         && cfg.operation() == EntityAttributeModifier.Operation.ADD_VALUE;
   }
 
-  // Armor pieces add their modifiers separately, so the cap is a negative
-  // modifier on the player
   public static void updateMaxHealthCap(PlayerEntity player) {
     EntityAttributeInstance maxHealth = player.getAttributeInstance(EntityAttributes.GENERIC_MAX_HEALTH);
     if (maxHealth == null) {

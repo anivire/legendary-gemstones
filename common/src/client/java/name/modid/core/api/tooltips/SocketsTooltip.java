@@ -60,7 +60,7 @@ public final class SocketsTooltip {
     while (i < gemstones.length) {
       GemstoneType type = gemstones[i].gemstoneType();
 
-      // Consecutive empty or locked sockets collapse into a single "Nx" row
+      // Сollapse empty or locked sockets into a single row
       if (type == GemstoneType.EMPTY || type == GemstoneType.LOCKED) {
         int next = i + 1;
         while (next < gemstones.length && gemstones[next].gemstoneType() == type) {

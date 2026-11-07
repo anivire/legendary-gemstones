@@ -28,9 +28,6 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.util.ActionResult;
 
 public class EffectHandler {
-  // Loot Touch (Restless Flame): no bosses and at most once per 30 seconds for
-  // each player,
-  // otherwise a mob farm turns into an endless dungeon loot source
   private static final long LOOT_TOUCH_COOLDOWN_TICKS = 30 * 20;
   private static final Map<UUID, Long> LOOT_TOUCH_COOLDOWNS = new HashMap<>();
 
@@ -77,7 +74,6 @@ public class EffectHandler {
 
     target.addStatusEffect(new StatusEffectInstance(effect, durationSeconds * 20, appliedAmplifier));
 
-    // A fresh Guardian Smite gets its full set of boosted hits again
     if (effect.equals(EffectsRegistry.guardianSmiteEntry())) {
       GuardianSmiteHelper.resetCharges(target);
     }
@@ -148,7 +144,6 @@ public class EffectHandler {
 
     @Override
     public void apply(ArrayList<GemstoneModifier> modifiers, ModifierContext ctx) {
-      // Spam-clicking must not proc on-hit effects with full chance
       if (ctx.getOwner() instanceof PlayerEntity && !ctx.isFullStrengthAttack()) {
         ctx.setActionResult(ActionResult.PASS);
         return;

@@ -221,8 +221,6 @@ public class HomingArrow {
         0.01);
   }
 
-  // Without an aimed target the arrow picks only hostile mobs, never pets,
-  // villagers or players
   private static LivingEntity findNearestTarget(ServerWorld world, PersistentProjectileEntity arrow, double radius) {
     Box searchBox = new Box(arrow.getBlockPos()).expand(radius);
     List<LivingEntity> potentialTargets = world.getEntitiesByClass(

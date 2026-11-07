@@ -27,10 +27,6 @@ public abstract class DropEnderScaleAfterDragonDeath {
   @Unique
   private boolean enderScaleDropped;
 
-  // Vanilla spawns the first experience orbs 150 ticks into the death animation,
-  // the scale drops
-  // at the same moment. Checked at HEAD so other mods changing the method body
-  // cannot break it
   @Inject(method = "updatePostDeath", at = @At("HEAD"))
   private void dropEnderScaleWithFirstExperienceOrb(CallbackInfo ci) {
     EnderDragonEntity self = (EnderDragonEntity) (Object) this;
@@ -42,7 +38,6 @@ public abstract class DropEnderScaleAfterDragonDeath {
       return;
     }
 
-    // One roll per death, not one per experience burst
     enderScaleDropped = true;
 
     DropsConfig.SpecialDrop config = DropsRegistry.getSpecialDrop("ender_dragon_death");

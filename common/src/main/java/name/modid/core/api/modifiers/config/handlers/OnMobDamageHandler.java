@@ -47,10 +47,6 @@ public class OnMobDamageHandler implements ModifierHandler<ModifierConfig.OnMobD
     }
   }
 
-  // Garnet armor: +X% damage for every 30% of missing health, summed over all
-  // gems without a cap.
-  // The bonus is part of the hit itself, so it does not reset i-frames and cannot
-  // bypass shields
   private void handleBonusDamageMissingHealth(
       List<GemstoneModifier> modifiers,
       ModifierContext ctx) {

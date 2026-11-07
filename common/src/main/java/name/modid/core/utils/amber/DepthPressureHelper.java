@@ -16,8 +16,6 @@ import net.minecraft.util.Identifier;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 
-// Amber tools: mining speed grows with depth, from nothing at sea level to the full gemstone
-// value at the bottom of the world
 public final class DepthPressureHelper {
   private static final Identifier PRESSURE_ID = Identifier.of(Gemstones.MOD_ID, "depth_pressure");
 

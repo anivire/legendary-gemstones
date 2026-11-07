@@ -251,9 +251,8 @@ public class GemstoneSlotHelper {
     clampDamageToMaxDurability(itemStack);
   }
 
-  // Removing a durability gem must not leave the item with more damage than its
-  // new maximum,
-  // otherwise it breaks on the next use
+  // Removing a Obsidian Shard must not leave the item with more damage than its
+  // new maximum, otherwise it breaks on the next use
   private static void clampDamageToMaxDurability(ItemStack itemStack) {
     if (!itemStack.isDamageable()) {
       return;
@@ -362,7 +361,6 @@ public class GemstoneSlotHelper {
     return -1;
   }
 
-  // True when at least one socket holds a real gemstone (not empty or locked)
   public static boolean hasInsertedGemstones(ItemStack stack) {
     for (GemstoneComponent gem : getGemstones(stack)) {
       if (gem != null

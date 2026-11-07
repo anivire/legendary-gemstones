@@ -11,8 +11,7 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.world.PersistentState;
 
-// Cooldown of the Onyx lethal save. It is stored with the world instead of a status effect,
-// so drinking milk or relogging does not reset it.
+// It is stored with the world instead of a status effect, so drinking milk or relogging does not reset it
 public class SaveLethalCooldownState extends PersistentState {
   private static final String ID = Gemstones.MOD_ID + "_save_lethal_cooldowns";
   private static final String COOLDOWNS_KEY = "cooldowns";

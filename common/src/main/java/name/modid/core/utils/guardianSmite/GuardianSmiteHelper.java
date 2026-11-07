@@ -11,7 +11,6 @@ import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
 
-// Guardian Smite: the next direct hits of a player get bonus damage inside the hit itself
 public final class GuardianSmiteHelper {
   private static final int MAX_CHARGES = 2;
   private static final float BONUS_DAMAGE_PER_LEVEL = 3.0F;
@@ -40,7 +39,6 @@ public final class GuardianSmiteHelper {
     return amount + BONUS_DAMAGE_PER_LEVEL * (effect.getAmplifier() + 1);
   }
 
-  // A charge is spent only when the boosted hit actually dealt damage
   public static void finishHit(LivingEntity target, boolean damaged) {
     if (!BOOSTED_HITS.remove(target) || !damaged) {
       return;

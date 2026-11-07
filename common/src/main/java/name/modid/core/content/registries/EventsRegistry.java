@@ -56,8 +56,7 @@ public class EventsRegistry {
       BlockBreakHandler.tickPendingRegenerations();
       BlockBreakHandler.tickChainLightnings();
       for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
-        // Area effects last several seconds, there is no need to search for entities
-        // every tick
+
         if (player.age % 20 == 0) {
           EventAreaEffect.setupEvent(player);
         }

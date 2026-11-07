@@ -55,7 +55,6 @@ public class SparkProjectileEntity extends PersistentProjectileEntity {
   public SparkProjectileEntity(World world, LivingEntity owner) {
     this(EntitiesRegistry.SPARK_ENTITY.get(), world);
     this.setOwner(owner);
-    // setOwner allows pickup for player owners, sparks must never be picked up
     this.pickupType = PickupPermission.DISALLOWED;
     this.setPosition(owner.getX(), owner.getEyeY() - 0.1, owner.getZ());
   }
@@ -243,7 +242,6 @@ public class SparkProjectileEntity extends PersistentProjectileEntity {
     }
   }
 
-  // Sparks hunt hostile mobs only, so pets, villagers and players are never hit
   private boolean canHitSparkTarget(Entity entity) {
     return entity instanceof LivingEntity
         && entity instanceof Monster

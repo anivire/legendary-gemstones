@@ -57,12 +57,8 @@ public class GemstonesNeoForge {
     GemstoneAttributeModifiersHelper.setEffectiveProvider(
         stack -> ((IItemStackExtension) stack).getAttributeModifiers());
 
-    // Fired for every player after /reload (and on join, which is already handled
-    // by PLAYER_JOIN)
     NeoForge.EVENT_BUS.addListener(this::onDatapackSync);
     NeoForge.EVENT_BUS.addListener(this::onGrindstoneTake);
-    // Lowest priority so the execute sees the damage after every other mod has
-    // changed it
     NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, this::onLivingDamagePre);
 
     if (FMLEnvironment.dist.isClient()) {

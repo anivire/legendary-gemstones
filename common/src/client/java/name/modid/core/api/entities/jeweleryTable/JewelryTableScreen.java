@@ -53,7 +53,6 @@ public class JewelryTableScreen extends HandledScreen<JewelryTableScreenHandler>
   private static final int TOGGLE_CLOSED_V = 110;
   private static final int TOGGLE_WIDTH = 32;
   private static final int TOGGLE_HEIGHT = 26;
-  // The rest of the sprite goes under the window or merges with the panel
   private static final int TOGGLE_VISIBLE_WIDTH = 28;
   private static final int TOGGLE_ITEM_X = 7;
   private static final int TOGGLE_ITEM_Y = 5;
@@ -68,7 +67,6 @@ public class JewelryTableScreen extends HandledScreen<JewelryTableScreenHandler>
   private static final int TOO_EXPENSIVE_COLOR = 0xFF6060;
   private static final int TOOLTIP_MAX_WIDTH = 340;
 
-  // Survives reopening the table
   private static boolean toolPanelOpen = true;
 
   private final ItemStack toggleIcon = new ItemStack(ItemsRegistry.jewelryHammer());
@@ -83,7 +81,6 @@ public class JewelryTableScreen extends HandledScreen<JewelryTableScreenHandler>
 
   @Override
   protected void drawBackground(DrawContext context, float delta, int mouseX, int mouseY) {
-    // Like a creative tab: an inactive one lies behind the window, an active one on top of it
     if (!toolPanelOpen) {
       drawToggle(context);
     }
@@ -164,7 +161,6 @@ public class JewelryTableScreen extends HandledScreen<JewelryTableScreenHandler>
     return this.x + (BACKGROUND_WIDTH - inRow * SLOT_SIZE) / 2 + index % SOCKETS_PER_ROW * SLOT_SIZE;
   }
 
-  // Extra rows grow upwards, the last row stays right above the item
   private int getSocketY(int index) {
     int rows = (GemstoneSlotHelper.getMaxSlots() + SOCKETS_PER_ROW - 1) / SOCKETS_PER_ROW;
     return this.y + SOCKETS_Y - (rows - 1 - index / SOCKETS_PER_ROW) * SLOT_SIZE;
@@ -192,7 +188,6 @@ public class JewelryTableScreen extends HandledScreen<JewelryTableScreenHandler>
     return mouseX >= x && mouseX < x + width && mouseY >= y && mouseY < y + height;
   }
 
-  /** The part of the screen sticking out to the left of the main window */
   public ScreenRect getSideBounds() {
     int left = getToggleX();
     return new ScreenRect(left, this.y, this.x - left, toolPanelOpen ? TOOL_PANEL_HEIGHT : TOGGLE_Y + TOGGLE_HEIGHT);

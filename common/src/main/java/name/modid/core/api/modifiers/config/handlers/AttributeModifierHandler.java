@@ -27,7 +27,6 @@ import net.minecraft.util.Identifier;
 
 public class AttributeModifierHandler {
   private static final String VANILLA_NAMESPACE = "minecraft";
-  // 1.8 blocks * (1 - 0.72) = 0.5 blocks
   private static final float MIN_SCALE_TOTAL = -0.72F;
 
   private record AttributeGroupKey(RegistryEntry<EntityAttribute> attribute, Operation operation) {
@@ -42,7 +41,6 @@ public class AttributeModifierHandler {
     itemStack.set(DataComponentTypes.ATTRIBUTE_MODIFIERS, expected);
   }
 
-  // Returns null when the stack must be left untouched
   private static AttributeModifiersComponent buildComponent(
       ArrayList<GemstoneModifier> gemstoneModifiers,
       ItemStack itemStack) {
@@ -53,7 +51,7 @@ public class AttributeModifierHandler {
     // ATTRIBUTE_MODIFIERS component onto the stack: doing so would shadow
     // stack-aware dynamic attribute modifiers computed by other mods, even when no
     // gemstones are present. Only clean up gemstone modifiers this mod previously
-    // wrote.
+    // wrote
     if (gemstoneEntries.isEmpty() && !hasGemstoneAttributeModifiers(itemStack)) {
       return null;
     }
@@ -73,11 +71,9 @@ public class AttributeModifierHandler {
     return new AttributeModifiersComponent(new ArrayList<>(combinedModifiersMap.values()), true);
   }
 
-  // Base stats always come from the item itself, so an upgraded item (diamond ->
-  // netherite)
-  // does not keep the copied stats of the previous item. Dynamic modifiers of
-  // other mods
-  // (non-vanilla namespaces) are preserved.
+  // Base stats always come from the item itself, so an upgraded item does not
+  // keep the copied stats of the previous item. Dynamic
+  // modifiers of other mods (non-vanilla namespaces) are preserved
   private static List<AttributeModifiersComponent.Entry> getBaseEntries(ItemStack itemStack) {
     AttributeModifiersComponent prototype = itemStack.getItem().getComponents()
         .getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.DEFAULT);
@@ -101,9 +97,8 @@ public class AttributeModifierHandler {
   private static List<AttributeModifiersComponent.Entry> buildGemstoneEntries(
       ArrayList<GemstoneModifier> gemstoneModifiers,
       Item item) {
-    // Values are summed only within the same attribute and operation, otherwise a
-    // TOTAL penalty
-    // could be merged into a BASE bonus (and vice versa)
+    // Values are summed only within the same attribute and operation, otherwise
+    // a TOTAL penalty could be merged into a BASE bonus (and vice versa)
     Map<AttributeGroupKey, List<GemstoneModifier>> groupedModifiers = new LinkedHashMap<>();
     Map<RegistryEntry<EntityAttribute>, Integer> operationsPerAttribute = new LinkedHashMap<>();
 
@@ -139,8 +134,6 @@ public class AttributeModifierHandler {
         continue;
       }
 
-      // Jade: the player can shrink to half a block (still able to walk through 1
-      // block high gaps), not further
       if (key.attribute().equals(EntityAttributes.GENERIC_SCALE) && key.operation() == Operation.ADD_MULTIPLIED_TOTAL) {
         totalValue = Math.max(totalValue, MIN_SCALE_TOTAL);
       }

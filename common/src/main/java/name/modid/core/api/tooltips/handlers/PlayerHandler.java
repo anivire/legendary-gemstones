@@ -105,7 +105,6 @@ public class PlayerHandler extends BaseTooltipHandler<ModifierConfig.PlayerConfi
         thirdArg).formatted(TooltipBuilder.DEFAULT_TEXT_COLOR);
   }
 
-  // "↑2 ❤ Health"
   private static MutableText buildHealthText(MutableText valueText, String unitKey) {
     return valueText.copy()
         .append(Text.literal(" "))

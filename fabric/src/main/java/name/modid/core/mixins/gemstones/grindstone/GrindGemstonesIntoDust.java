@@ -17,7 +17,6 @@ import net.minecraft.inventory.Inventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.screen.GrindstoneScreenHandler;
 
-// One gemstone is ground per take, the rest of the stack stays in the slot
 @Mixin(GrindstoneScreenHandler.class)
 public abstract class GrindGemstonesIntoDust implements GrindstoneGemAccessor {
   @Shadow

@@ -18,8 +18,6 @@ public class EventSparkSpawner {
 
     int SPARK_COUNT = 3;
 
-    // Sparks belong to the player who killed the entity, so their damage and kills
-    // are credited to the player
     LivingEntity owner = DamageSourceHelper.getKiller(entity, damageSource) instanceof PlayerEntity player
         ? player
         : entity;

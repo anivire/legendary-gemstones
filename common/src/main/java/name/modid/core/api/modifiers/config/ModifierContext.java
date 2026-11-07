@@ -125,8 +125,6 @@ public class ModifierContext {
     return this.inventory;
   }
 
-  // Attack cooldown progress of a melee hit (1.0 for fully charged attacks and
-  // non-melee contexts)
   public float getAttackStrength() {
     return this.attackStrength;
   }

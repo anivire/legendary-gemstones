@@ -54,8 +54,6 @@ public class ModifierUtils {
         itemStack -> ModifierGatheringHelper.getModifiers(itemStack, configClass));
   }
 
-  // One value per socketed gemstone (armor and main hand), so each gem can roll
-  // its own chance
   public static List<Double> collectGemstoneAttributeValues(
       LivingEntity entity,
       RegistryEntry<EntityAttribute> attribute) {
@@ -72,8 +70,6 @@ public class ModifierUtils {
       for (GemstoneModifier modifier : ModifierGatheringHelper.getAttributeModifiers(stack)) {
         double value = 0.0;
         for (AttributeConfig config : AttributeModifierHandler.getAttributeConfigs(modifier)) {
-          // Config entries are vanilla references, the mod ones are Architectury
-          // suppliers
           if (config.attribute().value() == attribute.value()) {
             value += config.values().get(modifier.getRarityType());
           }

@@ -97,7 +97,6 @@ public class TooltipHelper {
     try {
       MutableText text = Text.translatable(key, args);
       if (Language.getInstance() != null && !Language.getInstance().hasTranslation(key)) {
-        // Tooltips are rebuilt every frame, report each key only once
         if (REPORTED_MISSING_KEYS.add(key)) {
           Gemstones.LOGGER.warn("Missing lang key: {}", key);
         }
@@ -150,7 +149,6 @@ public class TooltipHelper {
         .formatted(actualColor);
   }
 
-  // "6 ❤ Health", a boosted value goes right after the number: "6 (8) ❤ Health"
   public static MutableText buildHealthAmountText(TooltipBuilder builder, double health, double boostedHealth) {
     MutableText amount = Text.literal(builder.formatValue(health, "")).formatted(Formatting.RED);
     if (BoostedValueFormatter.isBoosted(health, boostedHealth)) {
