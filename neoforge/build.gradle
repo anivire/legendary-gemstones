@@ -32,7 +32,7 @@ loom {
 	}
 }
 
-tasks.named('runClient') {
+tasks.matching { it.name in ['runClient', 'runServer'] }.configureEach {
 	jvmArgs '-Dmixin.env.disableRefMap=true'
 }
 

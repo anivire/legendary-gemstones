@@ -15,6 +15,7 @@ import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemPlacementContext;
 import net.minecraft.item.ItemStack;
+import net.minecraft.screen.NamedScreenHandlerFactory;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.state.StateManager;
 import net.minecraft.state.property.DirectionProperty;
@@ -74,6 +75,12 @@ public class JewelryTable extends BlockWithEntity implements BlockEntityProvider
       }
       super.onStateReplaced(state, world, pos, newState, moved);
     }
+  }
+
+  @Nullable
+  @Override
+  protected NamedScreenHandlerFactory createScreenHandlerFactory(BlockState state, World world, BlockPos pos) {
+    return null;
   }
 
   @Override
