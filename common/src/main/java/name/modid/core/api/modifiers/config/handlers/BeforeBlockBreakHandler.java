@@ -28,7 +28,6 @@ import net.minecraft.registry.entry.RegistryEntry;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.sound.SoundCategory;
 import net.minecraft.sound.SoundEvents;
-import net.minecraft.stat.Stats;
 import net.minecraft.util.math.BlockPos;
 
 public class BeforeBlockBreakHandler implements ModifierHandler<ModifierConfig.BeforeBlockBreakConfig> {
@@ -93,13 +92,11 @@ public class BeforeBlockBreakHandler implements ModifierHandler<ModifierConfig.B
       return;
     }
 
-    List<ItemStack> drops = Block.getDroppedStacks(state, world, pos, world.getBlockEntity(pos), player, tool);
-
     // Drops that cannot be smelted (geodes, gemstones from loot tables) are kept as
     // they are
     List<ItemStack> finalDrops = new ArrayList<>();
     boolean smeltedAny = false;
-    for (ItemStack drop : drops) {
+    for (ItemStack drop : ctx.getDrops()) {
       ItemStack smelted = ModifierUtils.getSmeltingResult(world, drop);
       if (smelted.isEmpty()) {
         finalDrops.add(drop);
@@ -115,7 +112,7 @@ public class BeforeBlockBreakHandler implements ModifierHandler<ModifierConfig.B
       return;
     }
 
-    breakWithDrops(world, player, pos, state, tool, finalDrops, true);
+    ctx.setDrops(finalDrops);
 
     world.playSound(null, pos, SoundEvents.BLOCK_LAVA_EXTINGUISH, SoundCategory.BLOCKS, 0.5f,
         1.0f);
@@ -171,7 +168,7 @@ public class BeforeBlockBreakHandler implements ModifierHandler<ModifierConfig.B
     ItemStack silkTouchTool = tool.copy();
     EnchantmentHelper.apply(silkTouchTool, builder -> builder.add(silkTouchEntry, 1));
 
-    List<ItemStack> drops = Block.getDroppedStacks(state, world, pos, world.getBlockEntity(pos), player,
+    List<ItemStack> drops = Block.getDroppedStacks(state, world, pos, ctx.getBlockEntity(), player,
         silkTouchTool);
     if (drops.isEmpty()) {
       return;
@@ -193,7 +190,7 @@ public class BeforeBlockBreakHandler implements ModifierHandler<ModifierConfig.B
       }
     }
 
-    breakWithDrops(world, player, pos, state, tool, drops, false);
+    ctx.setDrops(drops);
 
     world.playSound(
         null,
@@ -244,7 +241,7 @@ public class BeforeBlockBreakHandler implements ModifierHandler<ModifierConfig.B
       return;
     }
 
-    List<ItemStack> drops = Block.getDroppedStacks(state, world, pos, world.getBlockEntity(pos), player, tool);
+    List<ItemStack> drops = ctx.getDrops();
     if (drops.isEmpty()) {
       return;
     }
@@ -257,8 +254,7 @@ public class BeforeBlockBreakHandler implements ModifierHandler<ModifierConfig.B
       }
     }
 
-    // Experience is not part of the bet
-    breakWithDrops(world, player, pos, state, tool, finalDrops, true);
+    ctx.setDrops(finalDrops);
 
     double x = pos.getX() + 0.5;
     double y = pos.getY() + 0.5;
@@ -272,35 +268,6 @@ public class BeforeBlockBreakHandler implements ModifierHandler<ModifierConfig.B
     }
 
     ctx.cancel();
-  }
-
-  // Same steps as a vanilla break, but with custom drops
-  private static void breakWithDrops(
-      ServerWorld world,
-      PlayerEntity player,
-      BlockPos pos,
-      BlockState state,
-      ItemStack tool,
-      List<ItemStack> drops,
-      boolean dropExperience) {
-    ItemStack toolCopy = tool.copy();
-
-    state.getBlock().onBreak(world, pos, state, player);
-    if (world.removeBlock(pos, false)) {
-      state.getBlock().onBroken(world, pos, state);
-    }
-
-    for (ItemStack drop : drops) {
-      Block.dropStack(world, pos, drop);
-    }
-
-    if (dropExperience) {
-      state.onStacksDropped(world, pos, toolCopy, true);
-    }
-
-    player.incrementStat(Stats.MINED.getOrCreateStat(state.getBlock()));
-    player.addExhaustion(0.005F);
-    tool.postMine(world, state, pos, player);
   }
 
   private static boolean hasEnchantment(ServerWorld world,

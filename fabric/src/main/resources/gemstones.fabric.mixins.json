@@ -34,6 +34,8 @@
     "gemstones.grindstone.GrindstoneAcceptGemstones",
     "gemstones.grindstone.GrindstoneGemstoneResult",
     "gemstones.grindstone.PreserveGemstonesOnGrindstone",
+    "modifiers.ModifyBlockDrops",
+    "modifiers.OnBlockBreak",
     "modifiers.OnFirstHit",
     "modifiers.OnFishing",
     "modifiers.OnHitMelee",
@@ -46,7 +48,6 @@
     "modifiers.homing.HomingArrowTracker",
     "modifiers.homing.MarkHomingArrowBow",
     "modifiers.homing.MarkHomingArrowCrossbow",
-    "modifiers.magnet.AmberMagnetBlockBreaking",
     "modifiers.magnet.AmberMagnetBlockDrops",
     "modifiers.magnet.AmberMagnetExperience"
   ],

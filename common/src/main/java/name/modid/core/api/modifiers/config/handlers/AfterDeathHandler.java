@@ -11,20 +11,14 @@ import name.modid.core.api.modifiers.config.ModifierConfig.AfterDeathConfig;
 import name.modid.core.api.modifiers.config.ModifierContext;
 import name.modid.core.api.modifiers.config.ModifierHandler;
 import name.modid.core.api.modifiers.types.ModifierItemCategory;
-import name.modid.core.content.registries.EffectsRegistry;
 import net.minecraft.entity.ExperienceOrbEntity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.world.World;
 
 public class AfterDeathHandler implements ModifierHandler<ModifierConfig.AfterDeathConfig> {
   private final Map<String, java.util.function.BiConsumer<List<GemstoneModifier>, ModifierContext>> handlers = Map.of(
-      "AFTER_DEATH_DETONATE", this::handleDetonate,
-      "AFTER_DEATH_HARVEST_MARK", this::handleHarvestMark,
       "AFTER_DEATH_ADDITIONAL_EXP_GAIN", this::handleBonusExpGain);
 
   private static final List<String> ORDER = List.of(
-      "AFTER_DEATH_DETONATE",
-      "AFTER_DEATH_HARVEST_MARK",
       "AFTER_DEATH_ADDITIONAL_EXP_GAIN");
 
   @Override
@@ -50,51 +44,6 @@ public class AfterDeathHandler implements ModifierHandler<ModifierConfig.AfterDe
       if (fn != null)
         fn.accept(group, ctx);
     }
-  }
-
-  private void handleDetonate(
-      List<GemstoneModifier> modifiers,
-      ModifierContext ctx) {
-    if (!(ctx.getTarget() instanceof LivingEntity target)
-        || !target.hasStatusEffect(EffectsRegistry.detonateEntry())) {
-      return;
-    }
-
-    target.getWorld().createExplosion(
-        target,
-        null,
-        null,
-        target.getX(),
-        target.getY(),
-        target.getZ(),
-        3.0F + target.getStatusEffect(EffectsRegistry.detonateEntry()).getAmplifier(), false,
-        World.ExplosionSourceType.TNT);
-  }
-
-  // NOTE: don't capped
-  private void handleHarvestMark(
-      List<GemstoneModifier> modifiers,
-      ModifierContext ctx) {
-    if (!(ctx.getTarget() instanceof LivingEntity target)
-        || !target.hasStatusEffect(EffectsRegistry.harvestMarkEntry())) {
-      return;
-    }
-
-    final int MIN_ADDITIONAL_XP = 3;
-    final int MAX_ADDITIONAL_XP = 5;
-
-    int stackCount = target.getStatusEffect(EffectsRegistry.harvestMarkEntry()).getAmplifier() + 1;
-    int exp = (int) (Math.random() * (MAX_ADDITIONAL_XP - MIN_ADDITIONAL_XP + 1) + MIN_ADDITIONAL_XP);
-
-    for (int i = 0; i < stackCount; i++) {
-      ctx.getWorld().spawnEntity(new ExperienceOrbEntity(
-          ctx.getWorld(),
-          target.getX(),
-          target.getY(),
-          target.getZ(),
-          exp));
-    }
-
   }
 
   private void handleBonusExpGain(

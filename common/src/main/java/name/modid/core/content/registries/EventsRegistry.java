@@ -1,7 +1,6 @@
 package name.modid.core.content.registries;
 
 import dev.architectury.event.EventResult;
-import dev.architectury.event.events.common.BlockEvent;
 import dev.architectury.event.events.common.EntityEvent;
 import dev.architectury.event.events.common.InteractionEvent;
 import dev.architectury.event.events.common.LootEvent;
@@ -12,8 +11,6 @@ import name.modid.core.api.modifiers.helpers.GemstoneAttributeCapHelper;
 import name.modid.core.content.events.CustomEvents;
 import name.modid.core.content.events.handlers.EventAfterDeath;
 import name.modid.core.content.events.handlers.EventAreaEffect;
-import name.modid.core.content.events.handlers.EventOnBeforeBlockBreak;
-import name.modid.core.content.events.handlers.EventOnBlockBreak;
 import name.modid.core.content.events.handlers.EventOnFirstHit;
 import name.modid.core.content.events.handlers.EventOnFishing;
 import name.modid.core.content.events.handlers.EventOnHitMelee;
@@ -84,16 +81,6 @@ public class EventsRegistry {
       EventSparkSpawner.setup(entity, source);
 
       return EventResult.pass();
-    });
-
-    // Block break
-    BlockEvent.BREAK.register((world, pos, state, player, xp) -> {
-      boolean canBreak = EventOnBeforeBlockBreak.setupEvent(world, player, pos, state, world.getBlockEntity(pos));
-
-      // Smelter and Enchanter break the block on their own, other tool gems still
-      // react to the break
-      EventOnBlockBreak.setupEvent(world, player, pos, state, world.getBlockEntity(pos));
-      return canBreak ? EventResult.pass() : EventResult.interruptFalse();
     });
 
     // Player (PLAYER_TICK_ events going in END_SERVER_TICK)
