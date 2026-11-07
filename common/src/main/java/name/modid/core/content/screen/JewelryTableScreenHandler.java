@@ -7,11 +7,11 @@ import name.modid.core.api.modifiers.types.GemstoneQuality;
 import name.modid.core.api.modifiers.types.GemstoneType;
 import name.modid.core.content.blocks.entity.JewelryTableBlockEntity;
 import name.modid.core.content.items.GemstoneItem;
-import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.EquipmentSlot;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.PlayerInventory;
 import net.minecraft.inventory.Inventory;
+import net.minecraft.inventory.SimpleInventory;
 import net.minecraft.item.ItemStack;
 import net.minecraft.network.PacketByteBuf;
 import net.minecraft.screen.ScreenHandler;
@@ -48,13 +48,9 @@ public class JewelryTableScreenHandler extends ScreenHandler {
   }
 
   public JewelryTableScreenHandler(int syncId, PlayerInventory playerInventory, BlockPos pos) {
-    this(syncId, playerInventory, playerInventory.player.getWorld().getBlockEntity(pos));
-  }
-
-  public JewelryTableScreenHandler(int syncId, PlayerInventory playerInventory, BlockEntity blockEntity) {
     super(ScreenRegistry.JEWELRY_TABLE_SCREEN_HANDLER.get(), syncId);
-    this.inventory = (Inventory) blockEntity;
-    this.pos = blockEntity.getPos();
+    this.inventory = getTableInventory(playerInventory, pos);
+    this.pos = pos;
 
     checkSize(this.inventory, TABLE_INVENTORY_SIZE);
 
@@ -68,6 +64,12 @@ public class JewelryTableScreenHandler extends ScreenHandler {
     addPlayerHotbar(playerInventory);
 
     GemstoneSlotHelper.initializeSocketsIfEligible(getBase(), getBase().getItem());
+  }
+
+  private static Inventory getTableInventory(PlayerInventory playerInventory, BlockPos pos) {
+    return playerInventory.player.getWorld().getBlockEntity(pos) instanceof JewelryTableBlockEntity table
+        ? table
+        : new SimpleInventory(TABLE_INVENTORY_SIZE);
   }
 
   private void addTableSlot(int index, int x, int y) {

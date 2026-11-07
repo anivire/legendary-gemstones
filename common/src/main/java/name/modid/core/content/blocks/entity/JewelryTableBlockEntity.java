@@ -153,6 +153,7 @@ public class JewelryTableBlockEntity extends BlockEntity
   @Override
   protected void readNbt(NbtCompound nbt, RegistryWrapper.WrapperLookup registryLookup) {
     super.readNbt(nbt, registryLookup);
+    inventory.clear();
     Inventories.readNbt(nbt, inventory, registryLookup);
     moveLegacyStacks();
   }
