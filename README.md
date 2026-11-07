@@ -1,15 +1,19 @@
-<img src="https://cdn.modrinth.com/data/cached_images/b49b49ce7edf9bbfffa78ce4bfe18d74278fc4d2_0.webp" alt="Logo with bg" width="800">
+<div align="center">
+  <img src="docs/images/logo.png" alt="Legendary Gemstones" width="600">
 
-## Legendary Gemstones
+  <p>Find gemstones in your world and insert them into sockets<br>
+  on weapons, tools and armor to give them unique bonuses!</p>
 
-Adds various gemstones to your world that can be used to upgrade weapons, tools,
-and armor. Gemstones are inserted into special sockets on equipment and give the
-owner unique bonuses.
+  <a href="https://modrinth.com/mod/legendary-gemstones"><img alt="Available on Modrinth" height="50" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3.3.1/assets/cozy/available/modrinth_vector.svg"></a>
+  <a href="https://www.curseforge.com/minecraft/mc-mods/legendary-gemstones"><img alt="Available on CurseForge" height="50" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3.3.1/assets/cozy/available/curseforge_vector.svg"></a>
+</div>
+
+## Features
 
 - 20 various Gemstones!
 - 50+ unique bonuses and effects!
 
-<img src="docs/images/items.png" alt="Gemstones and jewelry tools" width="800">
+<div align="center"><img src="docs/images/items.png" alt="Gemstones and jewelry tools" width="800"></div>
 
 ## Getting Started
 
@@ -17,12 +21,12 @@ owner unique bonuses.
    right click to open it for a random gemstone. Some gemstones can also be found
    in structures such as piglin bastions in the Nether, strongholds, End cities,
    and other loot chests.
-2. **Craft a Jewelry Table**.
+2. **Craft a Jewelry Table.**
 3. **Socket your gear.** Put a weapon, tool or armor piece in the table and click
    a socket:
-   - **Jewelry Hammer** inserts the gemstone you hold on the cursor;
-   - **Jewelry Pliers** take a gemstone out;
-   - a **Chisel** with an **Expansion Crystal** unlocks a new socket.
+   - with the **Jewelry Hammer** you can insert the gemstone held on the cursor;
+   - with the **Jewelry Pliers** you can take a gemstone out;
+   - with a **Chisel** and an **Expansion Crystal** you can unlock a new socket.
 
    Inserting and extracting costs experience levels. Hover over a socket to see
    what it needs.
@@ -30,15 +34,9 @@ owner unique bonuses.
    **Gemstone Dust**, then polish the ones you keep to a higher quality with the
    **Jewelry File**.
 
-For recipes, bonuses and drop chances go to the mod [Wiki](https://gemstones.anivire.xyz/).
+For more information, see the mod [Wiki](https://gemstones.anivire.xyz/).
 
-<img src="docs/images/jewelry-table.png" alt="Jewelry Table" width="800">
-
-## Requirements
-
-- Minecraft 1.21.1, Fabric (with Fabric API) or NeoForge
-- [Architectury API](https://modrinth.com/mod/architectury-api)
-- Optional: REI or EMI for recipes, Cloth Config for the settings screen
+<div align="center"><img src="docs/images/jewelry-table.png" alt="Jewelry Table" width="800"></div>
 
 ## Credits
 
