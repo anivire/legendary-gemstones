@@ -26,6 +26,7 @@
     "effects.witherGuard.PlayerWitherGuard",
     "effects.witherGuard.PlayerWitherGuardEntity",
     "effects.witherGuard.WitherSkullEntityTeleport",
+    "gemstones.PreserveGemstonesOnAnvil",
     "gemstones.PreserveGemstonesOnCrafting",
     "gemstones.PreserveGemstonesOnSmithing",
     "gemstones.SlotsInitialization",
