@@ -1,5 +1,7 @@
 package name.modid.core.mixins.gemstones.grindstone;
 
+import java.util.List;
+
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -31,14 +33,7 @@ public abstract class PreserveGemstonesOnGrindstone {
       return;
     }
 
-    ItemStack source = input.getStack(0);
-    if (!source.isEmpty()) {
-      GemstoneSlotHelper.copyGemstones(source, result);
-    } else {
-      source = input.getStack(1);
-      if (!source.isEmpty()) {
-        GemstoneSlotHelper.copyGemstones(source, result);
-      }
-    }
+    GemstoneSlotHelper.copyGemstones(
+        GemstoneSlotHelper.pickSocketSource(List.of(input.getStack(0), input.getStack(1))), result);
   }
 }

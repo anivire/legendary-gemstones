@@ -41,12 +41,6 @@ public abstract class PreserveGemstonesOnCrafting {
       return;
     }
 
-    for (int i = 0; i < craftingInventory.size(); i++) {
-      ItemStack stack = craftingInventory.getStack(i);
-      if (!stack.isEmpty() && GemstoneSlotHelper.isGemstonesExists(stack)) {
-        GemstoneSlotHelper.copyGemstones(stack, result);
-        return;
-      }
-    }
+    GemstoneSlotHelper.copyGemstones(GemstoneSlotHelper.pickSocketSource(craftingInventory.getHeldStacks()), result);
   }
 }

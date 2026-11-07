@@ -377,6 +377,35 @@ public class GemstoneSlotHelper {
     return false;
   }
 
+  public static ItemStack pickSocketSource(Iterable<ItemStack> stacks) {
+    ItemStack best = ItemStack.EMPTY;
+    int bestScore = -1;
+    for (ItemStack stack : stacks) {
+      if (stack.isEmpty() || !isGemstonesExists(stack)) {
+        continue;
+      }
+
+      int score = hasInsertedGemstones(stack) ? Integer.MAX_VALUE : countUnlockedSockets(stack);
+      if (score > bestScore) {
+        best = stack;
+        bestScore = score;
+      }
+    }
+
+    return best;
+  }
+
+  private static int countUnlockedSockets(ItemStack stack) {
+    int count = 0;
+    for (GemstoneComponent gem : getGemstones(stack)) {
+      if (gem != null && gem.gemstoneType() != GemstoneType.LOCKED) {
+        count++;
+      }
+    }
+
+    return count;
+  }
+
   public static void copyGemstones(ItemStack source, ItemStack target) {
     if (source == null || target == null || source.isEmpty() || target.isEmpty())
       return;
