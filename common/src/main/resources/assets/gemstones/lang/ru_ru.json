@@ -141,6 +141,7 @@
   "attribute.name.generic.swim_speed": "Скорость плавания",
 
   "entity.gemstones.spark": "Искра",
+  "entity.gemstones.rain_arrow": "Стрела",
 
   "tooltip.gemstones.unit.second": " секунд",
   "tooltip.gemstones.unit.block": " блока",

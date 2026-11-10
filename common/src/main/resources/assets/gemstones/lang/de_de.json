@@ -141,6 +141,7 @@
   "attribute.name.generic.swim_speed": "Schwimmgeschwindigkeit",
 
   "entity.gemstones.spark": "Funke",
+  "entity.gemstones.rain_arrow": "Pfeil",
 
   "tooltip.gemstones.unit.second": " Sekunden",
   "tooltip.gemstones.unit.block": " Block",

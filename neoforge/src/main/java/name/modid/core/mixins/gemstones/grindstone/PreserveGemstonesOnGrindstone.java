@@ -25,7 +25,7 @@ public abstract class PreserveGemstonesOnGrindstone {
     if (result.isEmpty())
       return;
 
-    // Sockets of only one item can be kept, so combining two items with gemstones #
+    // Sockets of only one item can be kept, so combining two items with gemstones
     // would destroy gems
     if (GemstoneSlotHelper.hasInsertedGemstones(input.getStack(0))
         && GemstoneSlotHelper.hasInsertedGemstones(input.getStack(1))) {

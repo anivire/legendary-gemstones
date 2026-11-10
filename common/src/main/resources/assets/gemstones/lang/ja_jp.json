@@ -129,6 +129,7 @@
   "attribute.name.generic.invulnerability_frames": "無敵時間",
   "attribute.name.generic.swim_speed": "遊泳速度",
   "entity.gemstones.spark": "スパーク",
+  "entity.gemstones.rain_arrow": "矢",
   "tooltip.gemstones.unit.second": " 秒",
   "tooltip.gemstones.unit.block": " ブロック",
   "tooltip.gemstones.unit.health": " 体力",

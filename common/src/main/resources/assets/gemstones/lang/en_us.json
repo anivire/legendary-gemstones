@@ -129,6 +129,7 @@
   "attribute.name.generic.invulnerability_frames": "Invulnerability Time",
   "attribute.name.generic.swim_speed": "Swim Speed",
   "entity.gemstones.spark": "Spark",
+  "entity.gemstones.rain_arrow": "Arrow",
   "tooltip.gemstones.unit.second": " second",
   "tooltip.gemstones.unit.block": " block",
   "tooltip.gemstones.unit.health": " Health",

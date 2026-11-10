@@ -28,7 +28,6 @@ public final class EventType {
       "tooltip.gemstones.event_name.lifesteal");
   public static final EventType ON_HIT_LIGHTNING_BOLT = registerDiminishing("ON_HIT_LIGHTNING_BOLT",
       "tooltip.gemstones.event_name.lighting_bolt");
-  public static final EventType ON_HIT_TORRENT = register("ON_HIT_TORRENT", "tooltip.gemstones.event_name.torrent");
   public static final EventType ON_HIT_SMALL_FLAT_EXPLOSION = registerDiminishing("ON_HIT_SMALL_FLAT_EXPLOSION",
       "tooltip.gemstones.event_name.small_flat_explode");
   public static final EventType ON_HIT_COPY_ENTITY_DROP = registerDiminishing("ON_HIT_COPY_ENTITY_DROP",
@@ -39,8 +38,6 @@ public final class EventType {
       "tooltip.gemstones.event_name.magic_strike");
   public static final EventType ON_HIT_ENDER_JUDGEMENT = registerDiminishing("ON_HIT_ENDER_JUDGEMENT",
       "tooltip.gemstones.event_name.ender_judgement");
-  public static final EventType ON_HIT_ENTITY_PULL = register("ON_HIT_ENTITY_PULL",
-      "tooltip.gemstones.event_name.entity_pull");
   public static final EventType ON_HIT_ARROW_RAIN = registerDiminishing("ON_HIT_ARROW_RAIN",
       "tooltip.gemstones.event_name.arrow_rain");
   public static final EventType ON_HIT_RANDOM_EFFECT = registerDiminishing("ON_HIT_RANDOM_EFFECT",
@@ -93,8 +90,6 @@ public final class EventType {
   public static final EventType PLAYER_SAVE_LETHAL = register("PLAYER_SAVE_LETHAL",
       "tooltip.gemstones.event_name.save_lethal");
 
-  public static final EventType PLAYER_TICK_ENDER_CYCLE = register("PLAYER_TICK_ENDER_CYCLE",
-      "tooltip.gemstones.event_name.ender_cycle");
   public static final EventType PLAYER_TICK_AMBER_SHELL = register("PLAYER_TICK_AMBER_SHELL",
       "tooltip.gemstones.event_name.amber_shell");
   public static final EventType PLAYER_TICK_ORE_VISION = register("PLAYER_TICK_ORE_VISION",
@@ -104,10 +99,6 @@ public final class EventType {
   public static final EventType PLAYER_TICK_INCREASE_MOB_SPAWNRATE = register("PLAYER_TICK_INCREASE_MOB_SPAWNRATE",
       "tooltip.gemstones.event_name.increase_mob_spawnrate");
 
-  public static final EventType AFTER_DEATH_DETONATE = register("AFTER_DEATH_DETONATE",
-      "tooltip.gemstones.event_name.detonate");
-  public static final EventType AFTER_DEATH_HARVEST_MARK = register("AFTER_DEATH_HARVEST_MARK",
-      "tooltip.gemstones.event_name.harvest_mark");
   public static final EventType AFTER_DEATH_ADDITIONAL_EXP_GAIN = register("AFTER_DEATH_ADDITIONAL_EXP_GAIN",
       "tooltip.gemstones.event_name.additional_exp_gain");
 
