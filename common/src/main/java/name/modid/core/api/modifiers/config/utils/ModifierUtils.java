@@ -1,5 +1,6 @@
 package name.modid.core.api.modifiers.config.utils;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
@@ -10,8 +11,10 @@ import java.util.stream.Stream;
 
 import name.modid.core.api.modifiers.config.GemstoneModifier;
 import name.modid.core.api.modifiers.config.ModifierConfig;
-import name.modid.core.api.modifiers.helpers.ModifierHelper;
+import name.modid.core.api.modifiers.config.ModifierConfig.AttributeConfig;
+import name.modid.core.api.modifiers.config.handlers.AttributeModifierHandler;
 import name.modid.core.api.modifiers.helpers.ModifierGatheringHelper;
+import name.modid.core.api.modifiers.helpers.ModifierHelper;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.component.type.AttributeModifiersComponent.Entry;
@@ -49,6 +52,36 @@ public class ModifierUtils {
     return collectValuesFromAllEquipment(
         player,
         itemStack -> ModifierGatheringHelper.getModifiers(itemStack, configClass));
+  }
+
+  public static List<Double> collectGemstoneAttributeValues(
+      LivingEntity entity,
+      RegistryEntry<EntityAttribute> attribute) {
+    List<Double> values = new ArrayList<>();
+
+    for (EquipmentSlot slot : new EquipmentSlot[] {
+        EquipmentSlot.HEAD, EquipmentSlot.CHEST, EquipmentSlot.LEGS, EquipmentSlot.FEET,
+        EquipmentSlot.MAINHAND }) {
+      ItemStack stack = entity.getEquippedStack(slot);
+      if (!isStackActiveInSlot(stack, slot)) {
+        continue;
+      }
+
+      for (GemstoneModifier modifier : ModifierGatheringHelper.getAttributeModifiers(stack)) {
+        double value = 0.0;
+        for (AttributeConfig config : AttributeModifierHandler.getAttributeConfigs(modifier)) {
+          if (config.attribute().value() == attribute.value()) {
+            value += config.values().get(modifier.getRarityType());
+          }
+        }
+
+        if (value != 0.0) {
+          values.add(value);
+        }
+      }
+    }
+
+    return values;
   }
 
   public static double collectAttributeValuesFromArmor(LivingEntity entity, RegistryEntry<EntityAttribute> attribute) {

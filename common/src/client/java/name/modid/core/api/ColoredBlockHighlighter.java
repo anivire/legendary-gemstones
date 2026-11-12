@@ -5,8 +5,8 @@ import java.util.EnumSet;
 
 import net.minecraft.client.model.ModelPart;
 import net.minecraft.client.render.Camera;
-import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.OutlineVertexConsumerProvider;
+import net.minecraft.client.render.OverlayTexture;
 import net.minecraft.client.render.RenderLayer;
 import net.minecraft.client.render.VertexConsumer;
 import net.minecraft.client.util.math.MatrixStack;

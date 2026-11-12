@@ -13,7 +13,10 @@ import name.modid.core.api.modifiers.config.ModifierHandler;
 import name.modid.core.api.modifiers.config.utils.ModifierUtils;
 import name.modid.core.api.modifiers.types.ModifierItemCategory;
 import name.modid.core.utils.GetRandomBuff;
+import name.modid.core.utils.damage.DamageSourceHelper;
+import name.modid.core.utils.damage.EnderJudgementHelper;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.damage.DamageTypes;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.particle.ParticleTypes;
@@ -23,6 +26,8 @@ import net.minecraft.sound.SoundEvents;
 
 public class HitMeleeHandler
     implements ModifierHandler<ModifierConfig.HitMeleeConfig> {
+  private static final int EXPERIENCE_COST_PER_HIT = 1;
+
   private final Map<String, java.util.function.BiConsumer<List<GemstoneModifier>, ModifierContext>> handlers = Map.of(
       "ON_HIT_RANDOM_EFFECT", this::handleRandomEffect,
       "ON_HIT_LIFE_STEAL", this::handleLifesteal,
@@ -51,7 +56,7 @@ public class HitMeleeHandler
       return;
     }
 
-    // Default returned damage value for all further amage manipulations
+    // Default returned damage value for all further damage manipulations
     ctx.setDamageResult(ctx.getBaseDamageTaken());
 
     Map<String, List<GemstoneModifier>> grouped = modifiers.stream()
@@ -71,7 +76,8 @@ public class HitMeleeHandler
   private void handleEnderJudgement(
       List<GemstoneModifier> modifiers,
       ModifierContext ctx) {
-    if (!(ctx.getTarget() instanceof LivingEntity target)) {
+    if (!(ctx.getTarget() instanceof LivingEntity target)
+        || !ctx.isFullStrengthAttack()) {
       return;
     }
 
@@ -92,14 +98,18 @@ public class HitMeleeHandler
             0.6, 1.0, 0.6, 0.05);
       }
 
-      ctx.setDamageResult(Float.MAX_VALUE);
+      // Float.MAX_VALUE overflowed into NaN health, so the exact lethal damage is set
+      // once reductions are known
+      ctx.setDamageResult(Math.max(ctx.getDamageResult(), EnderJudgementHelper.getLethalDamage(target)));
+      EnderJudgementHelper.arm(target);
     }
   }
 
   private void handleMagicStrike(
       List<GemstoneModifier> modifiers,
       ModifierContext ctx) {
-    if (!(ctx.getTarget() instanceof LivingEntity target)) {
+    if (!(ctx.getTarget() instanceof LivingEntity target)
+        || !ctx.isFullStrengthAttack()) {
       return;
     }
 
@@ -116,7 +126,9 @@ public class HitMeleeHandler
           try {
             target.hurtTime = 0;
             target.timeUntilRegen = 0;
-            target.damage(target.getDamageSources().magic(), bonusDamage);
+            target.damage(
+                DamageSourceHelper.attributed(target.getWorld(), DamageTypes.MAGIC, ctx.getOwner()),
+                bonusDamage);
           } finally {
           }
         }
@@ -128,7 +140,8 @@ public class HitMeleeHandler
       List<GemstoneModifier> modifiers,
       ModifierContext ctx) {
     if (!(ctx.getOwner() instanceof LivingEntity attacker)
-        || ctx.getTarget() == null) {
+        || ctx.getTarget() == null
+        || !ctx.isFullStrengthAttack()) {
       return;
     }
 
@@ -154,7 +167,6 @@ public class HitMeleeHandler
     }
   }
 
-  // NOTE: don't capped
   private void multiplyDamageArmorless(List<GemstoneModifier> modifiers, ModifierContext ctx) {
     if (!(ctx.getOwner() instanceof LivingEntity owner)
         || ModifierUtils.isArmorEquiped(owner)) {
@@ -169,7 +181,8 @@ public class HitMeleeHandler
   }
 
   private void handleRandomEffect(List<GemstoneModifier> modifiers, ModifierContext ctx) {
-    if (!(ctx.getTarget() instanceof LivingEntity target)) {
+    if (!(ctx.getTarget() instanceof LivingEntity target)
+        || !ctx.isFullStrengthAttack()) {
       return;
     }
 
@@ -195,18 +208,31 @@ public class HitMeleeHandler
       return;
     }
 
-    int levelOffset = 0;
+    int levelOffset = Integer.MAX_VALUE;
     float bonusDamageAmplifierPercent = 0.0f;
 
     for (GemstoneModifier modifier : modifiers) {
       HitMeleeConfig config = (HitMeleeConfig) modifier.getConfig();
-      levelOffset += config.additionalValues().get(modifier.getRarityType()).intValue();
+      levelOffset = Math.min(levelOffset, config.additionalValues().get(modifier.getRarityType()).intValue());
       bonusDamageAmplifierPercent += config.values().get(modifier.getRarityType());
     }
 
-    float extraDamageMultiplier = 1.0f + (player.experienceLevel / levelOffset) * bonusDamageAmplifierPercent;
+    if (levelOffset <= 0 || levelOffset == Integer.MAX_VALUE) {
+      return;
+    }
+
+    int steps = player.experienceLevel / levelOffset;
+    if (steps <= 0) {
+      return;
+    }
+
+    float extraDamageMultiplier = 1.0f + steps * bonusDamageAmplifierPercent;
     float newDamage = ctx.getDamageResult() * extraDamageMultiplier;
 
     ctx.setDamageResult(newDamage);
+
+    if (!player.isCreative()) {
+      player.addExperience(-EXPERIENCE_COST_PER_HIT);
+    }
   }
 }

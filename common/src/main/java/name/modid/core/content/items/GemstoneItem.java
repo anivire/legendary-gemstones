@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
-import name.modid.Gemstones;
 import name.modid.core.api.components.ComponentsRegistry;
 import name.modid.core.api.components.PolishingComponent;
 import name.modid.core.api.modifiers.config.GemstoneModifier;
@@ -17,19 +16,23 @@ import name.modid.core.api.modifiers.types.GemstoneQuality;
 import name.modid.core.api.modifiers.types.GemstoneType;
 import name.modid.core.api.modifiers.types.ModifierItemCategory;
 import name.modid.core.api.tooltips.QualityTooltipData;
-import name.modid.core.api.tooltips.TooltipHelper.Icons;
 import name.modid.core.api.tooltips.TooltipHelper.InlineIcons;
+import name.modid.core.api.tooltips.TooltipText;
+import name.modid.core.content.items.registries.ItemsRegistry;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.tooltip.TooltipData;
 import net.minecraft.item.tooltip.TooltipType;
-import net.minecraft.text.MutableText;
-import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
+import net.minecraft.util.math.ColorHelper;
+import net.minecraft.util.math.MathHelper;
 
 public class GemstoneItem extends Item {
+  private static final int ITEM_BAR_STEPS = 13;
+  private static final int POLISHING_BAR_START_COLOR = 0xFFA64DFF;
+  private static final int POLISHING_BAR_END_COLOR = 0xFFFF6FD6;
+
   protected GemstoneType gemstoneType;
   protected GemstoneQuality rarityType;
 
@@ -45,6 +48,34 @@ public class GemstoneItem extends Item {
 
   public GemstoneQuality getRarityType() {
     return this.rarityType;
+  }
+
+  @Override
+  public boolean isItemBarVisible(ItemStack stack) {
+    return stack.get(ComponentsRegistry.polishing()) != null;
+  }
+
+  @Override
+  public int getItemBarStep(ItemStack stack) {
+    return Math.round(getPolishingProgress(stack) * ITEM_BAR_STEPS);
+  }
+
+  @Override
+  public int getItemBarColor(ItemStack stack) {
+    return ColorHelper.Argb.lerp(getPolishingProgress(stack), POLISHING_BAR_START_COLOR, POLISHING_BAR_END_COLOR);
+  }
+
+  private float getPolishingProgress(ItemStack stack) {
+    PolishingComponent polishing = stack.get(ComponentsRegistry.polishing());
+    int totalStages = this.rarityType.getPolishStages();
+    if (polishing == null || totalStages <= 0) {
+      return 0.0f;
+    }
+
+    float stageProgress = polishing.stageDuration() <= 0
+        ? 0.0f
+        : (float) polishing.ticksInStage() / polishing.stageDuration();
+    return MathHelper.clamp((polishing.completedStages() + stageProgress) / totalStages, 0.0f, 1.0f);
   }
 
   @Override
@@ -88,52 +119,44 @@ public class GemstoneItem extends Item {
         });
 
     if (gemstoneItem.getRarityType() == GemstoneQuality.MYTHIC) {
-      MutableText iconInfo = Text.literal(InlineIcons.INFO.getSymbol())
-          .setStyle(Style.EMPTY.withFont(Identifier.of(Gemstones.MOD_ID, Icons.INLINE.getPath())))
-          .formatted(Formatting.WHITE);
-      MutableText actionStart = Text
-          .translatable("tooltip.gemstones.mythic_quality_warning")
-          .setStyle(Style.EMPTY.withFont(Style.DEFAULT_FONT_ID))
-          .formatted(Formatting.GRAY);
-
       tooltip.add(Text.empty());
-      tooltip.add(iconInfo.append(actionStart));
+      tooltip.add(TooltipText.info(
+          Text.translatable("tooltip.gemstones.mythic_quality_warning").formatted(Formatting.GRAY)));
     }
 
     if (isAmplifierGemstone) {
-      MutableText iconInfo = Text.literal(InlineIcons.INFO.getSymbol())
-          .setStyle(Style.EMPTY.withFont(Identifier.of(Gemstones.MOD_ID, Icons.INLINE.getPath())))
-          .formatted(Formatting.WHITE);
-      MutableText actionStart = Text
-          .translatable("tooltip.gemstones.amplifier_quality_warning")
-          .setStyle(Style.EMPTY.withFont(Style.DEFAULT_FONT_ID))
-          .formatted(Formatting.GRAY);
-      MutableText infoIndent = Text.literal(InlineIcons.INFO_INDENT.getSymbol())
-          .setStyle(Style.EMPTY.withFont(Identifier.of(Gemstones.MOD_ID, Icons.INLINE.getPath())));
-      MutableText boostedValues = Text
-          .translatable("tooltip.gemstones.amplifier_quality_values")
-          .setStyle(Style.EMPTY.withFont(Style.DEFAULT_FONT_ID))
-          .formatted(Formatting.GRAY);
-
       tooltip.add(Text.empty());
-      tooltip.add(iconInfo.append(actionStart));
-      tooltip.add(infoIndent.append(boostedValues));
+      tooltip.add(TooltipText.info(
+          Text.translatable("tooltip.gemstones.amplifier_quality_warning").formatted(Formatting.GRAY)));
+      tooltip.add(TooltipText.indented(
+          Text.translatable("tooltip.gemstones.amplifier_quality_values").formatted(Formatting.GRAY)));
     }
 
     PolishingComponent polishing = stack.get(ComponentsRegistry.polishing());
     if (polishing != null) {
       int totalStages = gemstoneItem.getRarityType().getPolishStages();
       int currentStage = Math.min(polishing.completedStages() + 1, totalStages);
-      int stagePercent = polishing.stageDuration() <= 0
-          ? 0
-          : polishing.ticksInStage() * 100 / polishing.stageDuration();
+      int totalPercent = (int) (getPolishingProgress(stack) * 100);
+      // The current stage is not counted once it is paid, a stage is paid when it starts
+      int unpaidStages = totalStages - polishing.completedStages() - (polishing.stagePaid() ? 1 : 0);
+      int dustLeft = Math.max(unpaidStages, 0) * gemstoneItem.getRarityType().getPolishDustCost();
 
       tooltip.add(Text.empty());
-      tooltip.add(Text.translatable("tooltip.gemstones.polishing.progress",
-          currentStage,
-          totalStages,
-          stagePercent)
-          .formatted(Formatting.GOLD));
+      tooltip.add(TooltipText.line(
+          TooltipText.icon(InlineIcons.POLISHING),
+          Text.literal(" "),
+          Text.translatable("tooltip.gemstones.polishing.progress",
+              Text.literal(currentStage + " / " + totalStages).formatted(Formatting.GOLD),
+              totalPercent)
+              .formatted(Formatting.GRAY)));
+      if (dustLeft > 0) {
+        tooltip.add(TooltipText.line(
+            TooltipText.icon(InlineIcons.POLISHING_INDENT),
+            Text.translatable("tooltip.gemstones.polishing.dust_left",
+                Text.literal(String.valueOf(dustLeft)).formatted(Formatting.GOLD),
+                ItemsRegistry.gemstoneDust().getDefaultStack().toHoverableText())
+                .formatted(Formatting.GRAY)));
+      }
     }
   }
 

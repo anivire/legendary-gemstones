@@ -8,9 +8,9 @@ import java.util.stream.Collectors;
 import name.modid.core.api.modifiers.config.GemstoneModifier;
 import name.modid.core.api.modifiers.config.ModifierConfig;
 import name.modid.core.api.modifiers.config.ModifierConfig.OnPotionBrewConfig;
-import name.modid.core.api.modifiers.config.utils.PotionUtils;
 import name.modid.core.api.modifiers.config.ModifierContext;
 import name.modid.core.api.modifiers.config.ModifierHandler;
+import name.modid.core.api.modifiers.config.utils.PotionUtils;
 import name.modid.core.api.modifiers.types.ModifierItemCategory;
 import net.minecraft.entity.effect.StatusEffectInstance;
 import net.minecraft.item.ItemStack;
@@ -55,8 +55,9 @@ public class OnPotionBrewHandler implements ModifierHandler<ModifierConfig.OnPot
       return;
     }
 
-    double totalIncreasedDuration = modifiers.stream()
-        .mapToDouble(m -> ((OnPotionBrewConfig) m.getConfig()).values().get(m.getRarityType())).sum();
+    double durationBonus = modifiers.stream()
+        .mapToDouble(m -> ((OnPotionBrewConfig) m.getConfig()).values().get(m.getRarityType()))
+        .sum();
 
     for (int i = 0; i < 3; i++) {
       ItemStack stack = ctx.getInventory().get(i);
@@ -76,7 +77,7 @@ public class OnPotionBrewHandler implements ModifierHandler<ModifierConfig.OnPot
       for (StatusEffectInstance effect : effects) {
         newEffects.add(new StatusEffectInstance(
             effect.getEffectType(),
-            effect.getDuration() + ((int) totalIncreasedDuration * 20),
+            (int) Math.round(effect.getDuration() * (1.0 + durationBonus)),
             effect.getAmplifier(),
             effect.isAmbient(),
             effect.shouldShowParticles(),

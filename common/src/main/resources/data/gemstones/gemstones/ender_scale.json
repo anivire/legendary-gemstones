@@ -20,9 +20,6 @@
     },
     "TOOLS": {
       "type": "PLAYER",
-      "chance_levels": [
-        1.0
-      ],
       "value_levels": [
         6.0
       ],

@@ -4,6 +4,8 @@ import java.util.Objects;
 
 import name.modid.Gemstones;
 import name.modid.GemstonesClient;
+import name.modid.compat.cloth.ClothConfigCompat;
+import name.modid.compat.cloth.GemstonesConfigScreen;
 import name.modid.core.api.entities.jeweleryTable.JewelryTableScreen;
 import name.modid.core.api.modifiers.helpers.GemstoneAttributeModifiersHelper;
 import name.modid.core.api.particles.BleedParticleFactory;
@@ -14,36 +16,50 @@ import name.modid.core.api.projectiles.spark.SparkProjectileModel;
 import name.modid.core.api.projectiles.spark.SparkProjectileRenderer;
 import name.modid.core.content.entities.RainArrowEntity;
 import name.modid.core.content.entities.SparkProjectileEntity;
+import name.modid.core.content.items.GemstoneDustItem;
 import name.modid.core.content.particles.ScarabParticleInstance;
 import name.modid.core.content.registries.EntitiesRegistry;
 import name.modid.core.content.registries.ParticlesRegistry;
 import name.modid.core.content.screen.JewelryTableScreenHandler;
 import name.modid.core.content.screen.ScreenRegistry;
+import name.modid.core.network.NetworkHandler;
+import name.modid.core.utils.damage.EnderJudgementHelper;
 import name.modid.neoforge.client.GemstonesNeoForgeClientEvents;
 import net.minecraft.client.render.entity.EntityRendererFactory;
 import net.minecraft.client.render.entity.ProjectileEntityRenderer;
 import net.minecraft.entity.EntityType;
+import net.minecraft.item.ItemStack;
 import net.minecraft.particle.ParticleType;
 import net.minecraft.particle.SimpleParticleType;
 import net.minecraft.screen.ScreenHandlerType;
 import net.minecraft.util.Identifier;
+import net.neoforged.bus.api.EventPriority;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.loading.FMLEnvironment;
 import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.common.extensions.IItemStackExtension;
+import net.neoforged.neoforge.event.GrindstoneEvent;
+import net.neoforged.neoforge.event.OnDatapackSyncEvent;
+import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 
 @Mod(Gemstones.MOD_ID)
 public class GemstonesNeoForge {
-  public GemstonesNeoForge(IEventBus eventBus) {
+  public GemstonesNeoForge(IEventBus eventBus, ModContainer container) {
     Gemstones.init();
 
     GemstoneAttributeModifiersHelper.setEffectiveProvider(
         stack -> ((IItemStackExtension) stack).getAttributeModifiers());
+
+    NeoForge.EVENT_BUS.addListener(this::onDatapackSync);
+    NeoForge.EVENT_BUS.addListener(this::onGrindstoneTake);
+    NeoForge.EVENT_BUS.addListener(EventPriority.LOWEST, this::onLivingDamagePre);
 
     if (FMLEnvironment.dist.isClient()) {
       eventBus.addListener(this::registerParticleProviders);
@@ -54,7 +70,35 @@ public class GemstonesNeoForge {
 
       NeoForge.EVENT_BUS.addListener(GemstonesNeoForgeClientEvents::onItemTooltip);
       NeoForge.EVENT_BUS.addListener(GemstonesNeoForgeClientEvents::onGatherTooltipComponents);
+
+      if (ClothConfigCompat.isLoaded()) {
+        container.registerExtensionPoint(IConfigScreenFactory.class,
+            (IConfigScreenFactory) (modContainer, parent) -> GemstonesConfigScreen.create(parent));
+      }
     }
+  }
+
+  private void onDatapackSync(OnDatapackSyncEvent event) {
+    if (event.getPlayer() == null) {
+      NetworkHandler.resyncAll(event.getPlayerList().getServer());
+    }
+  }
+
+  private void onLivingDamagePre(LivingDamageEvent.Pre event) {
+    event.setNewDamage(EnderJudgementHelper.applyExecute(event.getEntity(), event.getNewDamage()));
+  }
+
+  private void onGrindstoneTake(GrindstoneEvent.OnTakeItem event) {
+    event.setNewTopItem(remainingAfterGrinding(event.getTopItem(), event.getNewTopItem()));
+    event.setNewBottomItem(remainingAfterGrinding(event.getBottomItem(), event.getNewBottomItem()));
+  }
+
+  private static ItemStack remainingAfterGrinding(ItemStack current, ItemStack remaining) {
+    if (GemstoneDustItem.isGrindable(current) && current.getCount() > 1) {
+      return current.copyWithCount(current.getCount() - 1);
+    }
+
+    return remaining;
   }
 
   private void clientSetup(FMLClientSetupEvent event) {

@@ -20,9 +20,10 @@ public class PlayerRandomBuff {
       return;
     }
 
-    List<GemstoneModifier> modifiers = ModifierUtils.collectGemstoneModifiersFromAllEquipment(
-        serverPlayer,
-        PlayerConfig.class);
+    List<GemstoneModifier> modifiers = EventPlayer
+        .withoutTickEvents(ModifierUtils.collectGemstoneModifiersFromAllEquipment(
+            serverPlayer,
+            PlayerConfig.class));
 
     if (modifiers.isEmpty()) {
       return;

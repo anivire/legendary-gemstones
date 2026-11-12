@@ -3,7 +3,8 @@
     {
       "type": "space",
       "advances": {
-        "\uE000": 13
+        "\uE900": 14,
+        "\uE918": 15
       }
     },
     {
@@ -12,7 +13,7 @@
       "height": 10,
       "ascent": 8,
       "chars": [
-        "\uE001"
+        "\uE901"
       ]
     },
     {
@@ -21,7 +22,7 @@
       "height": 10,
       "ascent": 8,
       "chars": [
-        "\uE002"
+        "\uE902"
       ]
     },
     {
@@ -30,7 +31,7 @@
       "height": 10,
       "ascent": 9,
       "chars": [
-        "\uE003"
+        "\uE903"
       ]
     },
     {
@@ -39,7 +40,7 @@
       "height": 10,
       "ascent": 8,
       "chars": [
-        "\uE004"
+        "\uE904"
       ]
     },
     {
@@ -48,7 +49,7 @@
       "height": 10,
       "ascent": 9,
       "chars": [
-        "\uE005"
+        "\uE905"
       ]
     },
     {
@@ -57,7 +58,7 @@
       "height": 7,
       "ascent": 7,
       "chars": [
-        "\uE006"
+        "\uE906"
       ]
     },
     {
@@ -66,7 +67,7 @@
       "height": 10,
       "ascent": 9,
       "chars": [
-        "\uE007"
+        "\uE907"
       ]
     },
     {
@@ -75,7 +76,7 @@
       "height": 10,
       "ascent": 9,
       "chars": [
-        "\uE008"
+        "\uE908"
       ]
     },
     {
@@ -84,7 +85,7 @@
       "height": 10,
       "ascent": 8,
       "chars": [
-        "\uE009"
+        "\uE909"
       ]
     },
     {
@@ -93,7 +94,7 @@
       "height": 10,
       "ascent": 9,
       "chars": [
-        "\uE010"
+        "\uE90A"
       ]
     },
     {
@@ -102,7 +103,7 @@
       "height": 10,
       "ascent": 9,
       "chars": [
-        "\uE011"
+        "\uE90B"
       ]
     },
     {
@@ -111,7 +112,7 @@
       "height": 7,
       "ascent": 7,
       "chars": [
-        "\uE012"
+        "\uE90C"
       ]
     },
     {
@@ -120,7 +121,7 @@
       "height": 11,
       "ascent": 9,
       "chars": [
-        "\uE013"
+        "\uE90D"
       ]
     },
     {
@@ -129,7 +130,7 @@
       "height": 7,
       "ascent": 7,
       "chars": [
-        "\uE014"
+        "\uE90E"
       ]
     },
     {
@@ -138,7 +139,7 @@
       "height": 7,
       "ascent": 7,
       "chars": [
-        "\uE015"
+        "\uE90F"
       ]
     },
     {
@@ -147,7 +148,7 @@
       "height": 7,
       "ascent": 7,
       "chars": [
-        "\uE016"
+        "\uE910"
       ]
     },
     {
@@ -156,7 +157,7 @@
       "height": 7,
       "ascent": 7,
       "chars": [
-        "\uE017"
+        "\uE911"
       ]
     },
     {
@@ -166,18 +167,58 @@
       "width": 7,
       "ascent": 7,
       "chars": [
-        "\uE018"
+        "\uE912"
       ]
     },
     {
       "type": "bitmap",
       "file": "gemstones:gui/icons/info_icon.png",
-      "height": 9,
+      "height": 10,
       "width": 10,
+      "ascent": 8,
+      "chars": [
+        "\uE913"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "gemstones:gui/icons/experience_icon.png",
+      "height": 9,
+      "ascent": 8,
+      "chars": [
+        ""
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "gemstones:gui/icons/arrow_icon_diminishing.png",
+      "height": 7,
       "ascent": 7,
       "chars": [
-        "\uE019"
+        "\uE915"
       ]
+    },
+    {
+      "type": "bitmap",
+      "file": "gemstones:gui/icons/polishing_icon.png",
+      "height": 9,
+      "ascent": 8,
+      "chars": [
+        "\uE916"
+      ]
+    },
+    {
+      "type": "bitmap",
+      "file": "gemstones:gui/icons/drag_icon.png",
+      "height": 7,
+      "ascent": 7,
+      "chars": [
+        "\uE917"
+      ]
+    },
+    {
+      "type": "reference",
+      "id": "minecraft:default"
     }
   ]
 }

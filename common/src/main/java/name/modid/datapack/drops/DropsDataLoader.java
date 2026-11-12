@@ -42,6 +42,14 @@ public class DropsDataLoader implements SynchronousResourceReloader {
 
   @Override
   public void reload(ResourceManager manager) {
+    load(manager);
+  }
+
+  public static void preload(ResourceManager manager) {
+    load(manager);
+  }
+
+  private static void load(ResourceManager manager) {
     LOGGER.info("Reloading drops configs...");
 
     Map<String, String> newConfigSources = new LinkedHashMap<>();

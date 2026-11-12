@@ -13,14 +13,12 @@ import name.modid.core.api.modifiers.types.GemstoneQuality;
 import name.modid.core.api.modifiers.types.GemstoneType;
 import name.modid.core.content.items.GemstoneItem;
 import name.modid.core.content.items.registries.GemstonesRegistry;
-import name.modid.datapack.sockets.SocketSettingsConfig;
 import name.modid.datapack.sockets.SocketSettingsDataLoader;
 import net.minecraft.component.ComponentType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
 public class GemstoneSlotHelper {
-  public static final int MAX_SLOTS = SocketSettingsConfig.DEFAULT_MAX_SLOTS;
   private static final int INITIAL_OPEN_SLOTS = 1;
 
   public static ArrayList<GemstoneComponent> contains(ItemStack itemStack, GemstoneType gemstoneType) {
@@ -219,12 +217,12 @@ public class GemstoneSlotHelper {
   }
 
   public static boolean shouldInitializeSockets(ItemStack itemStack, Item item) {
-    if (itemStack == null || itemStack.isEmpty() || !isItemValid(item)) {
+    if (itemStack == null || itemStack.isEmpty()) {
       return false;
     }
 
     ComponentType<GemstoneSlotsComponent> type = ComponentsRegistry.gemstones();
-    if (type == null) {
+    if (type == null || !isItemValid(item)) {
       return false;
     }
 
@@ -250,6 +248,20 @@ public class GemstoneSlotHelper {
         : new ArrayList<>();
 
     ModifierManager.applyAttributeModifiers(modifiers, itemStack);
+    clampDamageToMaxDurability(itemStack);
+  }
+
+  // Removing a Obsidian Shard must not leave the item with more damage than its
+  // new maximum, otherwise it breaks on the next use
+  private static void clampDamageToMaxDurability(ItemStack itemStack) {
+    if (!itemStack.isDamageable()) {
+      return;
+    }
+
+    int maxDamage = itemStack.getMaxDamage();
+    if (maxDamage > 1 && itemStack.getDamage() >= maxDamage) {
+      itemStack.setDamage(maxDamage - 1);
+    }
   }
 
   public static void updateSocketsAttributes(ItemStack itemStack) {
@@ -347,6 +359,49 @@ public class GemstoneSlotHelper {
     }
 
     return -1;
+  }
+
+  public static boolean hasInsertedGemstones(ItemStack stack) {
+    for (GemstoneComponent gem : getGemstones(stack)) {
+      if (gem != null
+          && gem.gemstoneType() != null
+          && gem.gemstoneType() != GemstoneType.EMPTY
+          && gem.gemstoneType() != GemstoneType.LOCKED
+          && gem.gemstoneType() != GemstoneType.UNDEFINED) {
+        return true;
+      }
+    }
+
+    return false;
+  }
+
+  public static ItemStack pickSocketSource(Iterable<ItemStack> stacks) {
+    ItemStack best = ItemStack.EMPTY;
+    int bestScore = -1;
+    for (ItemStack stack : stacks) {
+      if (stack.isEmpty() || !isGemstonesExists(stack)) {
+        continue;
+      }
+
+      int score = hasInsertedGemstones(stack) ? Integer.MAX_VALUE : countUnlockedSockets(stack);
+      if (score > bestScore) {
+        best = stack;
+        bestScore = score;
+      }
+    }
+
+    return best;
+  }
+
+  private static int countUnlockedSockets(ItemStack stack) {
+    int count = 0;
+    for (GemstoneComponent gem : getGemstones(stack)) {
+      if (gem != null && gem.gemstoneType() != GemstoneType.LOCKED) {
+        count++;
+      }
+    }
+
+    return count;
   }
 
   public static void copyGemstones(ItemStack source, ItemStack target) {

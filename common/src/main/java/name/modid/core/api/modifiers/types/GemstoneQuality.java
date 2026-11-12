@@ -5,13 +5,13 @@ import com.mojang.serialization.Codec;
 import net.minecraft.util.Formatting;
 
 public enum GemstoneQuality {
-  NONE(-1, "\uE000", "item.gemstones.quality.none", Formatting.WHITE, 0xFFFFFF),
-  CRUDE(0, "\uE004", "item.gemstones.quality.crude", Formatting.GRAY, 0x4d4d4d),
-  REFINED(1, "\uE004", "item.gemstones.quality.refined", Formatting.BLUE, 0x5454fc),
-  FLAWLESS(2, "\uE004", "item.gemstones.quality.flawless", Formatting.LIGHT_PURPLE, 0xfc4dff),
-  RADIANT(3, "\uE004", "item.gemstones.quality.radiant", Formatting.GOLD, 0xff8214),
-  MYTHIC(4, "\uE005", "item.gemstones.quality.mythic", Formatting.DARK_PURPLE, 0x6000d6),
-  AMPLIFIER(5, "\uE006", "item.gemstones.quality.amplifier", Formatting.RED, 0xe6254e);
+  NONE(-1, "", "item.gemstones.quality.none", Formatting.WHITE, 0xFFFFFF),
+  CRUDE(0, "\uE984", "item.gemstones.quality.crude", Formatting.GRAY, 0x4d4d4d),
+  REFINED(1, "\uE984", "item.gemstones.quality.refined", Formatting.BLUE, 0x5454fc),
+  FLAWLESS(2, "\uE984", "item.gemstones.quality.flawless", Formatting.LIGHT_PURPLE, 0xfc4dff),
+  RADIANT(3, "\uE984", "item.gemstones.quality.radiant", Formatting.GOLD, 0xff8214),
+  MYTHIC(4, "\uE985", "item.gemstones.quality.mythic", Formatting.DARK_PURPLE, 0x6000d6),
+  AMPLIFIER(5, "\uE986", "item.gemstones.quality.amplifier", Formatting.RED, 0xe6254e);
 
   private final Integer value;
   private final String fontLiteral;
@@ -72,30 +72,58 @@ public enum GemstoneQuality {
     };
   }
 
-  public float getBreakChance() {
+  public int getPolishDustCost() {
     return switch (this) {
-      case CRUDE -> 0.1f;
-      case REFINED -> 0.15f;
-      case FLAWLESS -> 0.2f;
+      case CRUDE, REFINED, FLAWLESS -> 2;
+      default -> 0;
+    };
+  }
+
+  public int getDustYield() {
+    return switch (this) {
+      case CRUDE -> 1;
+      case REFINED -> 2;
+      case FLAWLESS -> 3;
+      case RADIANT -> 5;
+      default -> 0;
+    };
+  }
+
+  public float getGrindExperienceChance() {
+    return switch (this) {
+      case CRUDE -> 0.3f;
+      case REFINED -> 0.4f;
+      case FLAWLESS -> 0.55f;
+      case RADIANT -> 0.7f;
       default -> 0f;
     };
   }
 
-  // Legacy support for old qualities, will be removed in next updates
-  private static GemstoneQuality fromSerializedName(String name) {
-    if (name == null) {
-      return NONE;
-    }
-
-    return switch (name.toUpperCase()) {
-      case "POLISHED" -> REFINED;
-      case "UNUSUAL" -> MYTHIC;
-      case "BOOSTER" -> AMPLIFIER;
-      default -> fromCurrentSerializedName(name);
+  public int getGrindMaxExperience() {
+    return switch (this) {
+      case CRUDE -> 1;
+      case REFINED -> 2;
+      case FLAWLESS -> 3;
+      case RADIANT -> 4;
+      default -> 0;
     };
   }
 
-  private static GemstoneQuality fromCurrentSerializedName(String name) {
+  public int getRemoveLevelCost() {
+    return switch (this) {
+      case CRUDE -> 1;
+      case REFINED -> 2;
+      case FLAWLESS -> 3;
+      case RADIANT, MYTHIC, AMPLIFIER -> 4;
+      default -> 0;
+    };
+  }
+
+  public int getInsertLevelCost() {
+    return (getRemoveLevelCost() + 1) / 2;
+  }
+
+  private static GemstoneQuality fromSerializedName(String name) {
     try {
       return GemstoneQuality.valueOf(name.toUpperCase());
     } catch (IllegalArgumentException e) {

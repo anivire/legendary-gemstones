@@ -8,6 +8,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.TargetPredicate;
+import net.minecraft.entity.mob.Monster;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
@@ -54,6 +55,7 @@ public class SparkProjectileEntity extends PersistentProjectileEntity {
   public SparkProjectileEntity(World world, LivingEntity owner) {
     this(EntitiesRegistry.SPARK_ENTITY.get(), world);
     this.setOwner(owner);
+    this.pickupType = PickupPermission.DISALLOWED;
     this.setPosition(owner.getX(), owner.getEyeY() - 0.1, owner.getZ());
   }
 
@@ -122,8 +124,7 @@ public class SparkProjectileEntity extends PersistentProjectileEntity {
     return this.getWorld().getClosestEntity(
         LivingEntity.class,
         TargetPredicate.createAttackable().ignoreVisibility()
-            .setPredicate(
-                (entity) -> entity != this.getOwner() && !(entity instanceof PlayerEntity)),
+            .setPredicate(this::canHitSparkTarget),
         null,
         this.getX(), this.getY(), this.getZ(),
         this.getBoundingBox().expand(10.0));
@@ -243,6 +244,7 @@ public class SparkProjectileEntity extends PersistentProjectileEntity {
 
   private boolean canHitSparkTarget(Entity entity) {
     return entity instanceof LivingEntity
+        && entity instanceof Monster
         && entity.isAlive()
         && !entity.isSpectator()
         && entity.canHit()
@@ -263,8 +265,7 @@ public class SparkProjectileEntity extends PersistentProjectileEntity {
           10,
           0.3, 0.3, 0.3,
           0.05);
-      living.timeUntilRegen = 0;
-      living.damage(this.getDamageSources().magic(), SPARK_DAMAGE);
+      living.damage(this.getDamageSources().indirectMagic(this, this.getOwner()), SPARK_DAMAGE);
       living.setOnFireFor(FIRE_SECONDS);
       this.discard();
     }

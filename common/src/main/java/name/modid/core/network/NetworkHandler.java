@@ -1,12 +1,13 @@
 package name.modid.core.network;
 
-import name.modid.core.api.modifiers.helpers.GemstoneAttributeRefreshHelper;
-import name.modid.core.api.components.ComponentsRegistry;
-import name.modid.core.content.items.tools.JewelryFileItem;
-import name.modid.core.utils.airJump.AirJumpLogic;
 import dev.architectury.networking.NetworkManager;
 import dev.architectury.platform.Platform;
 import dev.architectury.utils.Env;
+import name.modid.core.api.components.ComponentsRegistry;
+import name.modid.core.api.modifiers.helpers.GemstoneAttributeRefreshHelper;
+import name.modid.core.content.items.tools.JewelryFileItem;
+import name.modid.core.utils.airJump.AirJumpLogic;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.util.Hand;
 
@@ -37,6 +38,12 @@ public final class NetworkHandler {
     if (Platform.getEnvironment() == Env.SERVER) {
       NetworkManager.registerS2CPayloadType(OreVisionPayload.ID, OreVisionPayload.CODEC);
       NetworkManager.registerS2CPayloadType(DatapackSyncPayload.ID, DatapackSyncPayload.CODEC);
+    }
+  }
+
+  public static void resyncAll(MinecraftServer server) {
+    for (ServerPlayerEntity player : server.getPlayerManager().getPlayerList()) {
+      sendDatapackSync(player);
     }
   }
 

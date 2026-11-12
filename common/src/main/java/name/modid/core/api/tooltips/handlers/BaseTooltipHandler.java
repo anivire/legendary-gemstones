@@ -33,13 +33,13 @@ public abstract class BaseTooltipHandler<T extends ModifierConfig> implements To
     }
 
     boolean isPositive = displayRaw > 0;
-    String formatted = builder.formatValue(
-        Math.abs(adjustValue(config, displayRaw)),
-        getPostfix(config));
+    String formatted = formatAdjusted(config, Math.abs(adjustValue(config, displayRaw)));
+    boolean diminishing = hasDiminishingStack(config);
+    Formatting valueColor = TooltipBuilder.getValueColor(isPositive, diminishing);
 
     MutableText valueText = Text.empty()
-        .append(builder.getArrowPrefix(isPositive))
-        .append(Text.literal(formatted).formatted(isPositive ? Formatting.GREEN : Formatting.RED));
+        .append(builder.getValuePrefix(isPositive, diminishing))
+        .append(Text.literal(formatted).formatted(valueColor));
 
     if (typedBaseConfig != null) {
       double baseRaw = removeValue(typedBaseConfig);
@@ -47,7 +47,7 @@ public abstract class BaseTooltipHandler<T extends ModifierConfig> implements To
       double boostedAdjusted = Math.abs(adjustValue(config, raw));
 
       if (BoostedValueFormatter.isBoosted(baseAdjusted, boostedAdjusted)) {
-        String boostedFormatted = builder.formatValue(boostedAdjusted, getPostfix(config));
+        String boostedFormatted = formatAdjusted(config, boostedAdjusted);
         valueText.append(Text.literal(" (").formatted(Formatting.DARK_GRAY))
             .append(builder.getArrowPrefix(raw > 0, Formatting.LIGHT_PURPLE))
             .append(Text.literal(boostedFormatted).formatted(Formatting.LIGHT_PURPLE))
@@ -60,12 +60,22 @@ public abstract class BaseTooltipHandler<T extends ModifierConfig> implements To
 
   protected abstract double removeValue(T cfg);
 
+  protected boolean hasDiminishingStack(T cfg) {
+    return cfg instanceof ModifierConfig.Events events
+        && events.eventType() != null
+        && events.eventType().hasDiminishingStack();
+  }
+
   protected double adjustValue(T cfg, double value) {
     return value;
   }
 
   protected String getPostfix(T cfg) {
     return "";
+  }
+
+  protected String formatAdjusted(T cfg, double adjusted) {
+    return builder.formatValue(adjusted, getPostfix(cfg));
   }
 
   protected abstract MutableText buildText(T cfg, MutableText valueText, boolean isPositive);

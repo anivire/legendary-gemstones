@@ -7,6 +7,7 @@ sourceSets {
 		resources {
 			srcDir 'src/main/generated'
 			srcDir 'src/main/resources'
+			exclude '.cache'
 		}
 	}
 }
@@ -29,6 +30,9 @@ dependencies {
 	modApi "dev.architectury:architectury:${rootProject.architectury_api_version}"
 	modCompileOnly "me.shedaniel:RoughlyEnoughItems-api-fabric:${rootProject.rei_version}"
 	modCompileOnly "dev.emi:emi-fabric:${rootProject.emi_version}"
+	modCompileOnly("me.shedaniel.cloth:cloth-config-fabric:${rootProject.cloth_config_version}") {
+		exclude(group: "net.fabricmc.fabric-api")
+	}
 }
 
 tasks.processResources {

@@ -22,7 +22,7 @@ public abstract class ItemMaxDurabilityAttribute {
     double bonusDurability = ModifierUtils.getAttributeDelta(
         attr,
         AttributesRegistry.MAX_DURABILITY_ATTRIBUTE,
-        1.0);
+        baseMax);
 
     if (bonusDurability != 0) {
       cir.setReturnValue(Math.max(1, baseMax + (int) Math.round(bonusDurability)));

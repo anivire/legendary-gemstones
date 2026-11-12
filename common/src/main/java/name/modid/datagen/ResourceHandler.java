@@ -1,11 +1,11 @@
 package name.modid.datagen;
 
+import dev.architectury.registry.ReloadListenerRegistry;
 import name.modid.datapack.drops.DropsDataLoader;
 import name.modid.datapack.geodes.GeodesDataLoader;
 import name.modid.datapack.items.ItemCompatibilityDataLoader;
 import name.modid.datapack.modifiers.ModifiersDataLoader;
 import name.modid.datapack.sockets.SocketSettingsDataLoader;
-import dev.architectury.registry.ReloadListenerRegistry;
 import net.minecraft.resource.ResourceType;
 
 public class ResourceHandler {

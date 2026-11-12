@@ -38,7 +38,7 @@ public class DropsRegistry {
 
   public static DropsConfig.SpecialDrop getSpecialDrop(String trigger) {
     return getConfig().getSpecialDrops().stream()
-        .filter(d -> d.getTrigger().equals(trigger))
+        .filter(d -> trigger.equals(d.getTrigger()))
         .findFirst()
         .orElse(null);
   }

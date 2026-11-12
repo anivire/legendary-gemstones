@@ -8,8 +8,6 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 import name.modid.core.utils.witherGuard.WitherSkullOrbitFlag;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityDimensions;
-import net.minecraft.entity.EntityPose;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.effect.StatusEffectInstance;
@@ -79,17 +77,9 @@ public abstract class PlayerWitherGuardEntity implements WitherSkullOrbitFlag {
     }
   }
 
-  public EntityDimensions getDimensions(EntityPose pose) {
-    if (this.isOrbiting) {
-      return EntityDimensions.fixed(0.5f, 0.5f);
-    }
-    return EntityDimensions.fixed(1.0f, 1.0f);
-  }
-
   @Inject(method = "onEntityHit", at = @At("HEAD"), cancellable = true)
-  private void ignorePlayerHit(EntityHitResult hit, CallbackInfo ci) {
-    Entity target = hit.getEntity();
-    if (target instanceof PlayerEntity || this.isOrbiting || this.isWitherGuardSkull) {
+  private void ignoreGuardSkullHit(EntityHitResult hit, CallbackInfo ci) {
+    if (this.isOrbiting || this.isWitherGuardSkull) {
       ci.cancel();
     }
   }
@@ -109,7 +99,8 @@ public abstract class PlayerWitherGuardEntity implements WitherSkullOrbitFlag {
         : skull.getDamageSources().magic();
 
     Box damageBox = new Box(impactPos, impactPos).expand(GUARD_SKULL_RADIUS);
-    for (LivingEntity target : world.getEntitiesByClass(LivingEntity.class, damageBox, this::canDamageWitherGuardTarget)) {
+    for (LivingEntity target : world.getEntitiesByClass(LivingEntity.class, damageBox,
+        this::canDamageWitherGuardTarget)) {
       if (target == owner) {
         continue;
       }

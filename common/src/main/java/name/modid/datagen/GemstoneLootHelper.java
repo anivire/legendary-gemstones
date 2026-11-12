@@ -3,6 +3,7 @@ package name.modid.datagen;
 import java.util.List;
 import java.util.Map;
 
+import name.modid.Gemstones;
 import name.modid.core.api.modifiers.types.GemstoneQuality;
 import name.modid.core.api.modifiers.types.GemstoneType;
 import name.modid.core.content.items.registries.GemstonesRegistry;
@@ -18,8 +19,14 @@ public final class GemstoneLootHelper {
   }
 
   public static LootPool.Builder createPool(GemstoneType type, float chance) {
+    if (type == null) {
+      Gemstones.LOGGER.warn("Skipping a gemstone drop pool with a missing or unknown gemstone_type");
+      return null;
+    }
+
     List<Item> gemstones = GemstonesRegistry.getGemstonesByType(type);
-    if (gemstones.isEmpty()) return null;
+    if (gemstones.isEmpty())
+      return null;
 
     LootPool.Builder pool = LootPool.builder()
         .rolls(ConstantLootNumberProvider.create(1))

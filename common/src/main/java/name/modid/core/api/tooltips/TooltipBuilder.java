@@ -2,7 +2,8 @@ package name.modid.core.api.tooltips;
 
 import java.util.Map;
 
-import name.modid.Gemstones;
+import org.jetbrains.annotations.Nullable;
+
 import name.modid.core.api.modifiers.config.GemstoneModifier;
 import name.modid.core.api.modifiers.config.ModifierCategoryType;
 import name.modid.core.api.modifiers.config.ModifierConfig;
@@ -10,17 +11,15 @@ import name.modid.core.api.modifiers.types.EventType;
 import name.modid.core.api.modifiers.types.GemstoneQuality;
 import name.modid.core.api.modifiers.types.GemstoneType;
 import name.modid.core.api.modifiers.types.ModifierItemCategory;
-import name.modid.core.api.tooltips.TooltipHelper.Icons;
 import name.modid.core.api.tooltips.TooltipHelper.InlineIcons;
 import name.modid.core.utils.tooltip.BoostedValueFormatter;
 import net.minecraft.text.MutableText;
-import net.minecraft.text.Style;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
-import net.minecraft.util.Identifier;
 
 public class TooltipBuilder {
   public static final Formatting DEFAULT_TEXT_COLOR = Formatting.GOLD;
+  public static final Formatting DIMINISHING_VALUE_COLOR = Formatting.GREEN;
 
   private final GemstoneType gemstoneType;
   private final ModifierItemCategory itemCategory;
@@ -85,41 +84,22 @@ public class TooltipBuilder {
   }
 
   public MutableText build() {
-    MutableText prefix;
+    MutableText content = registry.get(categoryType).buildTooltip();
 
     if (!isItemTooltip) {
-      String symbol = gemstoneType == GemstoneType.EMPTY
-          ? InlineIcons.EMPTY.getSymbol()
-          : gemstoneType == GemstoneType.LOCKED
-              ? InlineIcons.LOCKED.getSymbol()
-              : gemstoneType.getGemstoneLiteral();
-
-      String fontPath = (gemstoneType != GemstoneType.EMPTY && gemstoneType != GemstoneType.LOCKED
-          && gemstoneType != GemstoneType.UNDEFINED)
-              ? Icons.INLINE_GEMSTONE.getPath()
-              : Icons.INLINE.getPath();
-
-      if (gemstoneType == GemstoneType.UNDEFINED) {
-        symbol = InlineIcons.INFO.getSymbol();
-      }
-
-      prefix = Text.literal(symbol)
-          .setStyle(Style.EMPTY.withFont(Identifier.of(Gemstones.MOD_ID, fontPath)))
-          .formatted(Formatting.WHITE)
-          .append(Text.literal(" > ").formatted(Formatting.DARK_GRAY)
-              .styled(style -> style.withFont(Style.DEFAULT_FONT_ID)));
-    } else {
-      prefix = TooltipHelper.safeTranslatable("tooltip.gemstones.category_dot")
-          .formatted(Formatting.DARK_GRAY)
-          .append(TooltipHelper
-              .safeTranslatable(String.format("tooltip.gemstones.%s_type", itemCategory.toString().toLowerCase()))
-              .formatted(Formatting.GRAY));
+      return TooltipText.row(TooltipText.socketIcon(gemstoneType), content);
     }
 
-    return prefix.append(
-        registry.get(categoryType)
-            .buildTooltip()
-            .styled(style -> style.withFont(Style.DEFAULT_FONT_ID)));
+    return TooltipHelper.safeTranslatable("tooltip.gemstones.category_dot")
+        .formatted(Formatting.DARK_GRAY)
+        .append(TooltipHelper
+            .safeTranslatable(String.format("tooltip.gemstones.%s_type", itemCategory.toString().toLowerCase()))
+            .formatted(Formatting.GRAY))
+        .append(content);
+  }
+
+  public ModifierItemCategory getItemCategory() {
+    return itemCategory;
   }
 
   public ModifierConfig getBaseConfig() {
@@ -134,10 +114,23 @@ public class TooltipBuilder {
     return getArrowPrefix(isPositive, isPositive ? Formatting.GREEN : Formatting.RED);
   }
 
+  public static Formatting getValueColor(boolean isPositive, boolean diminishing) {
+    if (!isPositive) {
+      return Formatting.RED;
+    }
+    return diminishing ? DIMINISHING_VALUE_COLOR : Formatting.GREEN;
+  }
+
+  public MutableText getValuePrefix(boolean isPositive, boolean diminishing) {
+    Formatting color = getValueColor(isPositive, diminishing);
+    if (isPositive && diminishing) {
+      return TooltipText.icon(InlineIcons.ARROW_UP_DIMINISHING, color);
+    }
+    return getArrowPrefix(isPositive, color);
+  }
+
   public MutableText getArrowPrefix(boolean isPositive, Formatting formatting) {
-    return Text.literal(isPositive ? InlineIcons.ARROW_UP.getSymbol() : InlineIcons.ARROW_DOWN.getSymbol())
-        .styled(style -> style.withFont(Identifier.of(Gemstones.MOD_ID, Icons.INLINE.getPath())))
-        .formatted(formatting);
+    return TooltipText.icon(isPositive ? InlineIcons.ARROW_UP : InlineIcons.ARROW_DOWN, formatting);
   }
 
   public String getTranslationKeyByModifier(ModifierCategoryType category) {
@@ -155,34 +148,38 @@ public class TooltipBuilder {
   }
 
   public MutableText getEventText(EventType eventType) {
-    MutableText eventIcon = Text.empty();
-    Formatting textColor = Formatting.BLUE;
+    return getEventText(eventType, null);
+  }
 
+  public MutableText getEventText(EventType eventType, @Nullable String amount) {
     if (eventType == null) {
       return TooltipHelper.safeTranslatable("tooltip.gemstones.event.unknown").formatted(Formatting.RED);
     }
 
+    InlineIcons icon = null;
+    Formatting textColor = Formatting.BLUE;
+
     switch (eventType.getName()) {
       case "ON_BLOCK_BREAK_EXTRA_HEALTH" -> {
-        eventIcon.append(Text.literal(InlineIcons.HALF_EXTRA_HEART.getSymbol()));
+        icon = InlineIcons.HALF_EXTRA_HEART;
         textColor = Formatting.YELLOW;
       }
       case "ON_BLOCK_BREAK_HEAL" -> {
-        eventIcon.append(Text.literal(InlineIcons.HALF_HEART.getSymbol()));
+        icon = InlineIcons.HALF_HEART;
         textColor = Formatting.GREEN;
       }
       default -> {
       }
     }
 
-    eventIcon.styled(style -> style.withFont(Identifier.of(Gemstones.MOD_ID, Icons.INLINE.getPath())))
-        .formatted(Formatting.WHITE);
+    MutableText label = TooltipHelper.safeTranslatable(eventType.getTranslationKey()).formatted(textColor);
+    MutableText line = amount == null
+        ? TooltipText.line()
+        : TooltipText.line(Text.literal(amount + " ").formatted(textColor));
 
-    if (!eventIcon.getString().isBlank()) {
-      eventIcon.append(Text.literal(" ").styled(style -> style.withFont(Style.DEFAULT_FONT_ID)));
+    if (icon != null) {
+      line.append(TooltipText.icon(icon)).append(Text.literal(" "));
     }
-
-    return Text.empty().append(eventIcon)
-        .append(TooltipHelper.safeTranslatable(eventType.getTranslationKey()).formatted(textColor));
+    return line.append(label);
   }
 }

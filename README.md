@@ -1,27 +1,42 @@
-![Logo with bg](https://cdn.modrinth.com/data/cached_images/b49b49ce7edf9bbfffa78ce4bfe18d74278fc4d2_0.webp)
+<div align="center">
+  <img src="docs/images/logo.png" alt="Legendary Gemstones" width="600">
 
-## Legendary Gemstones
+  <p>Find gemstones in your world and insert them into sockets<br>
+  on weapons, tools and armor to give them unique bonuses!</p>
 
-Adds various gemstones to your world that can be used to upgrade weapons, tools,
-and armor. Gemstones are inserted into special sockets on equipment and give the
-owner unique bonuses.
+  <a href="https://modrinth.com/mod/legendary-gemstones"><img alt="Available on Modrinth" height="50" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3.3.1/assets/cozy/available/modrinth_vector.svg"></a>
+  <a href="https://www.curseforge.com/minecraft/mc-mods/legendary-gemstones"><img alt="Available on CurseForge" height="50" src="https://cdn.jsdelivr.net/npm/@intergrav/devins-badges@3.3.1/assets/cozy/available/curseforge_vector.svg"></a>
+</div>
+
+## Features
 
 - 20 various Gemstones!
 - 50+ unique bonuses and effects!
 
-![Tools and gemstones](https://cdn.modrinth.com/data/cached_images/ef3c625697728b495672170dfef99511d6991cae_0.webp)
+<div align="center"><img src="docs/images/items.png" alt="Gemstones and jewelry tools" width="800"></div>
 
 ## Getting Started
 
-The main way to obtain gemstones is by mining different ores. Ores can drop a
-**Gemstone Geode**, which can then be opened for a random gemstone. Some
-gemstones can also be found in structures such as piglin bastions in the Nether,
-strongholds, End cities, and other loot chests.
+1. **Find gemstones.** Ores can drop a **Gemstone Geode**. Hold it and press
+   right click to open it for a random gemstone. Some gemstones can also be found
+   in structures such as piglin bastions in the Nether, strongholds, End cities,
+   and other loot chests.
+2. **Craft a Jewelry Table.**
+3. **Socket your gear.** Put a weapon, tool or armor piece in the table and click
+   a socket:
+   - with the **Jewelry Hammer** you can insert the gemstone held on the cursor;
+   - with the **Jewelry Pliers** you can take a gemstone out;
+   - with a **Chisel** and an **Expansion Crystal** you can unlock a new socket.
 
-Use the **Jewelry Table** and different gemstone tools to unlock new sockets,
-insert upgrades, or remove gems back out.
+   Inserting and extracting costs experience levels. Hover over a socket to see
+   what it needs.
+4. **Improve your gemstones.** Grind spare gemstones in a Grindstone into
+   **Gemstone Dust**, then polish the ones you keep to a higher quality with the
+   **Jewelry File**.
 
-For other information go to mod [Wiki](https://gemstones.anivire.xyz/).
+For more information, see the mod [Wiki](https://gemstones.anivire.xyz/).
+
+<div align="center"><img src="docs/images/jewelry-table.png" alt="Jewelry Table" width="800"></div>
 
 ## Credits
 

@@ -12,6 +12,7 @@ import name.modid.core.api.modifiers.config.utils.ModifierUtils;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
+import net.minecraft.registry.tag.DamageTypeTags;
 import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 
@@ -23,7 +24,8 @@ public class EventOnPlayerDamage {
       float damageTaken,
       boolean blocked) {
     if (!(targetEntity instanceof ServerPlayerEntity serverPlayer)
-        || !(targetEntity.getWorld() instanceof ServerWorld serverWorld)) {
+        || !(targetEntity.getWorld() instanceof ServerWorld serverWorld)
+        || source.isIn(DamageTypeTags.BYPASSES_INVULNERABILITY)) {
       return true;
     }
 

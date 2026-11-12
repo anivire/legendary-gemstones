@@ -18,6 +18,7 @@ public final class GemstoneAttributeRefreshHelper {
 
   public static void refreshPlayer(PlayerEntity player) {
     refreshInventory(player.getInventory());
+    refreshInventory(player.getEnderChestInventory());
   }
 
   private static void refreshInventory(Inventory inventory) {

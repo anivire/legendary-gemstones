@@ -1,12 +1,12 @@
 package name.modid.core.api;
 
+import dev.architectury.event.events.client.ClientTickEvent;
+import dev.architectury.networking.NetworkManager;
 import name.modid.core.api.components.ComponentsRegistry;
 import name.modid.core.content.items.tools.JewelryFileItem;
 import name.modid.core.network.AirJumpPayload;
 import name.modid.core.network.JewelryFileUseReleasedPayload;
 import name.modid.core.utils.airJump.AirJumpLogic;
-import dev.architectury.event.events.client.ClientTickEvent;
-import dev.architectury.networking.NetworkManager;
 import net.minecraft.client.MinecraftClient;
 import net.minecraft.client.network.ClientPlayerEntity;
 import net.minecraft.client.option.GameOptions;

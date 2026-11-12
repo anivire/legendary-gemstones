@@ -41,15 +41,7 @@ public class ModifiersConfigDeserializer implements JsonDeserializer<ModifierCon
     }
 
     return switch (type) {
-      case ATTRIBUTE -> {
-        Identifier attributeId = context.deserialize(obj.get("attribute_id"), Identifier.class);
-        RegistryKey<EntityAttribute> attrKey = RegistryKey.of(RegistryKeys.ATTRIBUTE, attributeId);
-        RegistryEntry<EntityAttribute> attrEntry = Registries.ATTRIBUTE.getEntry(attrKey)
-            .orElseThrow(() -> new JsonParseException("Unknown attribute: " + attributeId));
-        LevelValues values = context.deserialize(obj.get("value_levels"), LevelValues.class);
-        Operation operation = Operation.valueOf(obj.get("operation").getAsString());
-        yield new ModifierConfig.AttributeConfig(values, operation, attrEntry);
-      }
+      case ATTRIBUTE -> deserializeAttribute(obj, context);
 
       case MULTIPLY_ATTRIBUTE -> {
         var list = new ArrayList<ModifierConfig.AttributeConfig>();
@@ -201,10 +193,7 @@ public class ModifiersConfigDeserializer implements JsonDeserializer<ModifierCon
   }
 
   private ModifierCategoryType parseModifierType(String name) {
-    return switch (name.toUpperCase()) {
-      case "BOOSTER" -> ModifierCategoryType.AMPLIFIER;
-      default -> ModifierCategoryType.valueOf(name.toUpperCase());
-    };
+    return ModifierCategoryType.valueOf(name.toUpperCase());
   }
 
   private EventType deserializeEvent(JsonObject obj) {

@@ -1,8 +1,8 @@
 package name.modid.datagen.providers;
 
+import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.BiConsumer;
-import java.util.List;
 
 import name.modid.Gemstones;
 import name.modid.core.content.blocks.BlocksRegistry;
@@ -23,7 +23,7 @@ import net.minecraft.registry.RegistryWrapper;
 import net.minecraft.util.Identifier;
 
 public class BlockLootTableProvider extends SimpleFabricLootTableProvider {
-  private final float BASE_STONE_CHANCE = 0.025f;
+  private final float BASE_STONE_CHANCE = 0.03f;
   private final float BASE_DEEPSLATE_CHANCE = 0.035f;
 
   public BlockLootTableProvider(FabricDataOutput output,
@@ -48,7 +48,8 @@ public class BlockLootTableProvider extends SimpleFabricLootTableProvider {
                     .rolls(ConstantLootNumberProvider.create(1))
                     .conditionally(SurvivesExplosionLootCondition.builder())
                     .conditionally(
-                        GeodeDropChanceCondition.builder("stone_geode", BASE_STONE_CHANCE, List.of(TagsRegistry.STONE_ORES)))
+                        GeodeDropChanceCondition.builder("stone_geode", BASE_STONE_CHANCE,
+                            List.of(TagsRegistry.STONE_ORES)))
                     .with(ItemEntry.builder(ItemsRegistry.stoneGeode())))
             .pool(
                 LootPool.builder()

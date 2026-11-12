@@ -6,17 +6,18 @@ import java.util.Map;
 import name.modid.core.api.modifiers.config.ModifierCategoryType;
 import name.modid.core.api.modifiers.config.ModifierConfig;
 import name.modid.core.api.modifiers.types.GemstoneQuality;
+import name.modid.core.api.tooltips.handlers.AmplifierHandler;
 import name.modid.core.api.tooltips.handlers.AreaEffectHandler;
 import name.modid.core.api.tooltips.handlers.AttributeHandler;
 import name.modid.core.api.tooltips.handlers.DefaultPercentHandler;
 import name.modid.core.api.tooltips.handlers.MultiplyAttributeHandler;
+import name.modid.core.api.tooltips.handlers.OnBeforeBlockBreakHandler;
 import name.modid.core.api.tooltips.handlers.OnBlockBreakHandler;
 import name.modid.core.api.tooltips.handlers.OnHitEffectHandler;
 import name.modid.core.api.tooltips.handlers.OnHitHandler;
 import name.modid.core.api.tooltips.handlers.OnPlayerDamageHandler;
 import name.modid.core.api.tooltips.handlers.OnPotionBrewHandler;
 import name.modid.core.api.tooltips.handlers.PlayerHandler;
-import name.modid.core.api.tooltips.handlers.AmplifierHandler;
 import name.modid.core.api.tooltips.handlers.TooltipHandler;
 import name.modid.core.api.tooltips.handlers.UndefinedHandler;
 
@@ -35,8 +36,6 @@ public final class TooltipHandlerRegistry {
         new DefaultPercentHandler<>(builder, config, rarityType));
     handlers.put(ModifierCategoryType.ON_DEATH,
         new DefaultPercentHandler<>(builder, config, rarityType));
-    handlers.put(ModifierCategoryType.ON_BEFORE_BLOCK_BREAK,
-        new DefaultPercentHandler<>(builder, config, rarityType));
     handlers.put(ModifierCategoryType.ON_MOB_DAMAGE,
         new DefaultPercentHandler<>(builder, config, rarityType));
     handlers.put(ModifierCategoryType.ON_FIRST_HIT,
@@ -51,6 +50,8 @@ public final class TooltipHandlerRegistry {
         new OnPotionBrewHandler(builder, config, rarityType));
     handlers.put(ModifierCategoryType.ON_BLOCK_BREAK,
         new OnBlockBreakHandler(builder, config, rarityType));
+    handlers.put(ModifierCategoryType.ON_BEFORE_BLOCK_BREAK,
+        new OnBeforeBlockBreakHandler(builder, config, rarityType));
     handlers.put(ModifierCategoryType.ON_HIT_MELEE,
         new OnHitHandler<>(builder, config, rarityType, false));
     handlers.put(ModifierCategoryType.ON_HIT_PROJECTILE,

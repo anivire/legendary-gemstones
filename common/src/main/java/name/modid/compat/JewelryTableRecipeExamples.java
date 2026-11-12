@@ -17,57 +17,57 @@ import net.minecraft.registry.Registries;
 
 public final class JewelryTableRecipeExamples {
 
-    private JewelryTableRecipeExamples() {
-    }
+  private JewelryTableRecipeExamples() {
+  }
 
-    public static List<Item> allSocketableItems() {
-        return Registries.ITEM.stream()
-                .filter(GemstoneSlotHelper::isItemValid)
-                .sorted(Comparator.comparing(item -> Registries.ITEM.getId(item).toString()))
-                .toList();
-    }
+  public static List<Item> allSocketableItems() {
+    return Registries.ITEM.stream()
+        .filter(GemstoneSlotHelper::isItemValid)
+        .sorted(Comparator.comparing(item -> Registries.ITEM.getId(item).toString()))
+        .toList();
+  }
 
-    public static List<ItemStack> allGemstoneStacks() {
-        return GemstonesRegistry.getAllGemstones().stream()
-                .map(ItemStack::new)
-                .toList();
-    }
+  public static List<ItemStack> allGemstoneStacks() {
+    return GemstonesRegistry.getAllGemstones().stream()
+        .map(ItemStack::new)
+        .toList();
+  }
 
-    public static ItemStack baseWithEmptySocket(Item item) {
-        ItemStack stack = new ItemStack(item);
-        stack.set(ComponentsRegistry.gemstones(),
-                new GemstoneSlotsComponent(new GemstoneComponent[]{
-                        new GemstoneComponent(GemstoneType.EMPTY, GemstoneQuality.NONE),
-                        new GemstoneComponent(GemstoneType.LOCKED, GemstoneQuality.NONE)
-                }));
-        return stack;
-    }
+  public static ItemStack baseWithEmptySocket(Item item) {
+    ItemStack stack = new ItemStack(item);
+    stack.set(ComponentsRegistry.gemstones(),
+        new GemstoneSlotsComponent(new GemstoneComponent[] {
+            new GemstoneComponent(GemstoneType.EMPTY, GemstoneQuality.NONE),
+            new GemstoneComponent(GemstoneType.LOCKED, GemstoneQuality.NONE)
+        }));
+    return stack;
+  }
 
-    public static ItemStack baseWithLockedSocket(Item item) {
-        ItemStack stack = new ItemStack(item);
-        stack.set(ComponentsRegistry.gemstones(),
-                new GemstoneSlotsComponent(new GemstoneComponent[]{
-                        new GemstoneComponent(GemstoneType.EMPTY, GemstoneQuality.NONE),
-                        new GemstoneComponent(GemstoneType.LOCKED, GemstoneQuality.NONE)
-                }));
-        return stack;
-    }
+  public static ItemStack baseWithLockedSocket(Item item) {
+    ItemStack stack = new ItemStack(item);
+    stack.set(ComponentsRegistry.gemstones(),
+        new GemstoneSlotsComponent(new GemstoneComponent[] {
+            new GemstoneComponent(GemstoneType.EMPTY, GemstoneQuality.NONE),
+            new GemstoneComponent(GemstoneType.LOCKED, GemstoneQuality.NONE)
+        }));
+    return stack;
+  }
 
-    public static ItemStack baseWithSocketedGem(Item item, ItemStack gem) {
-        ItemStack stack = new ItemStack(item);
-        if (gem.getItem() instanceof GemstoneItem gemstone) {
-            stack.set(ComponentsRegistry.gemstones(),
-                    new GemstoneSlotsComponent(new GemstoneComponent[]{
-                            new GemstoneComponent(gemstone.getType(), gemstone.getRarityType()),
-                            new GemstoneComponent(GemstoneType.EMPTY, GemstoneQuality.NONE)
-                    }));
-        }
-        return stack;
+  public static ItemStack baseWithSocketedGem(Item item, ItemStack gem) {
+    ItemStack stack = new ItemStack(item);
+    if (gem.getItem() instanceof GemstoneItem gemstone) {
+      stack.set(ComponentsRegistry.gemstones(),
+          new GemstoneSlotsComponent(new GemstoneComponent[] {
+              new GemstoneComponent(gemstone.getType(), gemstone.getRarityType()),
+              new GemstoneComponent(GemstoneType.EMPTY, GemstoneQuality.NONE)
+          }));
     }
+    return stack;
+  }
 
-    public static ItemStack baseWithExpandedSocket(Item item) {
-        ItemStack stack = baseWithLockedSocket(item);
-        GemstoneSlotHelper.addNewGemSlot(stack);
-        return stack;
-    }
+  public static ItemStack baseWithExpandedSocket(Item item) {
+    ItemStack stack = baseWithLockedSocket(item);
+    GemstoneSlotHelper.addNewGemSlot(stack);
+    return stack;
+  }
 }

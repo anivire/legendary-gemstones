@@ -9,6 +9,7 @@ import name.modid.core.api.modifiers.config.ModifierContext;
 import name.modid.core.api.modifiers.config.ModifierContext.ContextBuilder;
 import name.modid.core.api.modifiers.config.ModifierManager;
 import name.modid.core.api.modifiers.config.utils.ModifierUtils;
+import name.modid.core.utils.damage.DamageSourceHelper;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.damage.DamageSource;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
@@ -16,28 +17,24 @@ import net.minecraft.server.network.ServerPlayerEntity;
 import net.minecraft.server.world.ServerWorld;
 
 public class EventOnMobDamage {
-  public static void setup(
+  public static float setup(
       LivingEntity targetEntity,
       DamageSource source,
-      float baseDamageTaken,
-      float damageTaken,
-      boolean blocked) {
+      float baseDamageTaken) {
 
-    // Проверяем, что атакующий — игрок
     if (!(source.getAttacker() instanceof ServerPlayerEntity serverPlayer)
+        || !DamageSourceHelper.isDirectPlayerHit(source)
         || !(targetEntity.getWorld() instanceof ServerWorld serverWorld)) {
-      return;
+      return baseDamageTaken;
     }
 
-    // Берем модификаторы с экипировки атакующего игрока
     List<GemstoneModifier> modifiers = ModifierUtils.collectGemstoneModifiersFromAllEquipment(
         serverPlayer, OnMobDamageConfig.class);
 
     if (modifiers.isEmpty()) {
-      return;
+      return baseDamageTaken;
     }
 
-    // Формируем контекст: игрок — владелец эффекта, цель — моб, получающий урон
     ModifierContext.ContextBuilder ctxBuilder = new ContextBuilder(serverWorld)
         .withOwner(serverPlayer)
         .withTarget(targetEntity)
@@ -48,6 +45,9 @@ public class EventOnMobDamage {
     }
 
     ModifierContext ctx = ctxBuilder.build();
+    ctx.setDamageResult(baseDamageTaken);
     ModifierManager.applyModifiers(new ArrayList<>(modifiers), ctx);
+
+    return ctx.getDamageResult();
   }
 }

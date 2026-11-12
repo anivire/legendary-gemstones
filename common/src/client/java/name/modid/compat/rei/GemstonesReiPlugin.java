@@ -20,6 +20,7 @@ import name.modid.core.content.blocks.BlocksRegistry;
 import name.modid.core.content.items.GemstoneItem;
 import name.modid.core.content.items.registries.GemstonesRegistry;
 import name.modid.core.content.items.registries.ItemsRegistry;
+import net.minecraft.client.gui.ScreenRect;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.text.Text;
@@ -60,8 +61,10 @@ public class GemstonesReiPlugin implements REIClientPlugin {
 
   @Override
   public void registerScreens(ScreenRegistry registry) {
-    registry.registerContainerClickArea(new Rectangle(92, 32, 28, 24), JewelryTableScreen.class,
-        INSERT, REMOVE, EXPAND);
+    registry.exclusionZones().register(JewelryTableScreen.class, screen -> {
+      ScreenRect side = screen.getSideBounds();
+      return List.of(new Rectangle(side.getLeft(), side.getTop(), side.width(), side.height()));
+    });
   }
 
   private static List<JewelryTableReiDisplay> insertDisplays() {
@@ -91,7 +94,7 @@ public class GemstonesReiPlugin implements REIClientPlugin {
               baseIngredient,
               ingredient(gem)),
           List.of(resultIngredient),
-          false));
+          true));
     }
 
     return displays;

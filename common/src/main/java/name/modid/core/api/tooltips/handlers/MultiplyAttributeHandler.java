@@ -7,8 +7,8 @@ import name.modid.core.api.modifiers.config.ModifierCategoryType;
 import name.modid.core.api.modifiers.config.ModifierConfig;
 import name.modid.core.api.modifiers.types.GemstoneQuality;
 import name.modid.core.api.tooltips.TooltipBuilder;
+import name.modid.core.utils.tooltip.AttributeValueFormat;
 import name.modid.core.utils.tooltip.BoostedValueFormatter;
-import net.minecraft.entity.attribute.EntityAttributeModifier.Operation;
 import net.minecraft.text.MutableText;
 import net.minecraft.text.Text;
 import net.minecraft.util.Formatting;
@@ -40,25 +40,28 @@ public class MultiplyAttributeHandler extends BaseTooltipHandler<ModifierConfig.
       ModifierConfig.AttributeConfig baseSub = i < baseInstances.size() ? baseInstances.get(i) : sub;
       double value = sub.values().get(rarityType);
       double displayValue = baseSub.values().get(rarityType);
-      double displayAdjusted = adjustValue(sub, displayValue);
-      double boostedAdjusted = adjustValue(sub, value);
-      String postfix = sub.operation() == Operation.ADD_VALUE ? "" : "%";
+      double displayAdjusted = AttributeValueFormat.toDisplay(sub, displayValue);
+      double boostedAdjusted = AttributeValueFormat.toDisplay(sub, value);
+      String postfix = AttributeValueFormat.postfix(sub);
       String formatted = builder.formatValue(Math.abs(displayAdjusted), postfix);
       boolean isPositive = displayValue > 0;
+      boolean diminishing = AttributeValueFormat.hasDiminishingStack(sub, builder.getItemCategory());
+      Formatting valueColor = TooltipBuilder.getValueColor(isPositive, diminishing);
 
       MutableText part = Text.empty()
-          .append(builder.getArrowPrefix(isPositive))
-          .append(Text.literal(formatted).formatted(isPositive ? Formatting.GREEN : Formatting.RED));
+          .append(builder.getValuePrefix(isPositive, diminishing))
+          .append(Text.literal(formatted).formatted(valueColor));
 
       if (BoostedValueFormatter.isBoosted(Math.abs(displayAdjusted), Math.abs(boostedAdjusted))) {
         part.append(Text.literal(" (").formatted(Formatting.DARK_GRAY))
             .append(builder.getArrowPrefix(value > 0, Formatting.LIGHT_PURPLE))
-            .append(Text.literal(builder.formatValue(Math.abs(boostedAdjusted), postfix)).formatted(Formatting.LIGHT_PURPLE))
+            .append(Text.literal(builder.formatValue(Math.abs(boostedAdjusted), postfix))
+                .formatted(Formatting.LIGHT_PURPLE))
             .append(Text.literal(")").formatted(Formatting.DARK_GRAY));
       }
 
       part.append(" ")
-          .append(Text.translatable(sub.attribute().value().getTranslationKey().toLowerCase())
+          .append(AttributeValueFormat.name(sub)
               .formatted(Formatting.BLUE));
 
       parts.add(part);
@@ -84,9 +87,5 @@ public class MultiplyAttributeHandler extends BaseTooltipHandler<ModifierConfig.
       MutableText valueText,
       boolean isPositive) {
     return Text.empty();
-  }
-
-  private double adjustValue(ModifierConfig.AttributeConfig cfg, double value) {
-    return cfg.operation() == Operation.ADD_VALUE ? value : value * 100;
   }
 }

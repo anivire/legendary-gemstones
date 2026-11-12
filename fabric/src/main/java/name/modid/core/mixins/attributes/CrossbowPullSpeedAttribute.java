@@ -5,8 +5,8 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
-import name.modid.core.content.registries.AttributesRegistry;
 import name.modid.core.api.modifiers.config.utils.ModifierUtils;
+import name.modid.core.content.registries.AttributesRegistry;
 import net.minecraft.component.DataComponentTypes;
 import net.minecraft.component.type.AttributeModifiersComponent;
 import net.minecraft.entity.LivingEntity;
@@ -16,7 +16,8 @@ import net.minecraft.item.ItemStack;
 @Mixin(CrossbowItem.class)
 public class CrossbowPullSpeedAttribute {
   @Inject(method = "getPullTime", at = @At("RETURN"), cancellable = true)
-  private static void gemstones$modifyPullTime(ItemStack stack, LivingEntity user, CallbackInfoReturnable<Integer> cir) {
+  private static void gemstones$modifyPullTime(ItemStack stack, LivingEntity user,
+      CallbackInfoReturnable<Integer> cir) {
     AttributeModifiersComponent itemAttributeModifiers = stack.getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS,
         AttributeModifiersComponent.DEFAULT);
     float drawSpeedMultiplier = ModifierUtils.getAttributeMultiplier(

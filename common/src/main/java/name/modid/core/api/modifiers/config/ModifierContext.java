@@ -1,8 +1,11 @@
 package name.modid.core.api.modifiers.config;
 
+import java.util.List;
+
 import org.jetbrains.annotations.Nullable;
 
 import net.minecraft.block.BlockState;
+import net.minecraft.block.entity.BlockEntity;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.projectile.PersistentProjectileEntity;
 import net.minecraft.item.ItemStack;
@@ -18,13 +21,16 @@ public class ModifierContext {
   private final @Nullable BlockPos blockPos;
   private final @Nullable PersistentProjectileEntity projectile;
   private final @Nullable BlockState blockState;
+  private final @Nullable BlockEntity blockEntity;
   private final @Nullable float baseDamageTaken;
   private final @Nullable DefaultedList<ItemStack> inventory;
+  private final float attackStrength;
 
   private boolean cancelledResult = false;
   private float damageResult = 0.0F;
   private ActionResult actionResult = ActionResult.PASS;
   private @Nullable boolean isHurtable;
+  private List<ItemStack> drops;
 
   private ModifierContext(ContextBuilder builder) {
     this.world = builder.world;
@@ -33,8 +39,11 @@ public class ModifierContext {
     this.blockPos = builder.blockPos;
     this.projectile = builder.projectile;
     this.blockState = builder.blockState;
+    this.blockEntity = builder.blockEntity;
+    this.drops = builder.drops;
     this.baseDamageTaken = builder.baseDamageTaken;
     this.inventory = builder.inventory;
+    this.attackStrength = builder.attackStrength;
     this.isHurtable = true;
   }
 
@@ -89,6 +98,19 @@ public class ModifierContext {
   }
 
   @Nullable
+  public BlockEntity getBlockEntity() {
+    return this.blockEntity;
+  }
+
+  public List<ItemStack> getDrops() {
+    return this.drops;
+  }
+
+  public void setDrops(List<ItemStack> drops) {
+    this.drops = drops;
+  }
+
+  @Nullable
   public PersistentProjectileEntity getProjectile() {
     return this.projectile;
   }
@@ -101,6 +123,14 @@ public class ModifierContext {
   @Nullable
   public DefaultedList<ItemStack> getInventory() {
     return this.inventory;
+  }
+
+  public float getAttackStrength() {
+    return this.attackStrength;
+  }
+
+  public boolean isFullStrengthAttack() {
+    return this.attackStrength > 0.9F;
   }
 
   @Nullable
@@ -120,8 +150,11 @@ public class ModifierContext {
     private @Nullable BlockPos blockPos;
     private @Nullable PersistentProjectileEntity projectile;
     private @Nullable BlockState blockState;
+    private @Nullable BlockEntity blockEntity;
+    private List<ItemStack> drops = List.of();
     private @Nullable float baseDamageTaken;
     private @Nullable DefaultedList<ItemStack> inventory;
+    private float attackStrength = 1.0F;
 
     public ContextBuilder(ServerWorld world) {
       this.world = world;
@@ -152,6 +185,16 @@ public class ModifierContext {
       return this;
     }
 
+    public ContextBuilder withBlockEntity(@Nullable BlockEntity blockEntity) {
+      this.blockEntity = blockEntity;
+      return this;
+    }
+
+    public ContextBuilder withDrops(List<ItemStack> drops) {
+      this.drops = drops;
+      return this;
+    }
+
     public ContextBuilder withBaseDamageTaken(float baseDamageTaken) {
       this.baseDamageTaken = baseDamageTaken;
       return this;
@@ -159,6 +202,11 @@ public class ModifierContext {
 
     public ContextBuilder withInventory(DefaultedList<ItemStack> inventory) {
       this.inventory = inventory;
+      return this;
+    }
+
+    public ContextBuilder withAttackStrength(float attackStrength) {
+      this.attackStrength = attackStrength;
       return this;
     }
 

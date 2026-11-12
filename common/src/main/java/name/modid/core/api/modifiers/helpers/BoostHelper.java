@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import name.modid.core.api.components.GemstoneComponent;
 import name.modid.core.api.modifiers.config.GemstoneModifier;
 import name.modid.core.api.modifiers.config.ModifierConfig;
+import name.modid.core.api.modifiers.config.ModifierConfig.AfterDeathConfig;
+import name.modid.core.api.modifiers.config.ModifierConfig.AmplifierConfig;
 import name.modid.core.api.modifiers.config.ModifierConfig.AreaEffectConfig;
 import name.modid.core.api.modifiers.config.ModifierConfig.AttributeConfig;
 import name.modid.core.api.modifiers.config.ModifierConfig.BeforeBlockBreakConfig;
@@ -14,17 +16,15 @@ import name.modid.core.api.modifiers.config.ModifierConfig.HitEffectProjectileCo
 import name.modid.core.api.modifiers.config.ModifierConfig.HitMeleeConfig;
 import name.modid.core.api.modifiers.config.ModifierConfig.HitProjectileConfig;
 import name.modid.core.api.modifiers.config.ModifierConfig.MultiplyAttributeConfig;
-import name.modid.core.api.modifiers.config.ModifierConfig.OnFishingConfig;
 import name.modid.core.api.modifiers.config.ModifierConfig.OnFirstHitConfig;
+import name.modid.core.api.modifiers.config.ModifierConfig.OnFishingConfig;
 import name.modid.core.api.modifiers.config.ModifierConfig.OnMobDamageConfig;
 import name.modid.core.api.modifiers.config.ModifierConfig.OnPlayerDamageConfig;
 import name.modid.core.api.modifiers.config.ModifierConfig.OnPotionBrewConfig;
 import name.modid.core.api.modifiers.config.ModifierConfig.PlayerConfig;
-import name.modid.core.api.modifiers.config.ModifierConfig.AmplifierConfig;
-import name.modid.core.api.modifiers.config.ModifierConfig.AfterDeathConfig;
 import name.modid.core.api.modifiers.types.EventType;
-import name.modid.core.api.modifiers.types.LevelValues;
 import name.modid.core.api.modifiers.types.GemstoneType;
+import name.modid.core.api.modifiers.types.LevelValues;
 import net.minecraft.item.Item;
 
 public final class BoostHelper {

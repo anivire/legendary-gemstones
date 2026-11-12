@@ -84,6 +84,9 @@ public class GeodesDataLoader implements SynchronousResourceReloader {
 
         if (config != null && config.geodeId != null) {
           config.normalize();
+          if (config.gemstones.isEmpty() || config.qualities.isEmpty()) {
+            LOGGER.warn("Geode config {} has no valid gemstones or qualities, the geode will not open", id);
+          }
           newConfigs.put(config.geodeId, config);
           LOGGER.debug("Loaded geode config {}", config.geodeId);
         } else {

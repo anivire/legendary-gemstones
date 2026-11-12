@@ -30,4 +30,12 @@ public abstract class WitherSkullEntityTeleport {
       cir.cancel();
     }
   }
+
+  @Inject(method = "shouldSave", at = @At("HEAD"), cancellable = true)
+  private void skipWitherGuardSkullSave(CallbackInfoReturnable<Boolean> cir) {
+    if ((Object) this instanceof WitherSkullEntity skull
+        && ((WitherSkullOrbitFlag) (Object) skull).isWitherGuardSkull()) {
+      cir.setReturnValue(false);
+    }
+  }
 }
