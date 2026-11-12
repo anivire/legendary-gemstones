@@ -3,7 +3,7 @@
     {
       "trigger": "experience_bottle",
       "gemstone_type": "CRYSTALLIZED_EXPERIENCE",
-      "chance": 0.02,
+      "chance": 0.005,
       "min_count": 1,
       "max_count": 1
     },
