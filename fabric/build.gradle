@@ -1,5 +1,6 @@
 plugins {
 	id 'com.github.johnrengelman.shadow'
+	id 'me.modmuss50.mod-publish-plugin'
 }
 
 architectury {
@@ -87,5 +88,34 @@ sourcesJar {
 jar {
 	from(rootProject.file('LICENSE')) {
 		rename { "${it}_${rootProject.archives_base_name}" }
+	}
+}
+
+publishMods {
+	file = remapJar.archiveFile
+	changelog = providers.environmentVariable('CHANGELOG').orElse('')
+	type = STABLE
+	version = "${project.version}+fabric"
+	displayName = "${rootProject.mod_display_name} ${project.version} (Fabric)"
+	modLoaders.add('fabric')
+	dryRun = providers.environmentVariable('MODRINTH_TOKEN').getOrNull() == null || providers.environmentVariable('CURSEFORGE_TOKEN').getOrNull() == null
+
+	modrinth {
+		accessToken = providers.environmentVariable('MODRINTH_TOKEN')
+		projectId = rootProject.modrinth_id
+		minecraftVersions.add(rootProject.minecraft_version)
+		requires('fabric-api', 'architectury-api')
+		optional('rei', 'emi', 'cloth-config', 'modmenu')
+	}
+
+	curseforge {
+		accessToken = providers.environmentVariable('CURSEFORGE_TOKEN')
+		projectId = rootProject.curseforge_id
+		minecraftVersions.add(rootProject.minecraft_version)
+		javaVersions.add(JavaVersion.VERSION_21)
+		clientRequired = true
+		serverRequired = true
+		requires('fabric-api', 'architectury-api')
+		optional('roughly-enough-items', 'emi', 'cloth-config', 'modmenu')
 	}
 }
