@@ -2,6 +2,10 @@ package name.modid.core.api.modifiers.helpers;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedHashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 
 import name.modid.core.api.components.ComponentsRegistry;
 import name.modid.core.api.components.GemstoneComponent;
@@ -15,6 +19,10 @@ import name.modid.core.content.items.GemstoneItem;
 import name.modid.core.content.items.registries.GemstonesRegistry;
 import name.modid.datapack.sockets.SocketSettingsDataLoader;
 import net.minecraft.component.ComponentType;
+import net.minecraft.component.DataComponentTypes;
+import net.minecraft.component.type.AttributeModifiersComponent;
+import net.minecraft.component.type.AttributeModifiersComponent.Entry;
+import net.minecraft.entity.attribute.EntityAttributeModifier;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 
@@ -415,7 +423,86 @@ public class GemstoneSlotHelper {
     GemstoneSlotsComponent gemstones = source.get(type);
     if (gemstones != null && isItemValid(target.getItem())) {
       target.set(type, gemstones);
+      resetAttributesForNewItem(source, target);
       updateSocketsAttributes(target, target.getItem());
     }
+  }
+
+  private static void resetAttributesForNewItem(ItemStack source, ItemStack target) {
+    AttributeModifiersComponent copied = target.get(DataComponentTypes.ATTRIBUTE_MODIFIERS);
+    if (copied == null) {
+      return;
+    }
+
+    List<Entry> sourceDefaults = getDefaultAttributeEntries(source);
+
+    boolean needsReset = copied.modifiers().stream()
+        .anyMatch(entry -> AttributeModifierHandler.isGemstoneEntry(entry)
+            || containsSameModifier(sourceDefaults, entry));
+    if (!needsReset) {
+      return;
+    }
+
+    List<Entry> kept = new ArrayList<>();
+    for (Entry entry : copied.modifiers()) {
+      if (AttributeModifierHandler.isGemstoneEntry(entry)) {
+        continue;
+      }
+      if (containsSameModifier(sourceDefaults, entry)) {
+        continue;
+      }
+      kept.add(entry);
+    }
+
+    Map<String, Entry> rebuiltMap = new LinkedHashMap<>();
+    Function<Entry, String> entryKey = e -> String.format("%s.%s.%s", e.modifier().id(),
+        e.slot(), e.attribute().value());
+
+    for (Entry entry : getDefaultAttributeEntries(target)) {
+      rebuiltMap.put(entryKey.apply(entry), entry);
+    }
+    for (Entry entry : kept) {
+      rebuiltMap.put(entryKey.apply(entry), entry);
+    }
+
+    List<Entry> rebuilt = new ArrayList<>(rebuiltMap.values());
+    if (rebuilt.isEmpty()) {
+      target.remove(DataComponentTypes.ATTRIBUTE_MODIFIERS);
+      return;
+    }
+
+    target.set(DataComponentTypes.ATTRIBUTE_MODIFIERS,
+        new AttributeModifiersComponent(rebuilt, copied.showInTooltip()));
+  }
+
+  @SuppressWarnings("deprecation")
+  private static List<Entry> getDefaultAttributeEntries(ItemStack stack) {
+    Item item = stack.getItem();
+    List<Entry> entries = new ArrayList<>(item.getComponents()
+        .getOrDefault(DataComponentTypes.ATTRIBUTE_MODIFIERS, AttributeModifiersComponent.DEFAULT).modifiers());
+    entries.addAll(item.getAttributeModifiers().modifiers());
+    return entries;
+  }
+
+  private static boolean containsSameModifier(List<Entry> entries, Entry entry) {
+    for (Entry candidate : entries) {
+      if (isSameModifier(candidate, entry)) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  private static boolean isSameModifier(Entry left, Entry right) {
+    if (left.slot() != right.slot() || !left.attribute().equals(right.attribute())) {
+      return false;
+    }
+
+    EntityAttributeModifier leftModifier = left.modifier();
+    EntityAttributeModifier rightModifier = right.modifier();
+    return leftModifier.id() != null
+        && leftModifier.id().equals(rightModifier.id())
+        && leftModifier.operation() == rightModifier.operation()
+        && Double.compare(leftModifier.value(), rightModifier.value()) == 0;
   }
 }

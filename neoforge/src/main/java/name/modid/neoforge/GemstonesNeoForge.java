@@ -7,7 +7,6 @@ import name.modid.GemstonesClient;
 import name.modid.compat.cloth.ClothConfigCompat;
 import name.modid.compat.cloth.GemstonesConfigScreen;
 import name.modid.core.api.entities.jeweleryTable.JewelryTableScreen;
-import name.modid.core.api.modifiers.helpers.GemstoneAttributeModifiersHelper;
 import name.modid.core.api.particles.BleedParticleFactory;
 import name.modid.core.api.particles.ScarabParticleFactory;
 import name.modid.core.api.particles.SparkParticleFactory;
@@ -44,7 +43,6 @@ import net.neoforged.neoforge.client.event.RegisterMenuScreensEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.client.gui.IConfigScreenFactory;
 import net.neoforged.neoforge.common.NeoForge;
-import net.neoforged.neoforge.common.extensions.IItemStackExtension;
 import net.neoforged.neoforge.event.GrindstoneEvent;
 import net.neoforged.neoforge.event.OnDatapackSyncEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
@@ -53,9 +51,6 @@ import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 public class GemstonesNeoForge {
   public GemstonesNeoForge(IEventBus eventBus, ModContainer container) {
     Gemstones.init();
-
-    GemstoneAttributeModifiersHelper.setEffectiveProvider(
-        stack -> ((IItemStackExtension) stack).getAttributeModifiers());
 
     NeoForge.EVENT_BUS.addListener(this::onDatapackSync);
     NeoForge.EVENT_BUS.addListener(this::onGrindstoneTake);
